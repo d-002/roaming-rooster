@@ -1,0 +1,21 @@
+
+:root {
+    --title-color: #9FBA72;
+    --warning-color: #FFC87F;
+    --text-color-main: #663F46;
+    --text-color-secondary: #6C5750;
+    --back-color-base: #E8F7EE;
+    --back-color-base-variation: #C4D3CA;
+    --back-color-main: #E27BBC;
+    --back-color-secondary: #A79CD6;
+    --back-color-ternary: #DFDCDB;
+    --accent-color-main: var(--back-color-secondary);
+    --accent-color-secondary: var(--back-color-main);
+
+    --place-color-main: #77005D;
+    --place-color-secondary: #121212;
+    --place-holder-gradient: repeating-linear-gradient(45deg, var(--place-color-main) 10%, var(--place-color-secondary), 10%);
+
+    --image-on-back-base-gradient: linear-gradient(var(--back-color-main) 0%, transparent 100%);
+}
+
