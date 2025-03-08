@@ -59,9 +59,41 @@ else {
 }
         ?></textarea>
 
-        <p>Dumped database contents:</p>
+        <p>Full database contents:</p>
         <textarea><?php
-var_dump($db);
+// get all tables
+try {
+    $q_tables = $db->query("SELECT name FROM sqlite_master WHERE type='table'");
+
+    while ($table = $q_tables->fetch()) {
+        $table_name = $table["name"];
+
+        echo "Listing table ".$table_name.":\nColumns:";
+
+        $columns = array();
+
+        $q_columns = $db->query("PRAGMA table_info(".$table_name.")");
+        while ($column = $q_columns->fetch()) {
+            $column_name = $column["name"];
+
+            array_push($columns, $column_name);
+            echo " ".$column_name;
+        }
+
+        echo "\nListing entries:\n";
+
+        $q_entries = $db->query("SELECT * FROM ".$table_name);
+        while ($entry = $q_entries->fetch()) {
+            foreach ($columns as $column)
+                echo $column."=".$entry[$column]." ";
+            echo "\n";
+        }
+    }
+}
+catch (Exception $e) {
+    echo "Failed to read contents, error: ".$e;
+}
+
         ?></textarea>
     </body>
 </html>
