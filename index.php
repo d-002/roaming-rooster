@@ -51,7 +51,13 @@ if ($query == "")
 else {
     $res = sendSecureQuery($db, $query);
 
-    var_dump($res->fetchAll());
+    if ($res != null)
+        try {
+            var_dump($res->fetchAll());
+        }
+        catch (Exception $e) {
+            echo "Could not var_dump, error: ".$e;
+        }
 
     $res = null;
 }
