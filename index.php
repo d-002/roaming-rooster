@@ -16,16 +16,6 @@ function getSecureDB() {
     return $db;
 }
 
-function sendSecureQuery($db, $query) {
-    try {
-        return $db->query($query);
-    }
-    catch (Exception $e) {
-        echo "Failed: " . $e->getMessage();
-        return null;
-    }
-}
-
 $db = getSecureDB();
     ?>
 
@@ -49,7 +39,13 @@ else
 if ($query == "")
     echo "[no query]";
 else {
-    $res = sendSecureQuery($db, $query);
+    $res = null;
+    try {
+        $res = $db->query($query);
+    }
+    catch (Exception $e) {
+        echo "Failed query: " . $e->getMessage();
+    }
 
     if ($res != null)
         try {
