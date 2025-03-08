@@ -17,7 +17,7 @@ function getSecureDB() {
 }
 
 $db = getSecureDB();
-    ?>
+        ?>
 
         <form action="." method="GET">
             <label for="query">Enter query here:</label>
