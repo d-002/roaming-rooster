@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Manual database prompts</title>
-        <style>textarea{width:100%;height:200px}</style>
+        <style>textarea{width:100%}</style>
     </head>
 
     <body>
@@ -35,7 +35,7 @@ else
 
         <p>Query: <?php echo $query ?></p>
         <p>Dumped query result:</p>
-        <textarea><?php
+        <textarea style="height:200px"><?php
 if ($query == "")
     echo "[no query]";
 else {
@@ -60,7 +60,7 @@ else {
         ?></textarea>
 
         <p>Full database contents:</p>
-        <textarea><?php
+        <textarea style="height:500px"><?php
 // get all tables
 try {
     $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
@@ -68,7 +68,7 @@ try {
     while ($table = $q_tables->fetch()) {
         $table_name = $table["name"];
 
-        echo "Listing table ".$table_name.":\nColumns:";
+        echo "Listing table ".$table_name.":\n  Columns:";
 
         $columns = array();
 
@@ -77,17 +77,20 @@ try {
             $column_name = $column["name"];
 
             array_push($columns, $column_name);
-            echo " ".$column_name;
+            echo " ".$column_name."=".$column["type"];
         }
 
-        echo "\nListing entries:\n";
+        echo "\n  Listing entries:\n";
 
         $q_entries = $db->query("SELECT * FROM ".$table_name);
         while ($entry = $q_entries->fetch()) {
+            echo "    ";
             foreach ($columns as $column)
                 echo $column."=".$entry[$column]." ";
             echo "\n";
         }
+
+        echo "\n";
     }
 }
 catch (Exception $e) {
