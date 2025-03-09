@@ -19,6 +19,21 @@ function getSecureDB() {
 function formatDatabase() {
     $db = getSecureDB();
 
+    // get list of tables to erase
+    // store them in an array, then delete them, to avoid file usage exceptions
+    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
+    $tables = array();
+
+    while ($table = $q_tables->fetch())
+        array_push($tables, $table["name"]);
+
+    $q_tables = null;
+
+    foreach($tables as $name)
+        $db->query("DROP TABLE ".$name);
+
+    $db->query("CREATE TABLE test(id integer, name text)");
+
     $db = null;
 }
         ?>
@@ -43,10 +58,16 @@ switch($state) {
         ';
         break;
     case 1:
-        formatDatabase();
-        echo '
-<p>Database formatted. Click here to finish the operation:</p>
-<a href=".">Finish</a>';
+        try {
+            formatDatabase();
+            echo '
+<p>Database successfully formatted. Click <a href=".">here</a> to finish the operation.</p>';
+        } catch (Exception $e) {
+            echo '
+<p>Error while deleting:</p>
+<p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
+<p>Click <a href=".">here</a> to restart the operation.</p>';
+        }
         break;
     case -1:
         echo 'Operation aborted. Click <a href=".">here</a> to try again.';

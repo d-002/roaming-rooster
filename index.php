@@ -63,7 +63,7 @@ else {
         <textarea><?php
 // get all tables
 try {
-    $q_tables = $db->query("SELECT name FROM sqlite_master WHERE type='table'");
+    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
 
     while ($table = $q_tables->fetch()) {
         $table_name = $table["name"];
