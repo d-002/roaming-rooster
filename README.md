@@ -1,6 +1,6 @@
-Every local farmer is on the
+Every local farmer is on
 
-# roaming-rooster
+# The Roaming Rooster
 
 ## Configuration
 

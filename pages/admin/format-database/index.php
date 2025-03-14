@@ -9,13 +9,7 @@
         <a href="/pages/admin/query-database">Go back to the query page</a>
 
         <?php
-function getSecureDB() {
-    $db = new PDO("sqlite:main-database.db");
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $db->setAttribute(PDO::ATTR_PERSISTENT, true);
-
-    return $db;
-}
+include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
 function createTables($db) {
     // /!\ order is important

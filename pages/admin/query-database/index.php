@@ -9,14 +9,7 @@
         <a href="/pages/admin/format-database">/!\ SENSITIVE - go to the format database page</a>
 
         <?php
-function getSecureDB() {
-    $db = new PDO("sqlite:/private/base.db");
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $db->setAttribute(PDO::ATTR_PERSISTENT, true);
-
-    return $db;
-}
-
+include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 $db = getSecureDB();
         ?>
 
