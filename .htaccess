@@ -1,7 +1,7 @@
 # set homepage link
 DirectoryIndex index.html index.php
 
-# disable direcory listing
+# disable directory listing
 Options -Indexes
 
 # set up error pages
