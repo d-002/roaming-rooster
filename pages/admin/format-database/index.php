@@ -10,11 +10,90 @@
 
         <?php
 function getSecureDB() {
-    $db = new PDO("sqlite:/private/test.db");
+    $db = new PDO("sqlite:main-database.db");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_PERSISTENT, true);
 
     return $db;
+}
+
+function createTables($db) {
+    // /!\ order is important
+
+    $db->query("CREATE TABLE images(id INT PRIMARY KEY, url TEXT)");
+    $db->query("CREATE TABLE themes(
+        id INT PRIMARY KEY,
+        main_image_id INT, banner_image_id INT, col1 INT, col2 INT,
+        FOREIGN KEY(main_image_id) REFERENCES images(id),
+        FOREIGN KEY(banner_image_id) REFERENCES images(id)
+    )");
+    $db->query("CREATE TABLE users(
+        id INT PRIMARY KEY,
+        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INT, phone TEXT, latitude REAL, longitude REAL, theme_id INT, banned INT,
+        FOREIGN KEY(theme_id) REFERENCES themes(id)
+    )");
+    $db->query("CREATE TABLE roles(
+        id INT PRIMARY KEY,
+        user_id INT, role INT,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE balances(
+        id INT PRIMARY KEY, user_id INT, amount REAL,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE notifications(
+        id INT PRIMARY KEY,
+        user_id INT, conversation_id INT, text TEXT, time INT,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE messages(
+        id INT PRIMARY KEY,
+        user_id INT, conversation_id INT, message TEXT, time INT,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE conversations(id INT PRIMARY KEY, user1 INT, user2 INT, subject TEXT, closed INT)");
+    $db->query("CREATE TABLE conversations_requests(id INT PRIMARY KEY, sender INT, receiver INT, is_service_inquiry INT)");
+    $db->query("CREATE TABLE tags(id INT PRIMARY KEY, name TEXT)");
+    $db->query("CREATE TABLE tags_users_join(
+        id INT PRIMARY KEY,
+        tag_id INT, user_id INT,
+        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE tags_services_join(
+        id INT PRIMARY KEY,
+        tag_id INT, service_id INT,
+        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        FOREIGN KEY(service_id) REFERENCES services(id)
+    )");
+    $db->query("CREATE TABLE orders(
+        id INT PRIMARY KEY,
+        buyer_id INT, seller_id INT, sub_service_id INT, amount REAL,
+        FOREIGN KEY(buyer_id) REFERENCES users(id)
+        FOREIGN KEY(seller_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE ratings(
+        id INT PRIMARY KEY,
+        sub_service_id INT, user_id INT, rating REAL, comment TEXT,
+        FOREIGN KEY(sub_service_id) REFERENCES sub_services(id)
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
+    $db->query("CREATE TABLE services(
+        id INT PRIMARY KEY,
+        user_id INT, theme_id INT, title TEXT, description TEXT, latitude REAL, longitude REAL,
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(theme_id) REFERENCES themes(id)
+    )");
+    $db->query("CREATE TABLE sub_services(
+        id INT PRIMARY KEY,
+        service_id INT, availability INT, title TEXT, description TEXT, price REAL,
+        FOREIGN KEY(service_id) REFERENCES services(id)
+    )");
+    $db->query("CREATE TABLE admin_logs(
+        id INT PRIMARY KEY,
+        user_id INT, time INT, message TEXT,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+    )");
 }
 
 function formatDatabase() {
@@ -33,23 +112,7 @@ function formatDatabase() {
     foreach($tables as $name)
         $db->query("DROP TABLE ".$name);
 
-    $db->query("CREATE TABLE users(id INT AUTOINCREMENT, username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INT, phone TEXT, latitude REAL, longitude REAL, theme_id INT, banned INT)");
-    $db->query("CREATE TABLE roles(user_id INT, role INT)");
-    $db->query("CREATE TABLE balances(user_id INT, amount REAL)");
-    $db->query("CREATE TABLE notifications(id INT AUTOINCREMENT, user_id INT, conversation_id INT, text TEXT, time INT)");
-    $db->query("CREATE TABLE messages(id INT AUTOINCREMENT, user_id INT, conversation_id INT, message TEXT, time INT)");
-    $db->query("CREATE TABLE conversations(id INT AUTOINCREMENT, user1 INT, user2 INT, subject TEXT, closed INT)");
-    $db->query("CREATE TABLE conversations_requests(id INT AUTOINCREMENT, sender INT, receiver INT, is_service_inquiry INT)");
-    $db->query("CREATE TABLE tags(id INT AUTOINCREMENT, name TEXT)");
-    $db->query("CREATE TABLE tags_users_join(id INT AUTOINCREMENT, tag_id INT, user_id INT)");
-    $db->query("CREATE TABLE tags_services_join(id INT AUTOINCREMENT, tag_id INT, service_id INT)");
-    $db->query("CREATE TABLE themes(id INT AUTOINCREMENT, main_image_id INT, banner_image_id INT, col1 INT, col2 INT)");
-    $db->query("CREATE TABLE images(id INT AUTOINCREMENT, url TEXT)");
-    $db->query("CREATE TABLE orders(id INT AUTOINCREMENT, buyer_id INT, seller_id INT, sub_service_id INT, amount REAL)");
-    $db->query("CREATE TABLE ratings(id INT AUTOINCREMENT, sub_service_id INT, user_id INT, rating REAL, comment TEXT)");
-    $db->query("CREATE TABLE services(id INT AUTOINCREMENT, user_id INT, theme_id INT, title TEXT, description TEXT, latitude REAL, longitude REAL)");
-    $db->query("CREATE TABLE sub_services(id INT AUTOINCREMENT, service_id INT, availability INT, title TEXT, description TEXT, price REAL)");
-    $db->query("CREATE TABLE admin_logs(id INT AUTOINCREMENT, user_id INT, time INT, message TEXT)");
+    createTables($db);
 
     $db = null;
 }
