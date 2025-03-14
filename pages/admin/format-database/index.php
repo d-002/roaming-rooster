@@ -32,22 +32,23 @@ function formatDatabase() {
     foreach($tables as $name)
         $db->query("DROP TABLE ".$name);
 
-    $db->query("CREATE TABLE users(id INT, username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INT, phone TEXT, latitude REAL, longitude REAL, theme_id INT, banned INT)");
+    $db->query("CREATE TABLE users(id INT AUTOINCREMENT, username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INT, phone TEXT, latitude REAL, longitude REAL, theme_id INT, banned INT)");
     $db->query("CREATE TABLE roles(user_id INT, role INT)");
     $db->query("CREATE TABLE balances(user_id INT, amount REAL)");
-    $db->query("CREATE TABLE notifications(id INT, user_id INT, conversation_id INT, text TEXT, time INT)");
-    $db->query("CREATE TABLE messages(user_id INT, conversation_id INT, message TEXT, time INT)");
-    $db->query("CREATE TABLE conversations(id INT, user1 INT, user2 INT, subject TEXT, closed INT)");
-    $db->query("CREATE TABLE conversations_requests(sender INT, receiver INT, is_service_inquiry INT)");
-    $db->query("CREATE TABLE tags(id INT, name TEXT)");
-    $db->query("CREATE TABLE tags_users_join(tag_id INT, user_id INT)");
-    $db->query("CREATE TABLE tags_services_join(tag_id INT, service_id INT)");
-    $db->query("CREATE TABLE themes(id INT, main_image_id INT, banner_image_id INT, col1 INT, col2 INT)");
-    $db->query("CREATE TABLE images(id INT, url TEXT)");
-    $db->query("CREATE TABLE orders(id INT, buyer_id INT, seller_id INT, sub_service_id INT, amount REAL)");
-    $db->query("CREATE TABLE ratings(sub_service_id INT, user_id INT, rating REAL, comment TEXT)");
-    $db->query("CREATE TABLE services(id INT, user_id INT, theme_id INT, title TEXT, description TEXT, latitude REAL, longitude REAL)");
-    $db->query("CREATE TABLE sub_services(id INT, service_id INT, availability INT, title TEXT, description TEXT, price REAL)");
+    $db->query("CREATE TABLE notifications(id INT AUTOINCREMENT, user_id INT, conversation_id INT, text TEXT, time INT)");
+    $db->query("CREATE TABLE messages(id INT AUTOINCREMENT, user_id INT, conversation_id INT, message TEXT, time INT)");
+    $db->query("CREATE TABLE conversations(id INT AUTOINCREMENT, user1 INT, user2 INT, subject TEXT, closed INT)");
+    $db->query("CREATE TABLE conversations_requests(id INT AUTOINCREMENT, sender INT, receiver INT, is_service_inquiry INT)");
+    $db->query("CREATE TABLE tags(id INT AUTOINCREMENT, name TEXT)");
+    $db->query("CREATE TABLE tags_users_join(id INT AUTOINCREMENT, tag_id INT, user_id INT)");
+    $db->query("CREATE TABLE tags_services_join(id INT AUTOINCREMENT, tag_id INT, service_id INT)");
+    $db->query("CREATE TABLE themes(id INT AUTOINCREMENT, main_image_id INT, banner_image_id INT, col1 INT, col2 INT)");
+    $db->query("CREATE TABLE images(id INT AUTOINCREMENT, url TEXT)");
+    $db->query("CREATE TABLE orders(id INT AUTOINCREMENT, buyer_id INT, seller_id INT, sub_service_id INT, amount REAL)");
+    $db->query("CREATE TABLE ratings(id INT AUTOINCREMENT, sub_service_id INT, user_id INT, rating REAL, comment TEXT)");
+    $db->query("CREATE TABLE services(id INT AUTOINCREMENT, user_id INT, theme_id INT, title TEXT, description TEXT, latitude REAL, longitude REAL)");
+    $db->query("CREATE TABLE sub_services(id INT AUTOINCREMENT, service_id INT, availability INT, title TEXT, description TEXT, price REAL)");
+    $db->query("CREATE TABLE admin_logs(id INT AUTOINCREMENT, user_id INT, time INT, message TEXT)");
 
     $db = null;
 }
