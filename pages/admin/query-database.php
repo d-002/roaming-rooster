@@ -9,7 +9,7 @@
 
         <?php
 function getSecureDB() {
-    $db = new PDO("sqlite:test.db");
+    $db = new PDO("sqlite:/private/base.db");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_PERSISTENT, true);
 
