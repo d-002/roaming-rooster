@@ -6,6 +6,7 @@
 
     <body>
         <h1>WARNING: this is NOT for use in production.</h1>
+        <a href="/pages/admin/format-database">/!\ SENSITIVE - go to the format database page</a>
 
         <?php
 function getSecureDB() {

@@ -6,6 +6,7 @@
 
     <body>
         <h1>WARNING: this will WIPE OUT ALL DATA from the database and create a new, clean one.</h1>
+        <a href="/pages/admin/query-database">Go back to the query page</a>
 
         <?php
 function getSecureDB() {
