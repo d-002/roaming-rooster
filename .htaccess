@@ -1,5 +1,10 @@
+# set homepage link
 DirectoryIndex index.html index.php
 
+# disable direcory listing
+Options -Indexes
+
+# set up error pages
 ErrorDocument 400 /pages/error/400.html
 ErrorDocument 401 /pages/error/401.html
 ErrorDocument 403 /pages/error/403.html
