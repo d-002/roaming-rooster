@@ -5,10 +5,6 @@ import sys
 import time
 import pickle
 
-def err(code, *args):
-    print(' '.join(str(a) for a in args), file=sys.stderr)
-    exit(code)
-
 # password storage setup
 try:
     if sys.platform.startswith('win'):
@@ -16,7 +12,8 @@ try:
     else:
         temp_path = '/tmp'
 except Exception as e:
-    err(1, 'Could not find a temp folder:', e)
+    print('Could not find a temp folder:', e)
+    exit(1)
 
 temp_path = join(temp_path, 'roaming-rooster')
 
