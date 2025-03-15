@@ -2,6 +2,8 @@ Every local farmer is on
 
 # The Roaming Rooster
 
+[![Push to Infinityfree](https://github.com/d-002/roaming-rooster/actions/workflows/push-to-infinityfree.yml/badge.svg)](https://github.com/d-002/roaming-rooster/actions/workflows/push-to-infinityfree.yml)
+
 ## Configuration
 
 ### Production
