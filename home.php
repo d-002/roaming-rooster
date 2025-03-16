@@ -8,11 +8,11 @@ insertSimpleHeader("Home page");
 ?>
 <body>
 <div class="left">
-    <div class="titles">
+    <header class="titles">
         <img src="assets/images/logo.png" alt="A roaming roster">
         <p class="subtitle">Every local farmer is on</p>
         <h1>The Roaming Rooster</h1>
-    </div>
+    </header>
 </div>
 <div class="right">
 

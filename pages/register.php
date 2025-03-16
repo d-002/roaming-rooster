@@ -14,7 +14,7 @@ insertHeader("Register", array("containers", "inputs"));
 <body>
 
 <div>
-    <header>
+    <header class="titles">
         <p class="subtitle">Join a strong community on</p>
         <h1>The Roaming Rooster</h1>
     </header>

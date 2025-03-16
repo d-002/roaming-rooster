@@ -8,7 +8,7 @@
     background-color: var(--text-color-secondary);
     color: var(--back-color-base-variation);
     border: none;
-    border-radius: var(--big-corner);
+    border-radius: var(--medium-corner);
     font-size: xx-large;
     padding: var(--main-padding);
     margin: var(--main-margin);
@@ -16,7 +16,7 @@
 
 .text-submit {
     border: none;
-    border-radius: var(--big-corner);
+    border-radius: var(--medium-corner);
     background-color: var(--text-color-secondary);
     color: var(--back-color-base-variation);
     font-size: xx-large;

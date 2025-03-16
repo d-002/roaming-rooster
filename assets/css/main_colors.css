@@ -18,10 +18,13 @@
 
     --image-on-back-base-gradient: linear-gradient(var(--back-color-main) 0%, transparent 100%);
 
-    --big-corner: 12px;
+    --medium-corner: 12px;
+    --large-corner: 40px;
 
     --main-padding: 5px;
     --main-margin: var(--main-padding);
+    --relative-padding: 2%;
+    --big-relative-margin: 7%;
 }
 
 html, body {
@@ -34,6 +37,8 @@ div {
 
 h1 {
     color: var(--text-color-secondary) !important;
+    width: 100%;
+    text-align: center;
 }
 
 p {
@@ -42,4 +47,13 @@ p {
 
 .subtitle {
     color: var(--text-color-main) !important;
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    padding: 0;
+    margin: 0;
+}
+
+.titles {
+    padding: var(--relative-padding);
 }
