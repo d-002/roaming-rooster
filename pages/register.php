@@ -9,13 +9,13 @@ component("text_field");
 component("arrow_redirect");
 component("text_submit");
 
-insertHeader("Register");
+insertHeader("Register", array("containers", "inputs"));
 ?>
 <body>
 
 <div>
     <header>
-        <h2>Join a strong community on</h2>
+        <p class="subtitle">Join a strong community on</p>
         <h1>The Roaming Rooster</h1>
     </header>
 

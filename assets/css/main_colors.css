@@ -5,7 +5,7 @@
     --text-color-main: #663F46;
     --text-color-secondary: #6C5750;
     --back-color-base: #E8F7EE;
-    --back-color-base-variation: #C4D3CA;
+    --back-color-base-variation: #C1F5D6;
     --back-color-main: #E27BBC;
     --back-color-secondary: #A79CD6;
     --back-color-ternary: #DFDCDB;
@@ -17,5 +17,29 @@
     --place-holder-gradient: repeating-linear-gradient(45deg, var(--place-color-main) 10%, var(--place-color-secondary), 10%);
 
     --image-on-back-base-gradient: linear-gradient(var(--back-color-main) 0%, transparent 100%);
+
+    --big-corner: 12px;
+
+    --main-padding: 5px;
+    --main-margin: var(--main-padding);
 }
 
+html, body {
+    background-color: var(--back-color-base) !important;
+}
+
+div {
+    background-color: transparent;
+}
+
+h1 {
+    color: var(--text-color-secondary) !important;
+}
+
+p {
+    color: var(--text-color-main);
+}
+
+.subtitle {
+    color: var(--text-color-main) !important;
+}

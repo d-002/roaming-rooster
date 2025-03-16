@@ -1,2 +1,26 @@
 
+.text-field-label {
+    font-size: medium;
+    color: var(--text-color-main);
+}
 
+.text-field {
+    background-color: var(--text-color-secondary);
+    color: var(--back-color-base-variation);
+    border: none;
+    border-radius: var(--big-corner);
+    font-size: xx-large;
+    padding: var(--main-padding);
+    margin: var(--main-margin);
+}
+
+.text-submit {
+    border: none;
+    border-radius: var(--big-corner);
+    background-color: var(--text-color-secondary);
+    color: var(--back-color-base-variation);
+    font-size: xx-large;
+    font-weight: bold;
+    padding: var(--main-padding);
+    margin: var(--main-margin);
+}
