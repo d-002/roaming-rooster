@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
-rootInclude("/components/header.php");
+require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+
+// Reusable components
+component("header");
+component("text_field");
+component("arrow_redirect");
+component("text_submit");
+
 insertHeader("Register");
 ?>
 <body>
@@ -13,17 +19,20 @@ insertHeader("Register");
         <h1>The Roaming Rooster</h1>
     </header>
 
-    <div>
-        <div>
-            <div>
-                <img src="/assets/images/logo.png" alt="A roaming rooster">
-            </div>
+    <div class="card">
+        <div class="logo-decoration-container">
+            <?php component("logo"); ?>
         </div>
         <div>
             <?php
-            rootInclude("/components/arrow_redirect.php");
             insertArrowRedirect("I have an account", "Login", "/pages/login.php");
             ?>
+            <div>
+                <?php
+                insertTextField("Username", "username");
+                ?>
+            </div>
+            <?php insertTextSubmit("Start Registering!"); ?>
         </div>
     </div>
 </div>
