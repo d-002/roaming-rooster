@@ -25,7 +25,7 @@
     margin: var(--main-margin);
 }
 
-.arrow-container {
+.arrow-redirect {
     display: flex;
     flex-direction: row;
 }
