@@ -23,7 +23,7 @@ insertHeader("Register", array("containers", "inputs"));
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
-        <div>
+        <form class="classic-form">
             <?php
             insertArrowRedirect("I have an account", "Login", "/pages/login.php");
             ?>
@@ -33,7 +33,7 @@ insertHeader("Register", array("containers", "inputs"));
                 ?>
             </div>
             <?php insertTextSubmit("Start Registering!"); ?>
-        </div>
+        </form>
     </div>
 </div>
 

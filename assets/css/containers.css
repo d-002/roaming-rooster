@@ -1,7 +1,14 @@
+@import './main_colors.css';
 
 .card {
     background-color: var(--back-color-base-variation);
     margin-left: var(--big-relative-margin);
     margin-right: var(--big-relative-margin);
     border-radius: var(--large-corner);
+    padding: var(--relative-padding);
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-medium);
+    justify-content: space-around;
 }

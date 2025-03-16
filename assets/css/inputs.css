@@ -24,3 +24,8 @@
     padding: var(--main-padding);
     margin: var(--main-margin);
 }
+
+.arrow-container {
+    display: flex;
+    flex-direction: row;
+}

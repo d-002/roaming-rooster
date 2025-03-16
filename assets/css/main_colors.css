@@ -25,6 +25,10 @@
     --main-margin: var(--main-padding);
     --relative-padding: 2%;
     --big-relative-margin: 7%;
+
+    --spacing-small: 21px;
+    --spacing-medium: 42px;
+    --spacing-large: 84px;
 }
 
 html, body {
