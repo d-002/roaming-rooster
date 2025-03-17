@@ -180,8 +180,8 @@ def remove_remote_dir(path, ignore):
 def sync(remote, local):
     # cache select data, but avoid duplicates and sort
     # (directories first, lowest to highest depth)
-    all = {file: file_is_dir for file, (_, file_is_dir) in
-           set(remote.items()) | set(local.items())}
+    all_items = set(remote.items()) | set(local.items())
+    all = {file: file_is_dir for file, (_, file_is_dir) in all_items}
     all = sorted(all.items(), key=lambda x: -1000 * x[1] + len(x[0]))
 
     # some files and directories can be silently (recursively) deleted,
