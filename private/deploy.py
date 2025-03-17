@@ -1,11 +1,13 @@
 import os
 import sys
-from os.path import basename, dirname, join, isdir
+from dateutil import parser
+from os.path import basename, dirname, join, isdir, getmtime
 from ftplib import FTP
 
 # ----- CONFIG -----
 
-HOME_DIR = '/htdocs'
+ROOT_REMOTE = '/htdocs'
+ROOT_LOCAL = '..'
 IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md', '.gitignore', '__pycache__']
 
 ignored = {key: False for key in IGNORE_LIST}
@@ -67,6 +69,61 @@ def check_all_ignored():
     if False in ignored.values():
         print('WARNING: some blacklisted files were not available', file=sys.stderr)
 
+def list_remote(path, relative_path):
+    """recursively find all files and directories inside a remote path,
+    and store their paths relative to the remote root"""
+
+    # add the current directory, except for the root 
+    files = [] if path == ROOT_REMOTE else [relative_path]
+
+    ftp.cwd(path)
+    for (name, properties) in ftp.mlsd(path='.'):
+        if name in '..': continue
+
+        file_type = properties['type']
+
+        path_to_file = path+'/'+name
+        relative_path_to_file = relative_path+'/'+name
+
+        if file_type == 'file':
+            # get the modification date of the file
+            time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
+            timestamp = parser.parse(time).timestamp()
+
+            files.append((path_to_file, timestamp))
+
+        elif file_type == 'dir':
+            files += list_remote(path_to_file, relative_path_to_file)
+            ftp.cwd(path)
+
+    return files
+
+def list_local(path, relative_path):
+    """recursively find all files and directories inside a local path,
+    and store their paths relative to the local root"""
+
+    # check for ignored directories names
+    if ignore(basename(path)):
+        return []
+
+    # add the current directory, except for the root 
+    files = [] if path == ROOT_LOCAL else [relative_path]
+
+    for name in os.listdir(path):
+        if name in '..': continue
+
+        path_to_file = join(path, name)
+        relative_path_to_file = join(relative_path, name)
+
+        if isdir(path_to_file):
+            files += list_local(path_to_file, relative_path_to_file)
+
+        # check for ignored filenames
+        elif not ignore(name):
+            files.append((relative_path_to_file, getmtime(path_to_file)))
+
+    return files
+
 def remove_ftp_dir(path, first_call=False):
     print('Emptying dir', path)
 
@@ -124,17 +181,21 @@ def upload_dir(path, remote_path):
 # ----- MAIN -----
 
 if __name__ == '__main__':
+    # to do: set up some kind of maintenance state for the website here
+
     check_ftp()
+    print('Listing remote files...')
+    remote_files = list_remote(ROOT_REMOTE, '')
+    print('Found %d files.' %len(remote_files))
 
-    # to do: set up some king of maintenance state for the website here
+    print('Listing local files...')
+    local_files = list_local(ROOT_LOCAL, '')
+    print('Found %d files.' %len(local_files))
 
-    print('Emptying contents...')
-    remove_ftp_dir(HOME_DIR, True)
-    print('Done.\n')
+    print(remote_files)
+    print(local_files)
 
-    print('Uploading...')
-    upload_dir('..', HOME_DIR)
-    print('\nDone.\n')
+    check_ftp()
 
     # check if everything was ignored
     for key, value in ignored.items():
