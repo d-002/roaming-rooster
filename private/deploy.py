@@ -9,7 +9,8 @@ from ftplib import FTP
 # will not use os.path.join() to keep paths with a slash for easier conversion
 ROOT_REMOTE = '/htdocs'
 ROOT_LOCAL = '..'
-IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md', '.gitignore', '__pycache__']
+IGNORE_LIST = ['.git', '.github', '.gitignore',
+               'README.md', '.gitignore', '__pycache__']
 
 ignored = {key: False for key in IGNORE_LIST}
 
@@ -68,7 +69,8 @@ def ignore(path):
 
 def check_all_ignored():
     if False in ignored.values():
-        print('WARNING: some blacklisted files were not available', file=sys.stderr)
+        print('WARNING: some blacklisted files were not available',
+              file=sys.stderr)
 
 # ----- LISTING -----
 
@@ -87,7 +89,10 @@ def list_remote(path, relative_path):
 
         path_to_file = path+'/'+name
         # build relative path, but do not start with a slash
-        relative_path_to_file = name if not relative_path else relative_path+'/'+name
+        if relative_path:
+            relative_path_to_file = relative_path+'/'+name
+        else:
+            relative_path_to_file = name
 
         if file_type == 'file':
             # get the modification date of the file
@@ -113,7 +118,8 @@ def list_local(path, relative_path):
 
     # add the current directory, except for the root.
     # directories are added before the files inside,
-    # the files list should not be reorganized to avoid remote "path not found" errors
+    # the files list should not be reorganized
+    # to avoid remote "path not found" errors
     files = {} if path == ROOT_LOCAL else {relative_path: (0, True)}
 
     for name in os.listdir(path):
@@ -121,7 +127,10 @@ def list_local(path, relative_path):
 
         path_to_file = path+'/'+name
         # build relative path, but do not start with a slash
-        relative_path_to_file = name if not relative_path else relative_path+'/'+name
+        if relative_path:
+            relative_path_to_file = relative_path+'/'+name
+        else:
+            relative_path_to_file = name
 
         if isdir(path_to_file):
             # python 3.9+
@@ -136,24 +145,18 @@ def list_local(path, relative_path):
 # ----- REMOTE UTILS -----
 
 def create_remote_file(local_path, remote_path):
-    return ##
-
     with open(local_path, 'rb') as f:
         ftp.storbinary('STOR '+remote_path, f)
 
 def create_remote_dir(remote_path):
-    return ##
     ftp.mkd(remote_path)
 
 def remove_remote_file(path):
-    return ##
     ftp.delete(path)
 
-def remove_remote_dir(path, first_call=True):
+def remove_remote_dir(path):
     """recursively delete a remote directory, but also update the files list
     since files and subfolders inside the current directory also get deleted"""
-
-    return ##
 
     ftp.cwd(path)
     for (name, properties) in ftp.mlsd(path='.'):
@@ -165,11 +168,9 @@ def remove_remote_dir(path, first_call=True):
         if file_type == 'file':
             ftp.delete(name)
         elif file_type == 'dir':
-            remove_remote_dir(path+'/'+name, False)
+            remove_remote_dir(path+'/'+name)
 
-    # don't remove root directory
-    if not first_call:
-        ftp.rmd(path)
+    ftp.rmd(path)
 
 # ----- SYNC -----
 
@@ -240,20 +241,23 @@ if __name__ == '__main__':
     # to do: set up some kind of maintenance state for the website here
 
     check_ftp()
-    print('Listing remote files...')
+    print('\nListing remote files...')
     remote_files = list_remote(ROOT_REMOTE, '')
     print('Found %d files.' %len(remote_files))
 
-    print('Listing local files...')
+    print('\nListing local files...')
     local_files = list_local(ROOT_LOCAL, '')
     print('Found %d files.' %len(local_files))
 
     check_ftp()
+    print('\nChecking for and making changes...')
     sync(remote_files, local_files)
+    print('Done.')
 
     # check if everything was ignored
     for key, value in ignored.items():
         if value: continue
-        print('WARNING: a blacklisted file was non-existent:', key, file=sys.stderr)
+        print('WARNING: a blacklisted file was non-existent:',
+              key, file=sys.stderr)
 
     quit_ftp()
