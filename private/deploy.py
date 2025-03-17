@@ -14,9 +14,9 @@ if len(sys.argv) == 3:
     print('Detected github actions mode (login in args)')
     login = tuple(sys.argv[1:])
 else:
-    import cache_login
-
     print('Detected local run, using cached credentials system')
+
+    import cache_login
     login = cache_login.get_login()
 
 # ----- FTP -----
@@ -36,6 +36,7 @@ def check_ftp():
             pass
 
     if retry:
+        print('Logged in')
         ftp = FTP('ftpupload.net')
         ftp.login(*login)
 
@@ -124,7 +125,6 @@ def upload_dir(path, remote_path):
 
 if __name__ == '__main__':
     check_ftp()
-    print('Logged in.')
 
     # to do: set up some king of maintenance state for the website here
 
