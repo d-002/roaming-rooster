@@ -1,11 +1,11 @@
-@import './main_colors.css';
+@import 'main_style.css';
 
 .card {
-    background-color: var(--back-color-base-variation);
-    margin-left: var(--big-relative-margin);
-    margin-right: var(--big-relative-margin);
+    background-color: var(--back-color-popup);
+    margin-left: var(--reading-margin);
+    margin-right: var(--reading-margin);
     border-radius: var(--large-corner);
-    padding: var(--relative-padding);
+    padding: var(--big-container-padding);
 
     display: flex;
     flex-direction: row;

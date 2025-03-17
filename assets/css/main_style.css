@@ -5,26 +5,29 @@
     --text-color-main: #663F46;
     --text-color-secondary: #6C5750;
     --back-color-base: #E8F7EE;
-    --back-color-base-variation: #C1F5D6;
-    --back-color-main: #E27BBC;
+    --back-color-popup: #C1F5D6;
+    --back-color-important: #E27BBC;
     --back-color-secondary: #A79CD6;
     --back-color-ternary: #DFDCDB;
     --accent-color-main: var(--back-color-secondary);
-    --accent-color-secondary: var(--back-color-main);
+    --accent-color-secondary: var(--back-color-important);
 
     --place-color-main: #77005D;
     --place-color-secondary: #121212;
     --place-holder-gradient: repeating-linear-gradient(45deg, var(--place-color-main) 10%, var(--place-color-secondary), 10%);
 
-    --image-on-back-base-gradient: linear-gradient(var(--back-color-main) 0%, transparent 100%);
+    --image-on-back-base-gradient: linear-gradient(var(--back-color-important) 0%, transparent 100%);
 
     --medium-corner: 12px;
     --large-corner: 40px;
 
-    --main-padding: 5px;
-    --main-margin: var(--main-padding);
-    --relative-padding: 2%;
-    --big-relative-margin: 7%;
+    /* Like text fields */
+    --input-block-padding: 5px;
+    --input-block-margin: var(--input-block-padding);
+    /* Big containers should have a padding */
+    --big-container-padding: 2%;
+    /* To facilitate the reading of the document */
+    --reading-margin: 7%;
 
     --spacing-small: 21px;
     --spacing-medium: 42px;
@@ -59,5 +62,5 @@ p {
 }
 
 .titles {
-    padding: var(--relative-padding);
+    padding: var(--big-container-padding);
 }

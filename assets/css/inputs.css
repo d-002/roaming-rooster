@@ -6,23 +6,23 @@
 
 .text-field {
     background-color: var(--text-color-secondary);
-    color: var(--back-color-base-variation);
+    color: var(--back-color-popup);
     border: none;
     border-radius: var(--medium-corner);
     font-size: xx-large;
-    padding: var(--main-padding);
-    margin: var(--main-margin);
+    padding: var(--input-block-padding);
+    margin: var(--input-block-margin);
 }
 
 .text-submit {
     border: none;
     border-radius: var(--medium-corner);
     background-color: var(--text-color-secondary);
-    color: var(--back-color-base-variation);
+    color: var(--back-color-popup);
     font-size: xx-large;
     font-weight: bold;
-    padding: var(--main-padding);
-    margin: var(--main-margin);
+    padding: var(--input-block-padding);
+    margin: var(--input-block-margin);
 }
 
 .arrow-redirect {
