@@ -6,7 +6,7 @@ from ftplib import FTP
 # ----- CONFIG -----
 
 HOME_DIR = '/htdocs'
-IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
+IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md', '.gitignore', '__pycache__']
 
 ignored = {key: False for key in IGNORE_LIST}
 
