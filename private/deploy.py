@@ -154,7 +154,7 @@ def create_remote_dir(remote_path):
 def remove_remote_file(path):
     ftp.delete(path)
 
-def remove_remote_dir(path):
+def remove_remote_dir(path, ignore):
     """recursively delete a remote directory, but also update the files list
     since files and subfolders inside the current directory also get deleted"""
 
@@ -163,14 +163,17 @@ def remove_remote_dir(path):
         if name in '..': continue
 
         ftp.cwd(path)
+        file_path = path+'/'+name
         file_type = properties['type']
 
         if file_type == 'file':
             ftp.delete(name)
+            ignore.add(file_path)
         elif file_type == 'dir':
-            remove_remote_dir(path+'/'+name)
+            remove_remote_dir(file_path, ignore)
 
     ftp.rmd(path)
+    ignore.add(path)
 
 # ----- SYNC -----
 
@@ -182,14 +185,13 @@ def sync(remote, local):
 
     # some files and directories can be silently (recursively) deleted,
     # put them here to avoid processing them in the loop
-
     ignore = set()
 
     for file, file_is_dir in all:
-        if file in ignore: continue
-
         remote_path = ROOT_REMOTE+'/'+file
         local_path = ROOT_LOCAL+'/'+file
+
+        if remote_path in ignore: continue
 
         is_remote = file in remote
         is_local = file in local
@@ -200,7 +202,7 @@ def sync(remote, local):
             if is_remote_dir != local[file][1]:
                 if is_remote_dir:
                     print('Detected dir -> file for', remote_path)
-                    remove_remote_dir(remote_path)
+                    remove_remote_dir(remote_path, ignore)
                     create_remote_file(local_path, remote_path)
                 else:
                     print('Detected file -> dir for', remote_path)
@@ -214,7 +216,7 @@ def sync(remote, local):
 
             if is_remote:
                 print('Deleting outdated tree  ', remote_path)
-                remove_remote_dir(remote_path)
+                remove_remote_dir(remote_path, ignore)
             else:
                 print('Creating new dir        ', remote_path)
                 create_remote_dir(remote_path)
