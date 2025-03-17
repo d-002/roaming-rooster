@@ -1,12 +1,16 @@
 import os
 import sys
-from os.path import basename, dirname, join, isdir
+from dateutil import parser
+from os.path import basename, dirname, isdir, getmtime
 from ftplib import FTP
 
 # ----- CONFIG -----
 
-HOME_DIR = '/htdocs'
-IGNORE_LIST = ['.git', '.gitignore', 'README.md']
+# will not use os.path.join() to keep paths with a slash for easier conversion
+ROOT_REMOTE = '/htdocs'
+ROOT_LOCAL = '..'
+IGNORE_LIST = ['.git', '.github', '.gitignore',
+               'README.md', '.gitignore', '__pycache__']
 
 ignored = {key: False for key in IGNORE_LIST}
 
@@ -14,9 +18,9 @@ if len(sys.argv) == 3:
     print('Detected github actions mode (login in args)')
     login = tuple(sys.argv[1:])
 else:
-    import cache_login
-
     print('Detected local run, using cached credentials system')
+
+    import cache_login
     login = cache_login.get_login()
 
 # ----- FTP -----
@@ -36,6 +40,7 @@ def check_ftp():
             pass
 
     if retry:
+        print('Logged in')
         ftp = FTP('ftpupload.net')
         ftp.login(*login)
 
@@ -53,7 +58,7 @@ def quit_ftp():
     except:
         pass
 
-# ----- UPLOAD -----
+# ----- IGNORE UTILS -----
 
 def ignore(path):
     if path in IGNORE_LIST:
@@ -64,81 +69,201 @@ def ignore(path):
 
 def check_all_ignored():
     if False in ignored.values():
-        print('WARNING: some blacklisted files were not available', file=sys.stderr)
+        print('WARNING: some blacklisted files were not available',
+              file=sys.stderr)
 
-def remove_ftp_dir(path, first_call=False):
-    print('Emptying dir', path)
+# ----- LISTING -----
+
+def list_remote(path, relative_path):
+    """recursively find all files and directories inside a remote path,
+    and store their paths relative to the remote root"""
+
+    # add the current directory, except for the root 
+    files = {} if path == ROOT_REMOTE else {relative_path: (0, True)}
+
+    ftp.cwd(path)
+    for (name, properties) in ftp.mlsd(path='.'):
+        if name in '..': continue
+
+        file_type = properties['type']
+
+        path_to_file = path+'/'+name
+        # build relative path, but do not start with a slash
+        if relative_path:
+            relative_path_to_file = relative_path+'/'+name
+        else:
+            relative_path_to_file = name
+
+        if file_type == 'file':
+            # get the modification date of the file
+            time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
+            timestamp = parser.parse(time).timestamp()
+
+            files[relative_path_to_file] = (timestamp, False)
+
+        elif file_type == 'dir':
+            # python 3.9+
+            files |= list_remote(path_to_file, relative_path_to_file)
+            ftp.cwd(path)
+
+    return files
+
+def list_local(path, relative_path):
+    """recursively find all files and directories inside a local path,
+    and store their paths relative to the local root"""
+
+    # check for ignored directories names
+    if ignore(basename(path)):
+        return {}
+
+    # add the current directory, except for the root.
+    # directories are added before the files inside,
+    # the files list should not be reorganized
+    # to avoid remote "path not found" errors
+    files = {} if path == ROOT_LOCAL else {relative_path: (0, True)}
+
+    for name in os.listdir(path):
+        if name in '..': continue
+
+        path_to_file = path+'/'+name
+        # build relative path, but do not start with a slash
+        if relative_path:
+            relative_path_to_file = relative_path+'/'+name
+        else:
+            relative_path_to_file = name
+
+        if isdir(path_to_file):
+            # python 3.9+
+            files |= list_local(path_to_file, relative_path_to_file)
+
+        # check for ignored filenames
+        elif not ignore(name):
+            files[relative_path_to_file] = (getmtime(path_to_file), False)
+
+    return files
+
+# ----- REMOTE UTILS -----
+
+def create_remote_file(local_path, remote_path):
+    with open(local_path, 'rb') as f:
+        ftp.storbinary('STOR '+remote_path, f)
+
+def create_remote_dir(remote_path):
+    ftp.mkd(remote_path)
+
+def remove_remote_file(path):
+    ftp.delete(path)
+
+def remove_remote_dir(path, ignore):
+    """recursively delete a remote directory, but also update the files list
+    since files and subfolders inside the current directory also get deleted"""
 
     ftp.cwd(path)
     for (name, properties) in ftp.mlsd(path='.'):
         if name in '..': continue
 
         ftp.cwd(path)
+        file_path = path+'/'+name
         file_type = properties['type']
 
         if file_type == 'file':
-            print('  |', ftp.delete(name))
+            ftp.delete(name)
+            ignore.add(file_path)
         elif file_type == 'dir':
-            remove_ftp_dir(path+'/'+name)
+            remove_remote_dir(file_path, ignore)
 
-    if not first_call:
-        # don't remove root directory
-        print('  |', ftp.rmd(path), '(%s)' %basename(path))
+    ftp.rmd(path)
+    ignore.add(path)
 
-def ftp_dir_exists(path):
-    files = []
-    ftp.retrlines('LIST', files.append)
+# ----- SYNC -----
 
-    for f in files:
-        if f.split(' ')[-1] == path and f.upper().startswith('D'):
-            return True
+def sync(remote, local):
+    # cache select data, but avoid duplicates and sort
+    # (directories first, lowest to highest depth)
+    all_items = set(remote.items()) | set(local.items())
+    all = {file: file_is_dir for file, (_, file_is_dir) in all_items}
+    all = sorted(all.items(), key=lambda x: -1000 * x[1] + len(x[0]))
 
-    return False
+    # some files and directories can be silently (recursively) deleted,
+    # put them here to avoid processing them in the loop
+    ignore = set()
 
-def upload_dir(path, remote_path):
-    if ignore(basename(path)):
-        return
+    for file, file_is_dir in all:
+        remote_path = ROOT_REMOTE+'/'+file
+        local_path = ROOT_LOCAL+'/'+file
 
-    ftp.cwd(dirname(remote_path))
+        if remote_path in ignore: continue
 
-    print('Uploading dir "%s" to "%s"...' %(path, remote_path))
-    # create directory if missing
-    if not ftp_dir_exists(path):
-        print('Creating missing remote dir', ftp.mkd(remote_path))
+        is_remote = file in remote
+        is_local = file in local
 
-    # populate with files
-    for name in os.listdir(path):
-        if name in '..': continue
+        # handle files turned into directories and the opposite
+        if is_remote and is_local:
+            is_remote_dir = remote[file][1]
+            if is_remote_dir != local[file][1]:
+                if is_remote_dir:
+                    print('Detected dir -> file for', remote_path)
+                    remove_remote_dir(remote_path, ignore)
+                    create_remote_file(local_path, remote_path)
+                else:
+                    print('Detected file -> dir for', remote_path)
+                    remove_remote_file(remote_path)
+                    create_remote_dir(remote_path)
 
-        ftp.cwd(remote_path)
-        file = join(path, name)
+        # handle adding, deleting and updating files and directories
+        if file_is_dir:
+            if is_remote == is_local:
+                continue
 
-        if isdir(file):
-            upload_dir(file, remote_path+'/'+name)
+            if is_remote:
+                print('Deleting outdated tree  ', remote_path)
+                remove_remote_dir(remote_path, ignore)
+            else:
+                print('Creating new dir        ', remote_path)
+                create_remote_dir(remote_path)
+        else:
+            if is_remote and is_local:
+                remote_t = remote[file][0]
+                local_t = local[file][0]
 
-        elif not ignore(name):
-            with open(file, 'rb') as f:
-                print('  |', ftp.storbinary('STOR '+name, f).split('\n')[0], '(%s)' %name)
+                if remote_t >= local_t:
+                    continue
+
+                # update file
+                print('Updating file           ', remote_path)
+                create_remote_file(local_path, remote_path)
+
+            elif is_remote:
+                print('Deleting outdated file  ', remote_path)
+                remove_remote_file(remote_path)
+
+            elif is_local:
+                print('Creating new file       ', remote_path)
+                create_remote_file(local_path, remote_path)
 
 # ----- MAIN -----
 
 if __name__ == '__main__':
+    # to do: set up some kind of maintenance state for the website here
+
     check_ftp()
-    print('Logged in.')
+    print('\nListing remote files...')
+    remote_files = list_remote(ROOT_REMOTE, '')
+    print('Found %d files.' %len(remote_files))
 
-    # to do: set up some king of maintenance state for the website here
+    print('\nListing local files...')
+    local_files = list_local(ROOT_LOCAL, '')
+    print('Found %d files.' %len(local_files))
 
-    print('Emptying contents...')
-    remove_ftp_dir(HOME_DIR, True)
-    print('Done.\n')
-
-    print('Uploading...')
-    upload_dir('..', HOME_DIR)
-    print('\nDone.\n')
+    check_ftp()
+    print('\nChecking for and making changes...')
+    sync(remote_files, local_files)
+    print('Done.')
 
     # check if everything was ignored
     for key, value in ignored.items():
         if value: continue
-        print('WARNING: a blacklisted file was non-existent:', key, file=sys.stderr)
+        print('WARNING: a blacklisted file was non-existent:',
+              key, file=sys.stderr)
 
     quit_ftp()
