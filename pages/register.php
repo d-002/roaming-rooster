@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fill-page">
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
@@ -11,15 +11,15 @@ component("text_submit");
 
 insertHeader("Register", array("containers", "inputs"));
 ?>
-<body>
+<body class="fill-page">
 
-<div>
+<div class="fill-page main-column">
     <header class="titles">
         <p class="subtitle">Join a strong community on</p>
         <h1>The Roaming Rooster</h1>
     </header>
 
-    <div class="card">
+    <div class="card card-half-page">
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
