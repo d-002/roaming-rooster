@@ -8,6 +8,7 @@ component("header");
 component("text_field");
 component("arrow_redirect");
 component("text_submit");
+component("check_group");
 
 insertHeader("Register", array("containers", "inputs"));
 ?>
@@ -23,9 +24,10 @@ insertHeader("Register", array("containers", "inputs"));
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
-        <form class="classic-form">
+        <form class="classic-form" action="">
             <?php
             insertArrowRedirect("I have an account", "Login", "/pages/login.php");
+            insertCheckboxFancyGroup([["test", "test"], ["test", "test"]]);
             ?>
             <div>
                 <?php
@@ -36,6 +38,8 @@ insertHeader("Register", array("containers", "inputs"));
         </form>
     </div>
 </div>
+
+<script src="/assets/scripts/inputs.js"></script>
 
 </body>
 </html>
