@@ -9,6 +9,7 @@ component("text_field");
 component("arrow_redirect");
 component("text_submit");
 component("check_group");
+component("pages");
 
 insertHeader("Register", array("containers", "inputs"));
 ?>
@@ -52,6 +53,12 @@ insertHeader("Register", array("containers", "inputs"));
                 <?php
                 insertTextField("Choose password", "password", true);
                 insertTextField("Confirm password", "password-confirmation", true);
+                ?>
+            </div>
+
+            <div class="form-element page page-1">
+                <?php
+                insertNavigationMenu(3, 1);
                 ?>
             </div>
         </form>
