@@ -8,17 +8,24 @@ from ftplib import FTP
 
 # will not use os.path.join() to keep paths with a slash for easier conversion
 ROOT_REMOTE = '/htdocs'
-ROOT_LOCAL = '..'
+ROOT_LOCAL = None
 IGNORE_LIST = ['.git', '.github', '.gitignore',
                'README.md', '.gitignore', '__pycache__']
 
 ignored = {key: False for key in IGNORE_LIST}
 
-if len(sys.argv) == 3:
+if len(sys.argv) == 4:
     print('Detected github actions mode (login in args)')
-    login = tuple(sys.argv[1:])
+    login = tuple(sys.argv[1:3])
+    ROOT_LOCAL = sys.argv[3]
+
 else:
+    if len(sys.argv) == 1:
+        print('WARNING: automatically setting local path to ".."')
+        sys.argv += [None, None, '..']
+
     print('Detected local run, using cached credentials system')
+    ROOT_LOCAL = sys.argv[3]
 
     import cache_login
     login = cache_login.get_login()
