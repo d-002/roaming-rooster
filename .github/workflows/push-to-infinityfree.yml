@@ -17,12 +17,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install dateutil
+          python -m pip install -U pip python-dateutil
 
       - name: Run python script
         shell: bash
