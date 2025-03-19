@@ -4,6 +4,7 @@ let submit = form.getElementsByClassName("text-submit")[0];
 let pageNumber = 0;
 
 function getPage(i) {
+    console.log("page-" + i);
     return document.getElementsByClassName("page-" + i);
 }
 
@@ -11,6 +12,7 @@ function showPage() {
     let i = 0;
     let page = getPage(i);
     while (page.length > 0) {
+        console.log("Page " + i + " le " + page.length);
         if (i === pageNumber) {
             for (let pageElement of page) {
                 if (pageElement.classList.contains("reduce"))
@@ -23,7 +25,7 @@ function showPage() {
             }
         }
         i++;
-        page = getPage(i + 1);
+        page = getPage(i);
     }
 }
 
@@ -34,3 +36,5 @@ submit.addEventListener("click", e => {
     pageNumber++;
     showPage();
 });
+
+showPage();

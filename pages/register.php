@@ -33,7 +33,7 @@ insertHeader("Register", array("containers", "inputs"));
             </div>
             <div class="form-element page page-0">
                 <?php
-                insertTextField("Username", "username");
+                insertTextField("Username", "username", true);
                 insertCheckboxFancyGroup([["want-buy", "I want to Buy"], ["want-sell", "I want to Sell"]]);
                 ?>
             </div>
@@ -41,6 +41,19 @@ insertHeader("Register", array("containers", "inputs"));
                 <?php insertTextSubmit("Start Registering"); ?>
             </div>
             <!-- Page 1 -->
+            <div class="form-element page page-1">
+                <?php
+                insertTextField("Your email", "email", true);
+                insertTextField("Phone number?", "phone", false);
+                ?>
+            </div>
+
+            <div class="form-element page page-1">
+                <?php
+                insertTextField("Choose password", "password", true);
+                insertTextField("Confirm password", "password-confirmation", true);
+                ?>
+            </div>
         </form>
     </div>
 </div>
