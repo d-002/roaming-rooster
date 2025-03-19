@@ -34,6 +34,31 @@
     justify-content: right;
 }
 
+.arrow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: italic;
+}
+
+.arrow-container > * {
+    margin: 0;
+    padding: 0;
+    line-height: 7px;
+}
+
+.arrow {
+    font-size: 2.5em;
+    transform: scaleX(5);
+}
+
+.pointed {
+    margin: calc(var(--input-block-margin)*2);
+    font-weight: 1000;
+    font-size: x-large;
+    text-shadow: var(--text-color-main) 0 0 10px;
+}
+
 .classic-form {
     display: flex;
     flex-direction: column;
