@@ -40,17 +40,26 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .fancy-checkbox {
     background-color: var(--accent-color-main);
+    color: var(--back-color-base);
     margin: var(--input-block-margin);
     padding: var(--input-block-padding);
     font-size: x-large;
     border-radius: var(--medium-corner);
     user-select: none;
+    box-shadow: #00000055 0 0 20px 1px;
+}
+
+.fancy-checkbox:hover {
+    background-color: var(--accent-color-secondary);
 }
 
 .fancy-checkbox:has(*:checked) {
     background-color: var(--title-color);
+    box-shadow: #000000A5 0 0 20px 1px;
 }
