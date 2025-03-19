@@ -34,7 +34,7 @@ insertHeader("Register", array("containers", "inputs"));
                 insertCheckboxFancyGroup([["want-buy", "I want to Buy"], ["want-sell", "I want to Sell"]]);
                 ?>
             </div>
-            <?php insertTextSubmit("Start Registering!"); ?>
+            <?php insertTextSubmit("Start Registering"); ?>
         </form>
     </div>
 </div>

@@ -1,13 +1,16 @@
 
 .text-field-label {
     font-size: medium;
+    text-align: right;
     color: var(--text-color-main);
+    margin-left: var(--input-block-margin);
+    margin-right: var(--input-block-margin);
 }
 
 .form-element {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-small);
+    gap: var(--spacing-minimum);
 }
 
 .text-field {
@@ -17,7 +20,6 @@
     border-radius: var(--medium-corner);
     font-size: xx-large;
     padding: var(--input-block-padding);
-    margin: var(--input-block-margin);
 }
 
 .text-submit {

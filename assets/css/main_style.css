@@ -29,6 +29,7 @@
     /* To facilitate the reading of the document */
     --reading-margin: 7%;
 
+    --spacing-minimum: 10px;
     --spacing-small: 21px;
     --spacing-medium: 42px;
     --spacing-large: 84px;
