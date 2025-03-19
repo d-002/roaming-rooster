@@ -22,10 +22,10 @@ if len(sys.argv) == 4:
 else:
     if len(sys.argv) == 1:
         print('WARNING: automatically setting local path to ".."')
-        sys.argv += [None, None, '..']
+        sys.argv.append('..')
 
     print('Detected local run, using cached credentials system')
-    ROOT_LOCAL = sys.argv[3]
+    ROOT_LOCAL = sys.argv[1]
 
     import cache_login
     login = cache_login.get_login()
