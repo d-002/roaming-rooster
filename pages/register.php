@@ -28,7 +28,7 @@ insertHeader("Register", array("containers", "inputs"));
             <?php
             insertArrowRedirect("I have an account", "Login", "/pages/login.php");
             ?>
-            <div>
+            <div class="form-element">
                 <?php
                 insertTextField("Username", "username");
                 insertCheckboxFancyGroup([["want-buy", "I want to Buy"], ["want-sell", "I want to Sell"]]);
