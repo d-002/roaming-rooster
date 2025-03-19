@@ -238,7 +238,7 @@ def sync(remote, local):
 
                 # update file
                 print('Updating file           ', remote_path)
-                print(remote_r, local_t)
+                print(remote_t, local_t)
                 create_remote_file(local_path, remote_path)
 
             elif is_remote:
