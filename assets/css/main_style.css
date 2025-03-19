@@ -70,11 +70,17 @@ p {
     filter: drop-shadow(0 0 3px #00000033);
 }
 
+.remove-on-submit {
+    transition: all 0.5s linear;
+    transition-behavior: allow-discrete;
+    overflow: hidden;
+}
+
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 .reduce {
-    transform: scale(0);
-    transition: transform 0.5s;
+    display: none;
+    block-size: 0;
 }
