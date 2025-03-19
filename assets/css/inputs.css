@@ -35,3 +35,22 @@
     align-items: center;
     flex-direction: column;
 }
+
+.at-least-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.fancy-checkbox {
+    background-color: var(--accent-color-main);
+    margin: var(--input-block-margin);
+    padding: var(--input-block-padding);
+    font-size: x-large;
+    border-radius: var(--medium-corner);
+    user-select: none;
+}
+
+.fancy-checkbox:has(*:checked) {
+    background-color: var(--title-color);
+}

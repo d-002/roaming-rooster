@@ -27,11 +27,11 @@ insertHeader("Register", array("containers", "inputs"));
         <form class="classic-form" action="">
             <?php
             insertArrowRedirect("I have an account", "Login", "/pages/login.php");
-            insertCheckboxFancyGroup([["test0", "title0"], ["test1", "title1"]]);
             ?>
             <div>
                 <?php
                 insertTextField("Username", "username");
+                insertCheckboxFancyGroup([["want-buy", "I want to Buy"], ["want-sell", "I want to Sell"]]);
                 ?>
             </div>
             <?php insertTextSubmit("Start Registering!"); ?>

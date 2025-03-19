@@ -22,8 +22,8 @@
     --large-corner: 40px;
 
     /* Like text fields */
-    --input-block-padding: 5px;
-    --input-block-margin: var(--input-block-padding);
+    --input-block-padding: 8px;
+    --input-block-margin: 5px;
     /* Big containers should have a padding */
     --big-container-padding: 2%;
     /* To facilitate the reading of the document */
