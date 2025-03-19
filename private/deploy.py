@@ -145,7 +145,11 @@ def list_local(path, relative_path):
 
         # check for ignored filenames
         elif not ignore(name):
-            files[relative_path_to_file] = (getmtime(path_to_file), False)
+            # get last modification timestamp in the repo
+            time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
+            time = parser.parse(time).timestamp()
+
+            files[relative_path_to_file] = (time, False)
 
     return files
 
@@ -238,7 +242,6 @@ def sync(remote, local):
 
                 # update file
                 print('Updating file           ', remote_path)
-                print(remote_t, local_t)
                 create_remote_file(local_path, remote_path)
 
             elif is_remote:
