@@ -1,5 +1,4 @@
-<?php function insertTextSubmit($name, $remove_on_submit, $reload)
+<?php function insertTextSubmit($name)
 { ?>
-    <input class="text-submit <?php if ($remove_on_submit) echo "remove-on-submit"; ?>"
-           value="<?php echo $name; ?>" type='submit'>
+    <input class="text-submit" value="<?php echo $name; ?>" type='submit'>
 <?php } ?>

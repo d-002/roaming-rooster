@@ -70,10 +70,12 @@ p {
     filter: drop-shadow(0 0 3px #00000033);
 }
 
-.remove-on-submit {
-    transition: all 0.5s linear;
+.page {
+    transition: display;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    /* Might not work on firefox */
     transition-behavior: allow-discrete;
-    overflow: hidden;
 }
 
 .hidden {
@@ -81,6 +83,6 @@ p {
 }
 
 .reduce {
-    display: none;
-    block-size: 0;
+    display: none !important;
+    overflow: hidden
 }
