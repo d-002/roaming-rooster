@@ -104,3 +104,16 @@
 .fancy-checkbox > input {
     outline: var(--warning-color) 1px solid;
 }
+
+.circles {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.circle {
+    border: var(--warning-color) 3px solid;
+    border-radius: 50%;
+    width: 3vw;
+    height: 3vw;
+}
