@@ -23,16 +23,19 @@
     font-weight: bold;
     padding: var(--input-block-padding);
     margin: var(--input-block-margin);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .arrow-redirect {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: right;
 }
 
 .classic-form {
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -62,4 +65,8 @@
 .fancy-checkbox:has(*:checked) {
     background-color: var(--title-color);
     box-shadow: #000000A5 0 0 20px 1px;
+}
+
+.fancy-checkbox > input {
+    outline: var(--warning-color) 1px solid;
 }
