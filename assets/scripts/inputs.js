@@ -6,10 +6,8 @@ function checkGroup(group, index) {
 
     if (count == 0) {
         if (index == 0) {
-            // group[1].checked = true;
             group[1].children[0].checked = true;
         } else {
-            // group[0].checked = true;
             group[0].children[0].checked = true;
         }
     }
