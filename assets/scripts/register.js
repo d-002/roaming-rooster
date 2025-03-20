@@ -3,29 +3,28 @@ let submit = form.getElementsByClassName("text-submit")[0];
 
 let pageNumber = 0;
 
-function getPage(i) {
-    console.log("page-" + i);
-    return document.getElementsByClassName("page-" + i);
-}
-
 function showPage() {
-    let i = 0;
-    let page = getPage(i);
-    while (page.length > 0) {
-        console.log("Page " + i + " le " + page.length);
-        if (i === pageNumber) {
-            for (let pageElement of page) {
-                if (pageElement.classList.contains("reduce"))
-                    pageElement.classList.remove("reduce");
-            }
+    let page = document.getElementsByClassName("page");
+    for (let pageElement of page) {
+        let elementPage = parseInt(pageElement.getAttribute("page"));
+        if (pageNumber === elementPage) {
+            if (pageElement.classList.contains("reduce"))
+                pageElement.classList.remove("reduce");
         } else {
-            for (let pageElement of page) {
-                if (!pageElement.classList.contains("reduce"))
-                    pageElement.classList.add("reduce");
-            }
+            if (!pageElement.classList.contains("reduce"))
+                pageElement.classList.add("reduce");
         }
-        i++;
-        page = getPage(i);
+    }
+    let special = document.getElementsByClassName("page-ex");
+    for (let pageElement of special) {
+        let exception = parseInt(pageElement.getAttribute("page-ex"));
+        if (pageNumber !== exception) {
+            if (pageElement.classList.contains("reduce"))
+                pageElement.classList.remove("reduce");
+        } else {
+            if (!pageElement.classList.contains("reduce"))
+                pageElement.classList.add("reduce");
+        }
     }
 }
 
@@ -38,3 +37,14 @@ submit.addEventListener("click", e => {
 });
 
 showPage();
+
+let pred = document.getElementById("nav-pred");
+pred.addEventListener("click", () => {
+    pageNumber--;
+    showPage();
+});
+let next = document.getElementById("nav-next");
+next.addEventListener("click", () => {
+    pageNumber++;
+    showPage();
+})

@@ -29,38 +29,38 @@ insertHeader("Register", array("containers", "inputs"));
         </div>
         <form class="classic-form" action="" id="register-form">
             <!-- Page 0 -->
-            <div class="page page-0">
+            <div class="page">
                 <?php
                 insertArrowRedirect("I have an account", "Login", "/pages/login.php");
                 ?>
             </div>
-            <div class="form-element page page-0">
+            <div class="form-element page" page="0">
                 <?php
                 insertTextField("Username", "username", true);
                 insertCheckboxFancyGroup([["want-buy", "I want to Buy"], ["want-sell", "I want to Sell"]]);
                 ?>
             </div>
-            <div class="page page-0 align-self-center">
+            <div class="page align-self-center" page="0">
                 <?php insertTextSubmit("Start Registering"); ?>
             </div>
             <!-- Page 1 -->
-            <div class="form-element page page-1">
+            <div class="form-element page" page="1">
                 <?php
                 insertTextField("Your email", "email", true, "email");
                 insertTextField("Phone number?", "phone", false, "tel");
                 ?>
             </div>
 
-            <hr class="form-element page page-1">
+            <hr class="form-element page" page="1">
 
-            <div class="form-element page page-1">
+            <div class="form-element page" page="1">
                 <?php
                 insertTextField("Choose password", "password", true, "password");
                 insertTextField("Confirm password", "password-confirmation", true, "password");
                 ?>
             </div>
 
-            <div class="form-element page page-1">
+            <div class="form-element page-ex" page-ex="0">
                 <?php
                 insertNavigationMenu(3, 1);
                 ?>
