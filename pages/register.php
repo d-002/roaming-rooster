@@ -16,7 +16,7 @@ insertHeader("Register", array("containers", "inputs"));
 <body class="fill-page">
 
 <div class="fill-page main-column">
-    <header class="titles page page-0">
+    <header class="titles page" page="0">
         <a href="/home.php">
             <p class="subtitle">Join a strong community on</p>
             <h1>The Roaming Rooster</h1>
