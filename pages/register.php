@@ -44,15 +44,15 @@ insertHeader("Register", array("containers", "inputs"));
             <!-- Page 1 -->
             <div class="form-element page page-1">
                 <?php
-                insertTextField("Your email", "email", true);
-                insertTextField("Phone number?", "phone", false);
+                insertTextField("Your email", "email", true, "email");
+                insertTextField("Phone number?", "phone", false, "tel");
                 ?>
             </div>
 
             <div class="form-element page page-1">
                 <?php
-                insertTextField("Choose password", "password", true);
-                insertTextField("Confirm password", "password-confirmation", true);
+                insertTextField("Choose password", "password", true, "password");
+                insertTextField("Confirm password", "password-confirmation", true, "password");
                 ?>
             </div>
 
