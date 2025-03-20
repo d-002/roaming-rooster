@@ -58,6 +58,11 @@ p {
     font-size: x-large;
     padding: 0;
     margin: 0;
+    text-decoration: none;
+}
+
+a:has(.subtitle) {
+    text-decoration: none;
 }
 
 .titles {
@@ -68,6 +73,12 @@ p {
     display: flex;
     align-items: center;
     filter: drop-shadow(0 0 3px #00000033);
+}
+
+@media screen and (max-device-width: 500px) {
+    .logo-decoration-container {
+        display: none;
+    }
 }
 
 .page {

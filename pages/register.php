@@ -17,8 +17,10 @@ insertHeader("Register", array("containers", "inputs"));
 
 <div class="fill-page main-column">
     <header class="titles page page-0">
-        <p class="subtitle">Join a strong community on</p>
-        <h1>The Roaming Rooster</h1>
+        <a href="/home.php">
+            <p class="subtitle">Join a strong community on</p>
+            <h1>The Roaming Rooster</h1>
+        </a>
     </header>
 
     <div class="card card-half-page">
