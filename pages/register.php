@@ -51,6 +51,8 @@ insertHeader("Register", array("containers", "inputs"));
                 ?>
             </div>
 
+            <hr class="form-element page page-1">
+
             <div class="form-element page page-1">
                 <?php
                 insertTextField("Choose password", "password", true, "password");

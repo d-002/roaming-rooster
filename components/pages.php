@@ -3,14 +3,14 @@
 function insertPageCircle($page)
 {
     ?>
-    <div class="circle page-circle" id="page-circle-<?php echo $page; ?>"></div>
+    <div class="circle page-circle btn" id="page-circle-<?php echo $page; ?>"></div>
     <?php
 }
 
 function insertCircles($number_of_pages, $start)
 {
     ?>
-    <div class="circles col">
+    <div class="circles">
         <?php
         for ($i = $start; $i < $number_of_pages + $start; $i++) {
             insertPageCircle($i);
@@ -23,20 +23,20 @@ function insertCircles($number_of_pages, $start)
 function insertNavigationButton($txt, $id)
 {
     ?>
-    <button id="<?php echo $id; ?>" class="btn btn-primary btn-nav col">
-        <?php echo $txt; ?>
-    </button>
+    <div id="<?php echo $id; ?>" class="btn btn-primary btn-nav">
+        <p><?php echo $txt; ?></p>
+    </div>
     <?php
 }
 
 function insertNavigationMenu($number_of_pages, $start)
 {
     ?>
-    <div class="row">
+    <div class="pages-nav">
         <?php
-        insertNavigationButton("&larr;", "nav-pred");
+        insertNavigationButton("Back", "nav-pred");
         insertCircles($number_of_pages, $start);
-        insertNavigationButton("&rarr;", "nav-next");
+        insertNavigationButton("Next", "nav-next");
         ?>
     </div>
     <?php
