@@ -45,6 +45,10 @@ showPage();
 let pred = document.getElementById("nav-pred");
 pred.addEventListener("click", () => {
     pageNumber--;
+    if (pageNumber === 0) {
+        let card = document.getElementsByClassName("card")[0];
+        card.classList.replace("card-full-page", "card-half-page")
+    }
     showPage();
 });
 let next = document.getElementById("nav-next");
