@@ -2,7 +2,6 @@ let form = document.getElementById("register-form");
 let submit = form.getElementsByClassName("text-submit")[0];
 
 let pageNumber = 0;
-let circleStart = 1;
 let numberOfPages = 4;
 
 function showPage() {
