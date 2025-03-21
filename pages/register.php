@@ -45,6 +45,7 @@ insertHeader("Register", array("containers", "inputs"));
             </div>
             <!-- Page 1 -->
             <div class="form-element page preload" page="1">
+                <p class="form-section">Login details</p>
                 <?php
                 insertTextField("Your email", "email", true, "email");
                 insertTextField("Phone number?", "phone", false, "tel");
@@ -54,6 +55,7 @@ insertHeader("Register", array("containers", "inputs"));
             <hr class="page preload" page="1">
 
             <div class="form-element page preload" page="1">
+                <p class="form-section">Password</p>
                 <?php
                 insertTextField("Choose password", "password", true, "password");
                 insertTextField("Confirm password", "password-confirmation", true, "password");
@@ -64,10 +66,27 @@ insertHeader("Register", array("containers", "inputs"));
             <!-- Page 2 -->
 
             <div class="form-element page preload" page="2">
+                <p class="form-section">Your profile</p>
                 <?php
                 insertTextField("Displayed name", "display", false);
                 ?>
-                <p>Coming soon, theme selector</p>
+                <p class="form-section">Coming soon, theme selector</p>
+            </div>
+
+            <!-- Page 3 -->
+
+            <div class="form-element page preload" page="3">
+                <p class="form-section">About you</p>
+                <?php
+                // TODO
+                ?>
+            </div>
+
+            <div class="form-element page preload" page="3">
+                <p class="form-section">Let us connect you with locals</p>
+                <?php
+                // TODO
+                ?>
             </div>
 
             <!-- ALL except 0 -->

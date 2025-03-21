@@ -156,3 +156,9 @@
 .btn-primary:hover {
     background-color: var(--back-color-important);
 }
+
+.form-section {
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}

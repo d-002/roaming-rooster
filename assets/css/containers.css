@@ -24,7 +24,7 @@
     background-color: var(--back-color-popup);
     margin-left: var(--reading-margin);
     margin-right: var(--reading-margin);
-    padding: var(--big-container-padding);
+    padding: 3px var(--big-container-padding);
 
     display: flex;
     flex-direction: row;
