@@ -121,7 +121,7 @@
 }
 
 .circle {
-    border: var(--warning-color) 3px solid;
+    border: var(--back-color-secondary) 3px solid;
     border-radius: 50%;
     width: 3vw;
     height: 3vw;
@@ -146,4 +146,13 @@
     color: var(--back-color-base);
     font-size: 1.5rem;
     margin: 0;
+}
+
+.btn-primary {
+    background-color: var(--back-color-secondary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--back-color-important);
 }

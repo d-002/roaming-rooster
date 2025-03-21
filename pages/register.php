@@ -60,6 +60,18 @@ insertHeader("Register", array("containers", "inputs"));
                 ?>
             </div>
 
+
+            <!-- Page 2 -->
+
+            <div class="form-element page preload" page="2">
+                <?php
+                insertTextField("Displayed name", "display", false);
+                ?>
+                <p>Coming soon, theme selector</p>
+            </div>
+
+            <!-- ALL except 0 -->
+
             <div class="page-ex preload" page-ex="0">
                 <?php
                 insertNavigationMenu(3, 1);
