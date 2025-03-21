@@ -10,6 +10,7 @@ component("arrow_redirect");
 component("text_submit");
 component("check_group");
 component("pages");
+component("tags");
 
 insertHeader("Register", array("containers", "inputs"));
 ?>
@@ -70,16 +71,24 @@ insertHeader("Register", array("containers", "inputs"));
                 <?php
                 insertTextField("Displayed name", "display", false);
                 ?>
-                <p class="form-section">Coming soon, theme selector</p>
+                <p class="form-text">Coming soon, theme selector</p>
             </div>
 
             <!-- Page 3 -->
 
             <div class="form-element page preload" page="3">
                 <p class="form-section">About you</p>
+                <div class="tags">
+                    <p class="tag">text</p>
+                    <p class="tag">test</p>
+                    <p class="tag">lorem</p>
+                    <p class="tag">ipsum</p>
+                </div>
                 <?php
-                // TODO
+                // TODO look in database
+                insertTags(["text", "test", "lorem", "ipsum", "cats", "dogs"]);
                 ?>
+                <p class="form-text">Can be edited at any moment. Full list will be on your profile page.</p>
             </div>
 
             <div class="form-element page preload" page="3">
