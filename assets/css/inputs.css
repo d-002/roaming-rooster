@@ -75,7 +75,10 @@
 .classic-form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-medium);
+}
+
+.classic-form > * + * {
+    margin-top: var(--spacing-medium);
 }
 
 .at-least-one {

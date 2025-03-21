@@ -8,6 +8,8 @@ function showPage() {
     for (let pageElement of page) {
         let elementPage = parseInt(pageElement.getAttribute("page"));
         if (pageNumber === elementPage) {
+            if (pageElement.classList.contains("preload"))
+                pageElement.classList.remove("preload");
             if (pageElement.classList.contains("reduce"))
                 pageElement.classList.remove("reduce");
         } else {
@@ -19,6 +21,8 @@ function showPage() {
     for (let pageElement of special) {
         let exception = parseInt(pageElement.getAttribute("page-ex"));
         if (pageNumber !== exception) {
+            if (pageElement.classList.contains("preload"))
+                pageElement.classList.remove("preload");
             if (pageElement.classList.contains("reduce"))
                 pageElement.classList.remove("reduce");
         } else {

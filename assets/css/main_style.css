@@ -82,9 +82,11 @@ a:has(.subtitle) {
 }
 
 .page {
-    transition: display;
+    max-height: 500px;
+    visibility: visible;
+    transition: max-height, padding, margin, visibility;
     transition-duration: 0.5s;
-    transition-timing-function: linear;
+    transition-timing-function: ease;
     /* Might not work on firefox */
     transition-behavior: allow-discrete;
 }
@@ -94,6 +96,15 @@ a:has(.subtitle) {
 }
 
 .reduce {
-    display: none !important;
-    overflow: hidden
+    /* display: none !important; */
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+    margin: 0 !important;
+    visibility: collapse;
 }
+
+.preload {
+    transition: none !important;
+}
+

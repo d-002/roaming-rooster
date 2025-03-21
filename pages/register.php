@@ -29,7 +29,7 @@ insertHeader("Register", array("containers", "inputs"));
         </div>
         <form class="classic-form" action="" id="register-form">
             <!-- Page 0 -->
-            <div class="page">
+            <div class="page" page="0">
                 <?php
                 insertArrowRedirect("I have an account", "Login", "/pages/login.php");
                 ?>
@@ -44,23 +44,23 @@ insertHeader("Register", array("containers", "inputs"));
                 <?php insertTextSubmit("Start Registering"); ?>
             </div>
             <!-- Page 1 -->
-            <div class="form-element page" page="1">
+            <div class="form-element page preload" page="1">
                 <?php
                 insertTextField("Your email", "email", true, "email");
                 insertTextField("Phone number?", "phone", false, "tel");
                 ?>
             </div>
 
-            <hr class="form-element page" page="1">
+            <hr class="page preload" page="1">
 
-            <div class="form-element page" page="1">
+            <div class="form-element page preload" page="1">
                 <?php
                 insertTextField("Choose password", "password", true, "password");
                 insertTextField("Confirm password", "password-confirmation", true, "password");
                 ?>
             </div>
 
-            <div class="form-element page-ex" page-ex="0">
+            <div class="page-ex preload" page-ex="0">
                 <?php
                 insertNavigationMenu(3, 1);
                 ?>
