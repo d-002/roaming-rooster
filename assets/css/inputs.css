@@ -125,6 +125,11 @@
     border-radius: 50%;
     width: 3vw;
     height: 3vw;
+    transition: background-color 0.5s ease;
+}
+
+.circle[checked=true] {
+    background-color: var(--title-color);
 }
 
 .pages-nav {

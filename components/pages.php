@@ -3,7 +3,7 @@
 function insertPageCircle($page)
 {
     ?>
-    <div class="circle page-circle btn" id="page-circle-<?php echo $page; ?>"></div>
+    <div class="circle page-circle btn" circle="<?php echo $page; ?>"></div>
     <?php
 }
 

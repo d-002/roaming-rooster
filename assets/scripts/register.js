@@ -2,6 +2,8 @@ let form = document.getElementById("register-form");
 let submit = form.getElementsByClassName("text-submit")[0];
 
 let pageNumber = 0;
+let circleStart = 1;
+let numberOfPages = 4;
 
 function showPage() {
     let page = document.getElementsByClassName("page");
@@ -30,6 +32,10 @@ function showPage() {
                 pageElement.classList.add("reduce");
         }
     }
+    let circles = document.getElementsByClassName("page-circle");
+    for (let circle of circles) {
+        circle.setAttribute("checked", (parseInt(circle.getAttribute("circle")) === pageNumber).toString());
+    }
 }
 
 submit.addEventListener("click", e => {
@@ -51,8 +57,19 @@ pred.addEventListener("click", () => {
     }
     showPage();
 });
+
 let next = document.getElementById("nav-next");
 next.addEventListener("click", () => {
-    pageNumber++;
-    showPage();
-})
+    if (pageNumber + 1 < numberOfPages) {
+        pageNumber++;
+        showPage();
+    }
+});
+
+let circles = document.getElementsByClassName("circle");
+for (let circle of circles) {
+    circle.addEventListener("click", () => {
+        pageNumber = parseInt(circle.getAttribute("circle"));
+        showPage();
+    });
+}
