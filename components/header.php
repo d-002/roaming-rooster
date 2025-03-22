@@ -1,6 +1,7 @@
 <?php function insertHeader($name, $css = array())
 { ?>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>
             <?php echo $name; ?>
         </title>
