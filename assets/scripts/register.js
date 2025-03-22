@@ -49,8 +49,11 @@ submit.addEventListener("click", e => {
 showPage();
 
 let pred = document.getElementById("nav-pred");
+let next = document.getElementById("nav-next");
+
 pred.addEventListener("click", () => {
     pageNumber--;
+    next.classList.remove("reduce");
     if (pageNumber === 0) {
         let card = document.getElementsByClassName("card")[0];
         card.classList.replace("card-full-page", "card-half-page")
@@ -58,11 +61,13 @@ pred.addEventListener("click", () => {
     showPage();
 });
 
-let next = document.getElementById("nav-next");
 next.addEventListener("click", () => {
     if (pageNumber + 1 < numberOfPages) {
         pageNumber++;
         showPage();
+        if (pageNumber + 1 >= numberOfPages) {
+            next.classList.add("reduce");
+        }
     }
 });
 
@@ -75,6 +80,7 @@ for (let circle of circles) {
 }
 
 let tags = document.getElementsByClassName("tag");
+let tagsInput = document.getElementById("tags-input");
 for (const tag of tags) {
     tag.addEventListener("click", () => {
         if (tag.getAttribute("checked") === "true") {
@@ -84,5 +90,6 @@ for (const tag of tags) {
             checkedTags.add(tag.textContent);
             tag.setAttribute("checked", "true");
         }
+        tagsInput.value = Array.from(checkedTags).join(",");
     });
 }

@@ -28,7 +28,7 @@ insertHeader("Register", array("containers", "inputs"));
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
-        <form class="classic-form" action="" id="register-form">
+        <form class="classic-form" action="/pages/welcome.php" id="register-form" method="post">
             <!-- Page 0 -->
             <div class="page" page="0">
                 <?php
@@ -78,6 +78,7 @@ insertHeader("Register", array("containers", "inputs"));
 
             <div class="form-element page preload" page="3">
                 <p class="form-section">About you</p>
+                <input type="hidden" id="tags-input" name="tags-input" value="">
                 <?php
                 // TODO look in database
                 insertTags(["text", "test", "lorem", "ipsum", "cats", "dogs", "second", "third", "test2", "longtext", "longertextlong", "best", "a"]);
@@ -97,6 +98,14 @@ insertHeader("Register", array("containers", "inputs"));
             <div class="page-ex preload" page-ex="0">
                 <?php
                 insertNavigationMenu(3, 1);
+                ?>
+            </div>
+
+            <!-- Confirmation -->
+
+            <div class="page preload form-element" page="3">
+                <?php
+                insertTextSubmit("Register");
                 ?>
             </div>
         </form>

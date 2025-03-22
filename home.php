@@ -4,7 +4,7 @@
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
-insertSimpleHeader("Home page");
+insertHeader("Home page");
 ?>
 <body>
 <div class="left">

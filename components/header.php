@@ -1,4 +1,4 @@
-<?php function insertHeader($name, $css)
+<?php function insertHeader($name, $css = array())
 { ?>
     <head>
         <title>
@@ -16,11 +16,4 @@
         }
         ?>
     </head>
-<?php }
-
-function insertSimpleHeader($name)
-{
-    insertHeader($name, array());
-}
-
-?>
+<?php } ?>
