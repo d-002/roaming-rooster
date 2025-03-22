@@ -72,3 +72,10 @@ for (let circle of circles) {
         showPage();
     });
 }
+
+let tags = document.getElementsByClassName("tag");
+for (const tag of tags) {
+    tag.addEventListener("click", () => {
+        tag.setAttribute("checked", tag.getAttribute("checked") === "true" ? "false" : "true");
+    });
+}

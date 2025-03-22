@@ -78,15 +78,9 @@ insertHeader("Register", array("containers", "inputs"));
 
             <div class="form-element page preload" page="3">
                 <p class="form-section">About you</p>
-                <div class="tags">
-                    <p class="tag">text</p>
-                    <p class="tag">test</p>
-                    <p class="tag">lorem</p>
-                    <p class="tag">ipsum</p>
-                </div>
                 <?php
                 // TODO look in database
-                insertTags(["text", "test", "lorem", "ipsum", "cats", "dogs"]);
+                insertTags(["text", "test", "lorem", "ipsum", "cats", "dogs", "second", "third", "test2", "longtext", "longertextlong", "best", "a"]);
                 ?>
                 <p class="form-text">Can be edited at any moment. Full list will be on your profile page.</p>
             </div>
