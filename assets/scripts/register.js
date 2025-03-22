@@ -3,6 +3,7 @@ let submit = form.getElementsByClassName("text-submit")[0];
 
 let pageNumber = 0;
 let numberOfPages = 4;
+let checkedTags = new Set();
 
 function showPage() {
     let page = document.getElementsByClassName("page");
@@ -76,6 +77,12 @@ for (let circle of circles) {
 let tags = document.getElementsByClassName("tag");
 for (const tag of tags) {
     tag.addEventListener("click", () => {
-        tag.setAttribute("checked", tag.getAttribute("checked") === "true" ? "false" : "true");
+        if (tag.getAttribute("checked") === "true") {
+            checkedTags.delete(tag.textContent);
+            tag.setAttribute("checked", "false");
+        } else {
+            checkedTags.add(tag.textContent);
+            tag.setAttribute("checked", "true");
+        }
     });
 }
