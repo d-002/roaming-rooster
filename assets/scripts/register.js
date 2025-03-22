@@ -1,6 +1,9 @@
 let form = document.getElementById("register-form");
 let submit = form.getElementsByClassName("text-submit")[0];
 
+let pred = document.getElementById("nav-pred");
+let next = document.getElementById("nav-next");
+
 let pageNumber = 0;
 let numberOfPages = 4;
 let checkedTags = new Set();
@@ -36,6 +39,15 @@ function showPage() {
     for (let circle of circles) {
         circle.setAttribute("checked", (parseInt(circle.getAttribute("circle")) === pageNumber).toString());
     }
+    if (pageNumber + 1 >= numberOfPages) {
+        next.classList.add("reduce");
+    } else {
+        next.classList.remove("reduce");
+    }
+    if (pageNumber === 0) {
+        let card = document.getElementsByClassName("card")[0];
+        card.classList.replace("card-full-page", "card-half-page")
+    }
 }
 
 submit.addEventListener("click", e => {
@@ -48,16 +60,8 @@ submit.addEventListener("click", e => {
 
 showPage();
 
-let pred = document.getElementById("nav-pred");
-let next = document.getElementById("nav-next");
-
 pred.addEventListener("click", () => {
     pageNumber--;
-    next.classList.remove("reduce");
-    if (pageNumber === 0) {
-        let card = document.getElementsByClassName("card")[0];
-        card.classList.replace("card-full-page", "card-half-page")
-    }
     showPage();
 });
 
@@ -65,9 +69,6 @@ next.addEventListener("click", () => {
     if (pageNumber + 1 < numberOfPages) {
         pageNumber++;
         showPage();
-        if (pageNumber + 1 >= numberOfPages) {
-            next.classList.add("reduce");
-        }
     }
 });
 
