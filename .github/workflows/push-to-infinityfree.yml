@@ -16,11 +16,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip python-dateutil
 
       - name: Run python script
         shell: bash
         env:
           username: ${{secrets.INFINITYFREE_USERNAME}}
           password: ${{secrets.INFINITYFREE_PASSWORD}}
-        run: python3 private/deploy.py "$username" "$password"
+        run: python3 private/deploy.py "$username" "$password" "."

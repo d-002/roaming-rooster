@@ -69,4 +69,5 @@ def get_login():
 
     return login
 
-get_login()
+if __name__ == '__main__':
+    print(get_login())
