@@ -11,8 +11,15 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
-function fillDatabase($db) {
+function insert($db, $table, $values) {
+    $db->query("INSERT INTO ".$table."(url) VALUES".$values);
+}
+
+function fillDatabase() {
     $db = getSecureDB();
+
+    // images
+    insert($db, "images", "('test')");
 
     $db = null;
 }
@@ -39,12 +46,12 @@ switch($state) {
         break;
     case 1:
         try {
-            formatDatabase();
+            fillDatabase();
             echo '
 <p>Database successfully filled. Click <a href=".">here</a> to finish the operation.</p>';
         } catch (Exception $e) {
             echo '
-<p>Error while deleting:</p>
+<p>Error while filling:</p>
 <p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
 <p>Click <a href=".">here</a> to restart the operation.</p>';
         }
