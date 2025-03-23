@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "arima";
+    src: url("/assets/fonts/ArimaMadurai-Regular.ttf");
+}
+
+@font-face {
+    font-family: "arima-bold";
+    src: url("/assets/fonts/ArimaMadurai-Bold.ttf");
+}
+
+@font-face {
+    font-family: "inria";
+    src: url("/assets/fonts/InriaSerif-Regular.ttf");
+}
 
 :root {
     --title-color: #9FBA72;
