@@ -13,7 +13,7 @@ include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 $db = getSecureDB();
         ?>
 
-        <form action="." method="GET">
+        <form action="" method="GET">
             <label for="query">Enter query here:</label>
             <input type="text" id="query" name="query" />
             <br>

@@ -9,31 +9,35 @@ let pageNumber = 0;
 let numberOfPages = 4;
 let checkedTags = new Set();
 
+function showElement(pageElement) {
+    if (pageElement.classList.contains("preload"))
+        pageElement.classList.remove("preload");
+    if (pageElement.classList.contains("reduce"))
+        pageElement.classList.remove("reduce");
+}
+
+function hideElement(pageElement) {
+    if (!pageElement.classList.contains("reduce"))
+        pageElement.classList.add("reduce");
+}
+
 function showPage() {
     let page = document.getElementsByClassName("page");
     for (let pageElement of page) {
         let elementPage = parseInt(pageElement.getAttribute("page"));
         if (pageNumber === elementPage) {
-            if (pageElement.classList.contains("preload"))
-                pageElement.classList.remove("preload");
-            if (pageElement.classList.contains("reduce"))
-                pageElement.classList.remove("reduce");
+            showElement(pageElement);
         } else {
-            if (!pageElement.classList.contains("reduce"))
-                pageElement.classList.add("reduce");
+            hideElement(pageElement);
         }
     }
     let special = document.getElementsByClassName("page-ex");
     for (let pageElement of special) {
         let exception = parseInt(pageElement.getAttribute("page-ex"));
         if (pageNumber !== exception) {
-            if (pageElement.classList.contains("preload"))
-                pageElement.classList.remove("preload");
-            if (pageElement.classList.contains("reduce"))
-                pageElement.classList.remove("reduce");
+            showElement(pageElement);
         } else {
-            if (!pageElement.classList.contains("reduce"))
-                pageElement.classList.add("reduce");
+            hideElement(pageElement)
         }
     }
     let circles = document.getElementsByClassName("page-circle");
