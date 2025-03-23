@@ -65,6 +65,7 @@ br.large {
 a.button {
     display: block;
 
+    margin: 20px 0;
     padding: 12px;
     width: 250px;
 
@@ -89,13 +90,25 @@ a.button.secondary {
 }
 
 #arrow {
-    content: "v";
+    position: relative;
+
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
 }
 
-#more {
-    text-decoration: none;
-}
+#arrow:after {
+    content: "";
 
-#more:hover {
-    text-decoration: underline;
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+
+    background: url("/assets/images/down.png");
+    background-size: cover;
+    background-position: center;
 }

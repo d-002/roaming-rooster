@@ -12,7 +12,6 @@
         <div id="left">
             <h2>Every local farmer is on</h2>
             <h1>Roaming Rooster</h1>
-
             <br class="large" />
 
             <div class="center">
@@ -21,7 +20,7 @@ function button($text, $link, $class) {
     echo "<a href='".$link."' class='button ".$class."'>".$text."</a>";
 }
 
-if (false) {
+if (1) {
     button("Dashboard", "/pages/dashboard", "primary");
     button("Sign out", "/pages/signout", "secondary");
 }
@@ -31,9 +30,15 @@ else {
 } ?>
             </div>
 
+            <br class="large" />
             <p id="arrow">See services</p>
+            <br class="large" />
 
-            <a href="/pages/services" id="more">Browse</a>
+<?php
+?>
+
+            <br class="large" />
+            <a href="/pages/services" class="button secondary">Browse</a>
         </div>
 
         <div id="right"></div>
