@@ -7,6 +7,7 @@
     <body>
         <h1>WARNING: this is NOT for use in production.</h1>
         <a href="/pages/admin/format-database">/!\ SENSITIVE - go to the format database page</a>
+        <a href="/pages/admin/fill-database">/!\ SENSITIVE - go to the dummy fill database page</a>
 
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
