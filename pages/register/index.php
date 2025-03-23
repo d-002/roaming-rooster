@@ -28,11 +28,11 @@ insertHeader("Register", array("containers", "inputs"));
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
-        <form class="classic-form" action="/pages/welcome.php" id="register-form" method="post">
+        <form class="classic-form" action="/pages/welcome" id="register-form" method="post">
             <!-- Page 0 -->
             <div class="page" page="0">
                 <?php
-                insertArrowRedirect("I have an account", "Login", "/pages/login.php");
+                insertArrowRedirect("I have an account", "Login", "/pages/login");
                 ?>
             </div>
             <div class="form-element page" page="0">
