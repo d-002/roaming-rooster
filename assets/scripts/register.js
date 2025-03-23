@@ -1,5 +1,6 @@
 let form = document.getElementById("register-form");
-let submit = form.getElementsByClassName("text-submit")[0];
+let submits = form.getElementsByClassName("text-submit");
+let startForm = submits[0];
 
 let pred = document.getElementById("nav-pred");
 let next = document.getElementById("nav-next");
@@ -50,15 +51,15 @@ function showPage() {
     }
 }
 
-submit.addEventListener("click", e => {
+showPage();
+
+startForm.addEventListener("click", e => {
     e.preventDefault()
     let card = document.getElementsByClassName("card")[0];
     card.classList.replace("card-half-page", "card-full-page");
     pageNumber++;
     showPage();
 });
-
-showPage();
 
 pred.addEventListener("click", () => {
     pageNumber--;
@@ -93,4 +94,30 @@ for (const tag of tags) {
         }
         tagsInput.value = Array.from(checkedTags).join(",");
     });
+}
+
+let inputs = document.getElementsByTagName("input");
+let canHandle = true;
+for (const input of inputs) {
+    if (input.required) {
+        let parent = input.closest(".page");
+        if (parent != null) {
+            console.log("Adding event");
+            input.addEventListener("invalid", () => {
+                if (!canHandle) return;
+                console.log("Handling");
+                pageNumber = parseInt(parent.getAttribute("page"));
+                showPage();
+                input.classList.add("required-tip");
+                canHandle = false;
+                setTimeout(() => {
+                    input.focus();
+                    input.reportValidity();
+                    setTimeout(() => {
+                        canHandle = true;
+                    }, 5);
+                }, 500);
+            });
+        }
+    }
 }

@@ -207,3 +207,13 @@
 .tag[checked=true]:hover {
     outline: var(--back-color-important) 2px solid;
 }
+
+label:has(input:required)::before {
+    content: "Required";
+    color: red;
+    font-style: italic;
+}
+
+.required-tip:invalid {
+    border: red solid 3px;
+}
