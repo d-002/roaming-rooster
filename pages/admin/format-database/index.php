@@ -138,7 +138,7 @@ switch($state) {
 <p>Database successfully formatted. Click <a href=".">here</a> to finish the operation.</p>';
         } catch (Exception $e) {
             echo '
-<p>Error while deleting:</p>
+<p>Error while formatting:</p>
 <p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
 <p>Click <a href=".">here</a> to restart the operation.</p>';
         }

@@ -77,9 +77,10 @@ try {
 
         echo "\n  Listing entries:\n";
 
+        $i = 0;
         $q_entries = $db->query("SELECT * FROM ".$table_name);
         while ($entry = $q_entries->fetch()) {
-            echo "    ";
+            echo "    ".($i++)." -- ";
             foreach ($columns as $column)
                 echo $column."=".$entry[$column]." ";
             echo "\n";
