@@ -54,7 +54,7 @@ p {
 }
 
 .subtitle {
-    color: var(--text-color-main) !important;
+    color: var(--text-color-main);
     text-align: center;
     font-size: x-large;
     padding: 0;

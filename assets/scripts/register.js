@@ -5,6 +5,8 @@ let startForm = submits[0];
 let pred = document.getElementById("nav-pred");
 let next = document.getElementById("nav-next");
 
+let username = document.getElementById("username");
+
 let pageNumber = 0;
 let numberOfPages = 4;
 let checkedTags = new Set();
@@ -58,11 +60,23 @@ function showPage() {
 showPage();
 
 startForm.addEventListener("click", e => {
-    e.preventDefault()
-    let card = document.getElementsByClassName("card")[0];
-    card.classList.replace("card-half-page", "card-full-page");
-    pageNumber++;
-    showPage();
+    e.preventDefault();
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            if (this.responseText === "usable") {
+                let card = document.getElementsByClassName("card")[0];
+                card.classList.replace("card-half-page", "card-full-page");
+                pageNumber++;
+                showPage();
+            } else {
+                alert("This username is already used. Please choose another one.");
+            }
+        }
+    }
+    console.log(username.value);
+    request.open("GET", "/utils/verify.php?username=" + username.value, true);
+    request.send();
 });
 
 pred.addEventListener("click", () => {
