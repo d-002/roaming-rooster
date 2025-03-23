@@ -4,9 +4,11 @@
     require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
     component("header");
+
+    insertHeader("Home", array("homepage/main"));
     ?>
 
     <body>
-        <h1>
+        <h1>The Roaming Rooster</h1>
     </body>
 </html>
