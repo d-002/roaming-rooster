@@ -24,20 +24,31 @@ function hideElement(pageElement) {
         pageElement.classList.add("reduce");
 }
 
-function validatePageOne(callback) {
-    if (pageNumber === 1) {
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
+function validateInput(callback, name, element, message) {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
                 if (this.responseText === "usable") {
                     callback();
                 } else {
-                    alert("This email is already used or is invalid. Please choose another one.");
+                    alert(message);
                 }
+            } else {
+                alert(`Cannot verify ${name}, server cannot be reached.`)
             }
         }
-        request.open("GET", "/utils/verify.php?email=" + email.value, true);
-        request.send();
+    }
+    request.ontimeout = function () {
+        alert(`Cannot verify ${name}, server cannot be reached.`)
+    }
+    request.open("GET", `/utils/verify?${name}=${element.value}`, true);
+    request.send();
+}
+
+function validatePageOne(callback) {
+    if (pageNumber === 1) {
+        validateInput(callback, "email", email, "This email is already used or is invalid. Please choose another one. Example: email@example.com is a valid email, a@a is not.");
     } else {
         callback();
     }
@@ -81,21 +92,17 @@ showPage();
 
 startForm.addEventListener("click", e => {
     e.preventDefault();
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText === "usable") {
-                let card = document.getElementsByClassName("card")[0];
-                card.classList.replace("card-half-page", "card-full-page");
-                pageNumber++;
-                showPage();
-            } else {
-                alert("This username is already used. Please choose another one.");
-            }
-        }
-    }
-    request.open("GET", "/utils/verify.php?username=" + username.value, true);
-    request.send();
+    validateInput(
+        () => {
+            let card = document.getElementsByClassName("card")[0];
+            card.classList.replace("card-half-page", "card-full-page");
+            pageNumber++;
+            showPage();
+        },
+        "username",
+        username,
+        "This username is already used. Please choose another one."
+    );
 });
 
 pred.addEventListener("click", () => {
