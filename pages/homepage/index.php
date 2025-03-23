@@ -31,10 +31,11 @@ else {
 } ?>
             </div>
 
-            <div id="arrow"></div>
+            <p id="arrow">See services</p>
+
+            <a href="/pages/services" id="more">Browse</a>
         </div>
 
-        <div id="right">
-        </div>
+        <div id="right"></div>
     </body>
 </html>
