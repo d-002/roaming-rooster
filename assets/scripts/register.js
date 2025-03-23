@@ -6,6 +6,7 @@ let pred = document.getElementById("nav-pred");
 let next = document.getElementById("nav-next");
 
 let username = document.getElementById("username");
+let email = document.getElementById("email");
 
 let pageNumber = 0;
 let numberOfPages = 4;
@@ -21,6 +22,25 @@ function showElement(pageElement) {
 function hideElement(pageElement) {
     if (!pageElement.classList.contains("reduce"))
         pageElement.classList.add("reduce");
+}
+
+function validatePageOne(callback) {
+    if (pageNumber === 1) {
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                if (this.responseText === "usable") {
+                    callback();
+                } else {
+                    alert("This email is already used or is invalid. Please choose another one.");
+                }
+            }
+        }
+        request.open("GET", "/utils/verify.php?email=" + email.value, true);
+        request.send();
+    } else {
+        callback();
+    }
 }
 
 function showPage() {
@@ -74,7 +94,6 @@ startForm.addEventListener("click", e => {
             }
         }
     }
-    console.log(username.value);
     request.open("GET", "/utils/verify.php?username=" + username.value, true);
     request.send();
 });
@@ -85,17 +104,21 @@ pred.addEventListener("click", () => {
 });
 
 next.addEventListener("click", () => {
-    if (pageNumber + 1 < numberOfPages) {
-        pageNumber++;
-        showPage();
-    }
+    validatePageOne(() => {
+        if (pageNumber + 1 < numberOfPages) {
+            pageNumber++;
+            showPage();
+        }
+    });
 });
 
 let circles = document.getElementsByClassName("circle");
 for (let circle of circles) {
     circle.addEventListener("click", () => {
-        pageNumber = parseInt(circle.getAttribute("circle"));
-        showPage();
+        validatePageOne(() => {
+            pageNumber = parseInt(circle.getAttribute("circle"));
+            showPage();
+        });
     });
 }
 
