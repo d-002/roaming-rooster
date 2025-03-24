@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fill-page">
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
+component("arrow_redirect");
+component("text_field");
+component("text_submit");
 
-insertHeader("Welcome", ["inputs", "containers"]);
+insertHeader("Login", ["inputs", "containers"]);
 ?>
 
-<body>
+<body class="fill-page main-column take-all justify-content-center align-content-center">
 
-<h1>Login Page (Test only)</h1>
+<header class="titles">
+    <a href="/home.php">
+        <p class="subtitle">Every local farmer is on</p>
+        <h1>The Roaming Rooster</h1>
+    </a>
+</header>
 
-<div class="text-center">
-    <?php
-    component("logo");
-    ?>
+<div class="line">
+    <div class="logo-decoration-container">
+        <?php
+        component("logo");
+        ?>
+    </div>
+
+    <form class="classic-form">
+        <div class="form-element">
+            <?php
+            insertTextField("Username", "username", true);
+            insertTextField("Password", "password", true, type: "password");
+            ?>
+        </div>
+
+        <div class="line">
+            <?php
+            insertTextSubmit("Login");
+            insertArrowRedirect("Before, I should", "Register", "/pages/register");
+            ?>
+        </div>
+    </form>
 </div>
-
-<form class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-
-    <button type="submit">Login As Seller</button>
-    <button type="submit">Login As Customer</button>
-    <button type="submit">Login As Administrator</button>
-</form>
 
 </body>
 </html>
