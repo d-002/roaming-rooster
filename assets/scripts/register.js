@@ -7,6 +7,8 @@ let next = document.getElementById("nav-next");
 
 let username = document.getElementById("username");
 let email = document.getElementById("email");
+let password = document.getElementById("password");
+let confirmation = document.getElementById("password-confirmation");
 
 let pageNumber = 0;
 let numberOfPages = 4;
@@ -48,6 +50,11 @@ function validateInput(callback, name, element, message) {
 
 function validatePageOne(callback) {
     if (pageNumber === 1) {
+        if (password.value !== confirmation.value)
+            return alert("The password confirmation is not identical to the password value.");
+        if (!password.value.match(/^[A-Za-z]+$/))
+            return alert("This website is currently in HTTP. Please enter a dummy password as we cannot assert that our website is secure. A dummy password should only contains letters.");
+
         validateInput(callback, "email", email, "This email is already used or is invalid. Please choose another one. Example: email@example.com is a valid email, a@a is not.");
     } else {
         callback();
