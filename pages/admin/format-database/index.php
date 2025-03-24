@@ -124,7 +124,7 @@ else
 switch($state) {
     case 0:
         echo '
-<form action="." method="GET">
+<form action="" method="GET">
     <label for="text">Type "I understand" to format the database:</label>
     <input type="text" id="text" name="text" />
     <br>
