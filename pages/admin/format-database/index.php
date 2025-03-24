@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
     <head>
         <title>Database formatting</title>
         <style>textarea{width:100%;height:200px}</style>
@@ -11,7 +11,8 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
-function createTables($db) {
+function createTables($db): void
+{
     // /!\ order is important
 
     $db->query("CREATE TABLE images(id INTEGER PRIMARY KEY, url TEXT)");
@@ -51,25 +52,25 @@ function createTables($db) {
     $db->query("CREATE TABLE tags_users_join(
         id INTEGER PRIMARY KEY,
         tag_id INTEGER, user_id INTEGER,
-        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        FOREIGN KEY(tag_id) REFERENCES tags(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE tags_services_join(
         id INTEGER PRIMARY KEY,
         tag_id INTEGER, service_id INTEGER,
-        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        FOREIGN KEY(tag_id) REFERENCES tags(id),
         FOREIGN KEY(service_id) REFERENCES services(id)
     )");
     $db->query("CREATE TABLE orders(
         id INTEGER PRIMARY KEY,
         buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount REAL,
-        FOREIGN KEY(buyer_id) REFERENCES users(id)
+        FOREIGN KEY(buyer_id) REFERENCES users(id),
         FOREIGN KEY(seller_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE ratings(
         id INTEGER PRIMARY KEY,
         sub_service_id INTEGER, user_id INTEGER, rating REAL, comment TEXT,
-        FOREIGN KEY(sub_service_id) REFERENCES sub_services(id)
+        FOREIGN KEY(sub_service_id) REFERENCES sub_services(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE services(
@@ -123,7 +124,7 @@ else
 switch($state) {
     case 0:
         echo '
-<form action="." method="GET">
+<form action="" method="GET">
     <label for="text">Type "I understand" to format the database:</label>
     <input type="text" id="text" name="text" />
     <br>

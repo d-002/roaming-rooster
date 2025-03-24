@@ -1,0 +1,40 @@
+@import 'main_style.css';
+
+.fill-page {
+    height: 100%;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-half-page {
+    border-width: 3px 3px 0 3px;
+    border-radius: var(--large-corner) var(--large-corner) 0 0;
+}
+
+.card-full-page {
+    border-width: 0 3px 0 3px;
+    border-radius: 0 0 0 0;
+    transition: border-radius 0.5s, border-width 0.5s;
+}
+
+.card {
+    background-color: var(--back-color-popup);
+    margin-left: var(--reading-margin);
+    margin-right: var(--reading-margin);
+    padding: 3px var(--big-container-padding);
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-medium);
+    justify-content: center;
+    align-items: center;
+
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: fit-content;
+
+    box-shadow: rgba(from var(--text-color-main) r g b / 0.3) 0 0 30px 10px;
+}

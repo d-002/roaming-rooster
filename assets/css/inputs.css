@@ -1,0 +1,219 @@
+
+.text-field-label {
+    font-size: medium;
+    text-align: right;
+    color: var(--text-color-main);
+    margin-left: var(--input-block-margin);
+    margin-right: var(--input-block-margin);
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-minimum);
+}
+
+.text-field {
+    background-color: var(--text-color-secondary);
+    color: var(--back-color-popup);
+    border: none;
+    border-radius: var(--medium-corner);
+    font-size: xx-large;
+    padding: var(--input-block-padding);
+    width: 100%;
+}
+
+.text-submit {
+    border: none;
+    border-radius: var(--medium-corner);
+    background-color: var(--text-color-secondary);
+    color: var(--back-color-popup);
+    font-size: xx-large;
+    font-weight: bold;
+    padding: var(--input-block-padding);
+    margin: var(--input-block-margin);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.arrow-redirect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.arrow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: italic;
+}
+
+.arrow-container > * {
+    margin: 0;
+    padding: 0;
+    line-height: 7px;
+}
+
+.arrow {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+.arrow-large {
+    transform: scaleX(4.5);
+}
+
+.pointed {
+    margin: calc(var(--input-block-margin) * 2);
+    font-weight: 1000;
+    font-size: x-large;
+    text-shadow: var(--text-color-main) 0 0 10px;
+}
+
+.classic-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.classic-form > * + * {
+    margin-top: var(--spacing-medium);
+}
+
+.at-least-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.fancy-checkbox {
+    background-color: var(--accent-color-main);
+    color: var(--back-color-base);
+    margin: var(--input-block-margin);
+    padding: var(--input-block-padding);
+    font-size: x-large;
+    border-radius: var(--medium-corner);
+    user-select: none;
+    box-shadow: #00000055 0 0 20px 1px;
+}
+
+.fancy-checkbox:hover {
+    background-color: var(--accent-color-secondary);
+}
+
+.fancy-checkbox:has(*:checked) {
+    background-color: var(--title-color);
+    box-shadow: #000000A5 0 0 20px 1px;
+}
+
+.fancy-checkbox > input {
+    outline: var(--warning-color) 1px solid;
+}
+
+.circles {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-minimum);
+}
+
+.circle {
+    border: var(--back-color-secondary) 3px solid;
+    border-radius: 50%;
+    width: 3vw;
+    height: 3vw;
+    transition: background-color 0.5s ease;
+}
+
+.circle[checked=true] {
+    background-color: var(--title-color);
+}
+
+.pages-nav {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-small);
+}
+
+.btn-primary > p {
+    color: var(--back-color-base);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.btn-primary {
+    background-color: var(--back-color-secondary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--back-color-important);
+}
+
+.form-section {
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}
+
+.form-text {
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+    max-width: 50vw;
+}
+
+.tag {
+    background-color: var(--accent-color-main);
+    color: var(--back-color-base);
+    border-radius: var(--medium-corner);
+    user-select: none;
+    box-shadow: #00000045 0 0 10px;
+    padding: 2px 10px;
+    margin: 0;
+}
+
+.tag::before {
+    content: "#";
+}
+
+.tag:hover {
+    background-color: var(--back-color-important);
+}
+
+.tag[checked=true] {
+    background-color: var(--title-color);
+    box-shadow: #00000055 0 0 12px;
+}
+
+.tag[checked=true]:hover {
+    outline: var(--back-color-important) 2px solid;
+}
+
+label:has(input:required)::before {
+    content: "Required";
+    color: red;
+    font-style: italic;
+}
+
+.required-tip:invalid {
+    border: red solid 3px;
+}
