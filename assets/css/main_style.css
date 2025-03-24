@@ -1,0 +1,126 @@
+
+:root {
+    --title-color: #9FBA72;
+    --warning-color: #FFC87F;
+    --text-color-main: #663F46;
+    --text-color-secondary: #6C5750;
+    --back-color-base: #E8F7EE;
+    --back-color-popup: #C1F5D6;
+    --back-color-important: #E27BBC;
+    --back-color-secondary: #A79CD6;
+    --back-color-ternary: #DFDCDB;
+    --accent-color-main: var(--back-color-secondary);
+    --accent-color-secondary: var(--back-color-important);
+
+    --place-color-main: #77005D;
+    --place-color-secondary: #121212;
+    --place-holder-gradient: repeating-linear-gradient(45deg, var(--place-color-main) 10%, var(--place-color-secondary), 10%);
+
+    --image-on-back-base-gradient: linear-gradient(var(--back-color-important) 0%, transparent 100%);
+
+    --medium-corner: 12px;
+    --large-corner: 40px;
+
+    /* Like text fields */
+    --input-block-padding: 8px;
+    --input-block-margin: 5px;
+    /* Big containers should have a padding */
+    --big-container-padding: 2%;
+    /* To facilitate the reading of the document */
+    --reading-margin: 7%;
+
+    --spacing-minimum: 10px;
+    --spacing-small: 21px;
+    --spacing-medium: 42px;
+    --spacing-large: 84px;
+}
+
+html, body {
+    background-color: var(--back-color-base) !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    background-color: transparent;
+}
+
+h1 {
+    color: var(--text-color-secondary) !important;
+    text-align: center;
+}
+
+p {
+    color: var(--text-color-main);
+}
+
+.subtitle {
+    color: var(--text-color-main);
+    text-align: center;
+    font-size: x-large;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+a:has(.subtitle) {
+    text-decoration: none;
+}
+
+.titles {
+    padding: var(--big-container-padding);
+}
+
+.logo-decoration-container {
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(0 0 3px #00000033);
+}
+
+@media screen and (max-device-width: 500px) {
+    .logo-decoration-container {
+        display: none;
+    }
+}
+
+.page {
+    max-height: 500px;
+    visibility: visible;
+    transition: max-height, padding, margin, visibility;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    /* Might not work on firefox */
+    transition-behavior: allow-discrete;
+}
+
+.hidden {
+    display: none;
+}
+
+.reduce {
+    /* display: none !important; */
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+    margin: 0 !important;
+    visibility: collapse;
+}
+
+.preload {
+    transition: none !important;
+}
+
+/* From the design of Hong Tao */
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}

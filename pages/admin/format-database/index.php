@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
     <head>
         <title>Database formatting</title>
         <style>textarea{width:100%;height:200px}</style>
@@ -11,81 +11,82 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
-function createTables($db) {
+function createTables($db): void
+{
     // /!\ order is important
 
-    $db->query("CREATE TABLE images(id INT PRIMARY KEY, url TEXT)");
+    $db->query("CREATE TABLE images(id INTEGER PRIMARY KEY, url TEXT)");
     $db->query("CREATE TABLE themes(
-        id INT PRIMARY KEY,
-        main_image_id INT, banner_image_id INT, col1 INT, col2 INT,
+        id INTEGER PRIMARY KEY,
+        main_image_id INTEGER, banner_image_id INTEGER, col1 INTEGER, col2 INTEGER,
         FOREIGN KEY(main_image_id) REFERENCES images(id),
         FOREIGN KEY(banner_image_id) REFERENCES images(id)
     )");
     $db->query("CREATE TABLE users(
-        id INT PRIMARY KEY,
-        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INT, phone TEXT, latitude REAL, longitude REAL, theme_id INT, banned INT,
+        id INTEGER PRIMARY KEY,
+        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INTEGER, phone TEXT, latitude REAL, longitude REAL, theme_id INTEGER, banned INTEGER,
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE roles(
-        id INT PRIMARY KEY,
-        user_id INT, role INT,
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER, role INTEGER,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE balances(
-        id INT PRIMARY KEY, user_id INT, amount REAL,
+        id INTEGER PRIMARY KEY, user_id INTEGER, amount REAL,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE notifications(
-        id INT PRIMARY KEY,
-        user_id INT, conversation_id INT, text TEXT, time INT,
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER, conversation_id INTEGER, text TEXT, time INTEGER,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE messages(
-        id INT PRIMARY KEY,
-        user_id INT, conversation_id INT, message TEXT, time INT,
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER, conversation_id INTEGER, message TEXT, time INTEGER,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
-    $db->query("CREATE TABLE conversations(id INT PRIMARY KEY, user1 INT, user2 INT, subject TEXT, closed INT)");
-    $db->query("CREATE TABLE conversations_requests(id INT PRIMARY KEY, sender INT, receiver INT, is_service_inquiry INT)");
-    $db->query("CREATE TABLE tags(id INT PRIMARY KEY, name TEXT)");
+    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed INTEGER)");
+    $db->query("CREATE TABLE conversations_requests(id INTEGER PRIMARY KEY, sender INTEGER, receiver INTEGER, is_service_inquiry INTEGER)");
+    $db->query("CREATE TABLE tags(id INTEGER PRIMARY KEY, name TEXT)");
     $db->query("CREATE TABLE tags_users_join(
-        id INT PRIMARY KEY,
-        tag_id INT, user_id INT,
-        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        id INTEGER PRIMARY KEY,
+        tag_id INTEGER, user_id INTEGER,
+        FOREIGN KEY(tag_id) REFERENCES tags(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE tags_services_join(
-        id INT PRIMARY KEY,
-        tag_id INT, service_id INT,
-        FOREIGN KEY(tag_id) REFERENCES tags(id)
+        id INTEGER PRIMARY KEY,
+        tag_id INTEGER, service_id INTEGER,
+        FOREIGN KEY(tag_id) REFERENCES tags(id),
         FOREIGN KEY(service_id) REFERENCES services(id)
     )");
     $db->query("CREATE TABLE orders(
-        id INT PRIMARY KEY,
-        buyer_id INT, seller_id INT, sub_service_id INT, amount REAL,
-        FOREIGN KEY(buyer_id) REFERENCES users(id)
+        id INTEGER PRIMARY KEY,
+        buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount REAL,
+        FOREIGN KEY(buyer_id) REFERENCES users(id),
         FOREIGN KEY(seller_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE ratings(
-        id INT PRIMARY KEY,
-        sub_service_id INT, user_id INT, rating REAL, comment TEXT,
-        FOREIGN KEY(sub_service_id) REFERENCES sub_services(id)
+        id INTEGER PRIMARY KEY,
+        sub_service_id INTEGER, user_id INTEGER, rating REAL, comment TEXT,
+        FOREIGN KEY(sub_service_id) REFERENCES sub_services(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE services(
-        id INT PRIMARY KEY,
-        user_id INT, theme_id INT, title TEXT, description TEXT, latitude REAL, longitude REAL,
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER, theme_id INTEGER, title TEXT, description TEXT, latitude REAL, longitude REAL,
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE sub_services(
-        id INT PRIMARY KEY,
-        service_id INT, availability INT, title TEXT, description TEXT, price REAL,
+        id INTEGER PRIMARY KEY,
+        service_id INTEGER, availability INTEGER, title TEXT, description TEXT, price REAL,
         FOREIGN KEY(service_id) REFERENCES services(id)
     )");
     $db->query("CREATE TABLE admin_logs(
-        id INT PRIMARY KEY,
-        user_id INT, time INT, message TEXT,
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER, time INTEGER, message TEXT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
 }
@@ -123,7 +124,7 @@ else
 switch($state) {
     case 0:
         echo '
-<form action="." method="GET">
+<form action="" method="GET">
     <label for="text">Type "I understand" to format the database:</label>
     <input type="text" id="text" name="text" />
     <br>
