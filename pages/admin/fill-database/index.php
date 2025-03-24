@@ -28,6 +28,17 @@ function empty_database($db) {
     }
 }
 
+function pdo_type($value) {
+    $type = gettype($value);
+    switch($type) {
+        case "string": return \SQLITE3_TEXT;
+        case "integer": return \SQLITE3_INTEGER;
+        case "boolean": return \SQLITE3_INTEGER;
+        case "double": return \SQLITE3_FLOAT;
+        default: return \SQLITE3_TEXT;
+    }
+}
+
 function insert($db, $table, $values_arr) {
     // get columns
     $q_columns = $db->query("PRAGMA table_info(".$table.")");
@@ -50,12 +61,13 @@ function insert($db, $table, $values_arr) {
     }
 
     $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
-    //echo '<p>'.$query.'</p>';
+    echo '<p>'.$query.'</p>';
 
     $sdmt = $db->prepare($query);
 
     $i = 0;
-    foreach($values_arr as $value) $sdmt->bindParam(++$i, $value);
+    foreach($values_arr as $_=>$value)
+        $sdmt->bindValue(++$i, $value, pdo_type($value));
 
     $sdmt->execute();
 }
