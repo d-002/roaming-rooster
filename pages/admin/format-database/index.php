@@ -111,13 +111,11 @@ function formatDatabase() {
 
     $db = null;
 }
-        ?>
 
-        <?php
 $state = 0; // 0: nothing sent, 1: sent command to delete, 2: done deletion, -1: aborted
 
 if (array_key_exists("text", $_GET))
-    $state = $_GET["text"] == "I understand" ? 1 : -1;
+    $state = $_GET["text"] === "I understand" ? 1 : -1;
 else
     $query = "";
 

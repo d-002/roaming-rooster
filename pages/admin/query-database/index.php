@@ -31,7 +31,7 @@ else
         <p>Query: <?php echo $query ?></p>
         <p>Dumped query result:</p>
         <textarea style="height:200px"><?php
-if ($query == "")
+if ($query === "")
     echo "[no query]";
 else {
     $res = null;
