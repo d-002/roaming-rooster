@@ -20,7 +20,24 @@ function isEmailInDatabase(PDO $db, $email): bool
     return count($elements) != 0;
 }
 
-function insertUserInDatabase(PDO $db, $email, $username, $password, $display = null, $phone = null, $latitude = null, $longitude = null, $theme_id = null)
+function getUserIdByEmail(PDO $db, $email)
+{
+    $st = $db->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+    $result = $st->execute(["email" => $email]);
+    if (!$result) return null;
+    $elements = $st->fetchAll();
+    $st->closeCursor();
+    if (count($elements) != 1) return null;
+    return $elements["id"];
+}
+
+function addRoleToUser(PDO $db, $id, $role): void
+{
+    $st = $db->prepare("INSERT INTO roles (user_id, role) VALUES (:id, :role)");
+    $st->execute(["id" => $id, "role" => $role]);
+}
+
+function insertUserInDatabase(PDO $db, $email, $username, $password, $display = null, $phone = null, $latitude = null, $longitude = null, $theme_id = null, $is_customer = false, $is_seller = false): void
 {
     $data = [
         "email" => $email,
@@ -44,4 +61,11 @@ function insertUserInDatabase(PDO $db, $email, $username, $password, $display = 
 
     $st = $db->prepare("INSERT INTO users ({$columns}) VALUES (:{$values})");
     $st->execute($data);
+
+    $id = getUserIdByEmail($db, $email);
+
+    if ($is_seller)
+        addRoleToUser($db, $id, 2);
+    if ($is_customer)
+        addRoleToUser($db, $id, 1);
 }
