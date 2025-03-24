@@ -28,7 +28,7 @@ function getUserIdByEmail(PDO $db, $email)
     $elements = $st->fetchAll();
     $st->closeCursor();
     if (count($elements) != 1) return null;
-    return $elements["id"];
+    return $elements[0]["id"];
 }
 
 function addRoleToUser(PDO $db, $id, $role): void
