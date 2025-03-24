@@ -37,7 +37,7 @@ function createTables($db): void
     )");
     $db->query("CREATE TABLE users(
         id INTEGER PRIMARY KEY,
-        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INTEGER, phone TEXT, latitude REAL, longitude REAL, theme_id INTEGER, banned INTEGER,
+        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email BOOLEAN, phone TEXT, latitude FLOAT, longitude FLOAT, theme_id INTEGER, banned BOOLEAN,
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE roles(
@@ -46,21 +46,21 @@ function createTables($db): void
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE balances(
-        id INTEGER PRIMARY KEY, user_id INTEGER, amount REAL,
+        id INTEGER PRIMARY KEY, user_id INTEGER, amount FLOAT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE notifications(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, conversation_id INTEGER, text TEXT, time INTEGER,
+        user_id INTEGER, conversation_id INTEGER, text TEXT, time TIMESTAMP,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE messages(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, conversation_id INTEGER, message TEXT, time INTEGER,
+        user_id INTEGER, conversation_id INTEGER, message TEXT, time TIMESTAMP,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
-    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed INTEGER)");
-    $db->query("CREATE TABLE conversations_requests(id INTEGER PRIMARY KEY, sender INTEGER, receiver INTEGER, is_service_inquiry INTEGER)");
+    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed BOOLEAN)");
+    $db->query("CREATE TABLE conversations_requests(id INTEGER PRIMARY KEY, sender INTEGER, receiver INTEGER, is_service_inquiry BOOLEAN)");
     $db->query("CREATE TABLE tags(id INTEGER PRIMARY KEY, name TEXT)");
     $db->query("CREATE TABLE tags_users_join(
         id INTEGER PRIMARY KEY,
@@ -76,30 +76,30 @@ function createTables($db): void
     )");
     $db->query("CREATE TABLE orders(
         id INTEGER PRIMARY KEY,
-        buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount REAL,
+        buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount FLOAT,
         FOREIGN KEY(buyer_id) REFERENCES users(id),
         FOREIGN KEY(seller_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE ratings(
         id INTEGER PRIMARY KEY,
-        sub_service_id INTEGER, user_id INTEGER, rating REAL, comment TEXT,
+        sub_service_id INTEGER, user_id INTEGER, rating FLOAT, comment TEXT,
         FOREIGN KEY(sub_service_id) REFERENCES sub_services(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE services(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, theme_id INTEGER, title TEXT, description TEXT, latitude REAL, longitude REAL,
+        user_id INTEGER, theme_id INTEGER, title TEXT, description TEXT, latitude FLOAT, longitude FLOAT,
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE sub_services(
         id INTEGER PRIMARY KEY,
-        service_id INTEGER, availability INTEGER, title TEXT, description TEXT, price REAL,
+        service_id INTEGER, availability INTEGER, title TEXT, description TEXT, price FLOAT,
         FOREIGN KEY(service_id) REFERENCES services(id)
     )");
     $db->query("CREATE TABLE admin_logs(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, time INTEGER, message TEXT,
+        user_id INTEGER, time TIMETSAMP, message TEXT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
 }
