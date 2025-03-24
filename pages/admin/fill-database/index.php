@@ -11,7 +11,7 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
-function insert($db, $table, $values) {
+function insert($db, $table, $values_arr) {
     // get columns
     $q_columns = $db->query("PRAGMA table_info(".$table.")");
 
@@ -20,19 +20,29 @@ function insert($db, $table, $values) {
     $i = 0;
     while ($column = $q_columns->fetch()) {
         $name = $column["name"];
-        if ($name == "id") continue;
-        if ($i++) $keys .= " ";
+        if ($name === "id") continue;
+        if ($i++) $keys .= ", ";
         $keys .= $name;
     }
 
-    $db->query("INSERT INTO ".$table." (".$keys.") VALUES".$values);
+    $values = "";
+    $i = 0;
+    foreach ($values_arr as $value) {
+        if ($i++) $values .= ", ";
+        $values .= var_export($value, true);
+    }
+
+    $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
+    echo '<p>'.$query.'</p>';
+
+    $db->query($query);
 }
 
 function fillDatabase() {
     $db = getSecureDB();
 
     // images
-    insert($db, "images", "('test')");
+    insert($db, "images", array("test"));
 
     $db = null;
 }
