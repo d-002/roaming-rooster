@@ -12,7 +12,20 @@
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
 function insert($db, $table, $values) {
-    $db->query("INSERT INTO ".$table."(url) VALUES".$values);
+    // get columns
+    $q_columns = $db->query("PRAGMA table_info(".$table.")");
+
+    // build list, excluding ID
+    $keys = "";
+    $i = 0;
+    while ($column = $q_columns->fetch()) {
+        $name = $column["name"];
+        if ($name == "id") continue;
+        if ($i++) $keys .= " ";
+        $keys .= $name;
+    }
+
+    $db->query("INSERT INTO ".$table." (".$keys.") VALUES".$values);
 }
 
 function fillDatabase() {
