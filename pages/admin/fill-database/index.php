@@ -72,6 +72,10 @@ function insert($db, $table, $values_arr) {
     $sdmt->execute();
 }
 
+function now() {
+    return new DateTime("now")->getTimestamp();
+}
+
 function fillDatabase() {
     $db = getSecureDB();
 

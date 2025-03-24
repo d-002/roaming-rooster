@@ -49,18 +49,24 @@ function createTables($db): void
         id INTEGER PRIMARY KEY, user_id INTEGER, amount FLOAT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
+    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed BOOLEAN)");
     $db->query("CREATE TABLE notifications(
         id INTEGER PRIMARY KEY,
         user_id INTEGER, conversation_id INTEGER, text TEXT, time TIMESTAMP,
-        FOREIGN KEY(user_id) REFERENCES users(id)
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES conversation(id)
     )");
     $db->query("CREATE TABLE messages(
         id INTEGER PRIMARY KEY,
         user_id INTEGER, conversation_id INTEGER, message TEXT, time TIMESTAMP,
-        FOREIGN KEY(user_id) REFERENCES users(id)
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES conversation(id)
     )");
-    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed BOOLEAN)");
-    $db->query("CREATE TABLE conversations_requests(id INTEGER PRIMARY KEY, sender INTEGER, receiver INTEGER, is_service_inquiry BOOLEAN)");
+    $db->query("CREATE TABLE conversations_requests(
+        id INTEGER PRIMARY KEY,
+        sender INTEGER, receiver INTEGER, is_service_inquiry BOOLEAN),
+        FOREIGN KEY(sender) REFERENCES users(id),
+        FOREIGN KEY(sender) REFERENCES users(id)");
     $db->query("CREATE TABLE tags(id INTEGER PRIMARY KEY, name TEXT)");
     $db->query("CREATE TABLE tags_users_join(
         id INTEGER PRIMARY KEY,
