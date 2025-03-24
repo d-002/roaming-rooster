@@ -11,6 +11,23 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
+function empty_database($db) {
+    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
+    $tables = array();
+
+    while ($table = $q_tables->fetch())
+        array_push($tables, $table["name"]);
+
+    $q_tables = null;
+
+    foreach($tables as $name) {
+        $query = "DELETE FROM ".$name;
+
+        //echo "<p>".$query."</p>";
+        $db->query($query);
+    }
+}
+
 function insert($db, $table, $values_arr) {
     // get columns
     $q_columns = $db->query("PRAGMA table_info(".$table.")");
@@ -28,12 +45,12 @@ function insert($db, $table, $values_arr) {
     $values = "";
     $i = 0;
     for ($i = 0; $i < count($values_arr); $i++) {
-        if ($i++) $values .= ", ";
+        if ($i) $values .= ", ";
         $values .= "?";
     }
 
     $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
-    echo '<p>'.$query.'</p>';
+    //echo '<p>'.$query.'</p>';
 
     $sdmt = $db->prepare($query);
 
@@ -45,6 +62,8 @@ function insert($db, $table, $values_arr) {
 
 function fillDatabase() {
     $db = getSecureDB();
+
+    empty_database($db);
 
     // images
     insert($db, "images", array("test"));

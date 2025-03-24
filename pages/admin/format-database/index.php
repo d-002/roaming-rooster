@@ -11,6 +11,19 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
+function empty_database($db) {
+    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
+    $tables = array();
+
+    while ($table = $q_tables->fetch())
+        array_push($tables, $table["name"]);
+
+    $q_tables = null;
+
+    foreach($tables as $name)
+        $db->query("DROP TABLE ".$name);
+}
+
 function createTables($db): void
 {
     // /!\ order is important
@@ -96,16 +109,7 @@ function formatDatabase() {
 
     // get list of tables to erase
     // store them in an array, then delete them, to avoid file usage exceptions
-    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
-    $tables = array();
-
-    while ($table = $q_tables->fetch())
-        array_push($tables, $table["name"]);
-
-    $q_tables = null;
-
-    foreach($tables as $name)
-        $db->query("DROP TABLE ".$name);
+    empty_database($db);
 
     createTables($db);
 
