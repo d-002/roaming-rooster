@@ -27,15 +27,20 @@ function insert($db, $table, $values_arr) {
 
     $values = "";
     $i = 0;
-    foreach ($values_arr as $value) {
+    for ($i = 0; $i < count($values_arr); $i++) {
         if ($i++) $values .= ", ";
-        $values .= var_export($value, true);
+        $values .= "?";
     }
 
     $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
     echo '<p>'.$query.'</p>';
 
-    $db->query($query);
+    $sdmt = $db->prepare($query);
+
+    $i = 0;
+    foreach($values_arr as $value) $sdmt->bindParam(++$i, $value);
+
+    $sdmt->execute();
 }
 
 function fillDatabase() {
