@@ -31,9 +31,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     $display = $_REQUEST["display"] ?? null;
     $phone = $_REQUEST["phone"] ?? null;
     $is_seller = isset($_REQUEST["want-sell"]);
-    echo "seller: $is_seller";
     $is_customer = isset($_REQUEST["want-buy"]);
-    echo "customer: $is_customer";
 
     insertUserInDatabase($db, $email, $username, $password, display: $display, phone: $phone, is_customer: $is_customer, is_seller: $is_seller);
     ?>
