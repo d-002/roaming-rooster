@@ -26,6 +26,17 @@ function showPage($error = null): void
         </a>
     </header>
 
+    <?php
+
+    if ($error != null) {
+        ?>
+        <p class="alert-danger">
+            <?php echo $error; ?>
+        </p>
+        <?php
+    }
+    ?>
+
     <div class="line">
         <div class="logo-decoration-container">
             <?php
