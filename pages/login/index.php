@@ -44,7 +44,7 @@ function showPage($error = null): void
             ?>
         </div>
 
-        <form class="classic-form">
+        <form class="classic-form" method="POST">
             <div class="form-element">
                 <?php
                 insertTextField("Username", "username", true);
@@ -78,14 +78,18 @@ if (isset($_REQUEST["try"])) {
 
     if (!isUsernameInDatabase($db, $username)) {
         showPage("This user does not have an account.");
+        return;
     }
     if (!verifyUserPassword($db, $username, $password)) {
         showPage("Invalid password, try again.");
+        return;
     }
 
     session_start();
     $_SESSION["username"] = $username;
     $_SESSION["connected"] = true;
+
+    header("Location: /pages/dashboard");
 } else {
     showPage();
 }
