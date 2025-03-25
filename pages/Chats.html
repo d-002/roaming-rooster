@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Seller Chats</title>
+    <link rel="stylesheet" href="NavigationBar.css">
+</head>
+
+<style>
+    .chat-container {
+        max-width: auto;
+        margin: 20px auto;
+        height: 70vh;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: rgb(225, 253, 238);
+        ;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        margin: 10px;
+        padding: 15px;
+        border-radius: 20px;
+        position: relative;
+    }
+
+    .received {
+        background: white;
+        align-self: flex-start;
+        margin-left: 25px;
+    }
+
+    .received::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: 15px;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-right-color: white;
+    }
+
+    .sent {
+        background: #86ff2a;
+        align-self: flex-end;
+        margin-right: 25px;
+    }
+
+    .sent::before {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 15px;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-left-color: #DCF8C6;
+    }
+
+    .chat-input {
+        background: white;
+        padding: 15px;
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .input-field {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+    }
+
+    .send-btn {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+</style>
+
+
+<body>
+
+    <div class="nav-grid">
+        <div class="grid-item logo-box">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="grid-item">
+            <a href="Search.html" class="nav-link">Search</a>
+        </div>
+        <div class="grid-item-selected">
+            <a href="Chats.html" class="nav-link">Chats</a>
+        </div>
+        <div class="grid-item">
+            <a href="CustomerProfile.html" class="nav-link">Profile</a>
+        </div>
+        <div class="grid-item">
+            <a href="ShoppingCart.html" class="nav-link">Shopping Cart</a>
+        </div>
+        <div class="grid-item">
+            <a href="Report.html" class="nav-link">Report Issues</a>
+        </div>
+    </div>
+
+
+    <div class="chat-container">
+        <div class="chat-messages">
+            <div class="message-bubble received">
+                Hi, I want to buy your products
+            </div>
+
+            <div class="message-bubble sent">
+                Yes! How many do you want?
+            </div>
+
+            <div class="message-bubble received">
+                I want ten.
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" class="input-field" placeholder="Enter Message">
+            <button class="send-btn">Send</button>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
+</html>
