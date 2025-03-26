@@ -4,7 +4,7 @@ function insertSearchImage()
 {
     ?>
     <div>
-
+        <img src="/assets/images/symbols/search.svg" alt="Search">
     </div>
     <?php
 }
@@ -39,7 +39,7 @@ function insertSearchWidget($placeholder = "Search a service", $page = true, $co
         <div class="circle-inside-input page-horizontal <?php if ($content === null) {
             echo "reduce-horizontal";
         } ?>">
-
+            <img src="/assets/images/symbols/cancel.svg" alt="cancel search">
         </div>
     </div>
     <?php
