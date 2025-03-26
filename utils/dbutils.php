@@ -1,4 +1,11 @@
 <?php
+function getSecureDB(): PDO {
+    $db = new PDO("sqlite:".$_SERVER["DOCUMENT_ROOT"]."/private/main-database.db");
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_PERSISTENT, true);
+
+    return $db;
+}
 
 function isUsernameInDatabase(PDO $db, $username): bool
 {
@@ -80,3 +87,4 @@ function insertUserInDatabase(PDO $db, $email, $username, $password, $display = 
     if ($is_customer)
         addRoleToUser($db, $id, 1);
 }
+?>
