@@ -31,7 +31,8 @@ function getUserIdByUsername(PDO $db, $username)
     return $elements[0]["id"];
 }
 
-function isUserBanned(PDO $db, $id) {
+function isUserBanned(PDO $db, $id)
+{
     $st = $db->prepare("SELECT banned FROM users WHERE id = :id LIMIT 1");
     $result = $st->execute(["id" => $id]);
     if (!$result) return null;
@@ -74,7 +75,7 @@ function insertUserInDatabase(PDO $db, $email, $username, $password, $display = 
     ];
 
     $data = array_filter($data, function ($value) {
-        return $value != null;
+        return $value !== null;
     });
 
     $columns = implode(", ", array_keys($data));

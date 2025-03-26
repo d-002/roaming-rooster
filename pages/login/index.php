@@ -76,6 +76,8 @@ if (isset($_REQUEST["try"])) {
     $password = $_REQUEST["password"];
     $db = getSecureDB();
 
+    echo "username = " . $username;
+    echo "password = " . $password;
     if (!isUsernameInDatabase($db, $username)) {
         showPage("This user does not have an account.");
         return;
