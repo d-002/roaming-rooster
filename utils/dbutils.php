@@ -20,15 +20,26 @@ function isEmailInDatabase(PDO $db, $email): bool
     return count($elements) != 0;
 }
 
-function getUserIdByEmail(PDO $db, $email)
+function getUserIdByUsername(PDO $db, $username)
 {
-    $st = $db->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
-    $result = $st->execute(["email" => $email]);
+    $st = $db->prepare("SELECT id FROM users WHERE username = :username LIMIT 1");
+    $result = $st->execute(["username" => $username]);
     if (!$result) return null;
     $elements = $st->fetchAll();
     $st->closeCursor();
     if (count($elements) != 1) return null;
     return $elements[0]["id"];
+}
+
+function verifyUserPassword(PDO $db, $username, $password): bool
+{
+    $st = $db->prepare("SELECT password FROM users WHERE username = :username LIMIT 1");
+    $result = $st->execute(["username" => $username]);
+    if (!$result) return false;
+    $elements = $st->fetchAll();
+    $st->closeCursor();
+    if (count($elements) != 1) return false;
+    return password_verify($password, $elements[0]["password"]);
 }
 
 function addRoleToUser(PDO $db, $id, $role): void
@@ -62,7 +73,7 @@ function insertUserInDatabase(PDO $db, $email, $username, $password, $display = 
     $st = $db->prepare("INSERT INTO users ({$columns}) VALUES (:{$values})");
     $st->execute($data);
 
-    $id = getUserIdByEmail($db, $email);
+    $id = getUserIdByUsername($db, $username);
 
     if ($is_seller)
         addRoleToUser($db, $id, 2);
