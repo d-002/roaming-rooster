@@ -31,6 +31,16 @@ function getUserIdByUsername(PDO $db, $username)
     return $elements[0]["id"];
 }
 
+function isUserBanned(PDO $db, $id) {
+    $st = $db->prepare("SELECT banned FROM users WHERE id = :id LIMIT 1");
+    $result = $st->execute(["id" => $id]);
+    if (!$result) return null;
+    $elements = $st->fetchAll();
+    $st->closeCursor();
+    if (count($elements) != 1) return null;
+    return $elements[0]["banned"];
+}
+
 function verifyUserPassword(PDO $db, $username, $password): bool
 {
     $st = $db->prepare("SELECT password FROM users WHERE username = :username LIMIT 1");

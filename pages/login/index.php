@@ -30,7 +30,7 @@ function showPage($error = null): void
 
     if ($error != null) {
         ?>
-        <p class="alert-danger">
+        <p class="alert alert-danger" role="alert">
             <?php echo $error; ?>
         </p>
         <?php
@@ -82,6 +82,16 @@ if (isset($_REQUEST["try"])) {
     }
     if (!verifyUserPassword($db, $username, $password)) {
         showPage("Invalid password, try again.");
+        return;
+    }
+
+    $id = getUserIdByUsername($db, $username);
+    $ban = isUserBanned($db, $id);
+    if ($ban === null) {
+        showPage("Cannot verify if your account is banned");
+        return;
+    } else if ($ban) {
+        showPage("Your account id banned");
         return;
     }
 
