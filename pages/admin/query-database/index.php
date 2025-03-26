@@ -7,13 +7,15 @@
     <body>
         <h1>WARNING: this is NOT for use in production.</h1>
         <a href="/pages/admin/format-database">/!\ SENSITIVE - go to the format database page</a>
+        <br />
+        <a href="/pages/admin/fill-database">/!\ SENSITIVE - go to the dummy fill database page</a>
 
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 $db = getSecureDB();
         ?>
 
-        <form action="" method="GET">
+        <form method="GET">
             <label for="query">Enter query here:</label>
             <input type="text" id="query" name="query" />
             <br>
@@ -30,7 +32,7 @@ else
         <p>Query: <?php echo $query ?></p>
         <p>Dumped query result:</p>
         <textarea style="height:200px"><?php
-if ($query == "")
+if ($query === "")
     echo "[no query]";
 else {
     $res = null;
@@ -76,9 +78,10 @@ try {
 
         echo "\n  Listing entries:\n";
 
+        $i = 0;
         $q_entries = $db->query("SELECT * FROM ".$table_name);
         while ($entry = $q_entries->fetch()) {
-            echo "    ";
+            echo "    ".($i++)." -- ";
             foreach ($columns as $column)
                 echo $column."=".$entry[$column]." ";
             echo "\n";

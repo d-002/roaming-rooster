@@ -11,6 +11,19 @@
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
 
+function empty_database($db) {
+    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
+    $tables = array();
+
+    while ($table = $q_tables->fetch())
+        array_push($tables, $table["name"]);
+
+    $q_tables = null;
+
+    foreach($tables as $name)
+        $db->query("DROP TABLE ".$name);
+}
+
 function createTables($db): void
 {
     // /!\ order is important
@@ -24,7 +37,7 @@ function createTables($db): void
     )");
     $db->query("CREATE TABLE users(
         id INTEGER PRIMARY KEY,
-        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email INTEGER, phone TEXT, latitude REAL, longitude REAL, theme_id INTEGER, banned INTEGER,
+        username TEXT, display_name TEXT, password TEXT, email TEXT, verified_email BOOLEAN, phone TEXT, latitude FLOAT, longitude FLOAT, theme_id INTEGER, banned BOOLEAN,
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE roles(
@@ -33,21 +46,27 @@ function createTables($db): void
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE balances(
-        id INTEGER PRIMARY KEY, user_id INTEGER, amount REAL,
+        id INTEGER PRIMARY KEY, user_id INTEGER, amount FLOAT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
+    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed BOOLEAN)");
     $db->query("CREATE TABLE notifications(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, conversation_id INTEGER, text TEXT, time INTEGER,
-        FOREIGN KEY(user_id) REFERENCES users(id)
+        user_id INTEGER, conversation_id INTEGER, text TEXT, time TIMESTAMP,
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES conversation(id)
     )");
     $db->query("CREATE TABLE messages(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, conversation_id INTEGER, message TEXT, time INTEGER,
-        FOREIGN KEY(user_id) REFERENCES users(id)
+        user_id INTEGER, conversation_id INTEGER, message TEXT, time TIMESTAMP,
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES conversation(id)
     )");
-    $db->query("CREATE TABLE conversations(id INTEGER PRIMARY KEY, user1 INTEGER, user2 INTEGER, subject TEXT, closed INTEGER)");
-    $db->query("CREATE TABLE conversations_requests(id INTEGER PRIMARY KEY, sender INTEGER, receiver INTEGER, is_service_inquiry INTEGER)");
+    $db->query("CREATE TABLE conversations_requests(
+        id INTEGER PRIMARY KEY,
+        sender INTEGER, receiver INTEGER, is_service_inquiry BOOLEAN,
+        FOREIGN KEY(sender) REFERENCES users(id),
+        FOREIGN KEY(sender) REFERENCES users(id))");
     $db->query("CREATE TABLE tags(id INTEGER PRIMARY KEY, name TEXT)");
     $db->query("CREATE TABLE tags_users_join(
         id INTEGER PRIMARY KEY,
@@ -63,30 +82,30 @@ function createTables($db): void
     )");
     $db->query("CREATE TABLE orders(
         id INTEGER PRIMARY KEY,
-        buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount REAL,
+        buyer_id INTEGER, seller_id INTEGER, sub_service_id INTEGER, amount FLOAT,
         FOREIGN KEY(buyer_id) REFERENCES users(id),
         FOREIGN KEY(seller_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE ratings(
         id INTEGER PRIMARY KEY,
-        sub_service_id INTEGER, user_id INTEGER, rating REAL, comment TEXT,
+        sub_service_id INTEGER, user_id INTEGER, rating FLOAT, comment TEXT,
         FOREIGN KEY(sub_service_id) REFERENCES sub_services(id),
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
     $db->query("CREATE TABLE services(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, theme_id INTEGER, title TEXT, description TEXT, latitude REAL, longitude REAL,
+        user_id INTEGER, theme_id INTEGER, title TEXT, description TEXT, latitude FLOAT, longitude FLOAT,
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(theme_id) REFERENCES themes(id)
     )");
     $db->query("CREATE TABLE sub_services(
         id INTEGER PRIMARY KEY,
-        service_id INTEGER, availability INTEGER, title TEXT, description TEXT, price REAL,
+        service_id INTEGER, availability INTEGER, title TEXT, description TEXT, price FLOAT,
         FOREIGN KEY(service_id) REFERENCES services(id)
     )");
     $db->query("CREATE TABLE admin_logs(
         id INTEGER PRIMARY KEY,
-        user_id INTEGER, time INTEGER, message TEXT,
+        user_id INTEGER, time TIMETSAMP, message TEXT,
         FOREIGN KEY(user_id) REFERENCES users(id)
     )");
 }
@@ -96,35 +115,24 @@ function formatDatabase() {
 
     // get list of tables to erase
     // store them in an array, then delete them, to avoid file usage exceptions
-    $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
-    $tables = array();
-
-    while ($table = $q_tables->fetch())
-        array_push($tables, $table["name"]);
-
-    $q_tables = null;
-
-    foreach($tables as $name)
-        $db->query("DROP TABLE ".$name);
+    empty_database($db);
 
     createTables($db);
 
     $db = null;
 }
-        ?>
 
-        <?php
 $state = 0; // 0: nothing sent, 1: sent command to delete, 2: done deletion, -1: aborted
 
 if (array_key_exists("text", $_GET))
-    $state = $_GET["text"] == "I understand" ? 1 : -1;
+    $state = $_GET["text"] === "I understand" ? 1 : -1;
 else
     $query = "";
 
 switch($state) {
     case 0:
         echo '
-<form action="" method="GET">
+<form method="GET">
     <label for="text">Type "I understand" to format the database:</label>
     <input type="text" id="text" name="text" />
     <br>
@@ -139,7 +147,7 @@ switch($state) {
 <p>Database successfully formatted. Click <a href=".">here</a> to finish the operation.</p>';
         } catch (Exception $e) {
             echo '
-<p>Error while deleting:</p>
+<p>Error while formatting:</p>
 <p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
 <p>Click <a href=".">here</a> to restart the operation.</p>';
         }
