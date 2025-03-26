@@ -19,7 +19,7 @@
     border: none;
     border-radius: var(--medium-corner);
     font-size: xx-large;
-    padding: var(--input-block-padding);
+    padding: var(--input-block-margin) var(--input-block-padding);
     width: 100%;
 }
 
@@ -30,7 +30,7 @@
     color: var(--back-color-popup);
     font-size: xx-large;
     font-weight: bold;
-    padding: var(--input-block-padding);
+    padding: var(--input-block-margin) var(--input-block-padding);
     margin: var(--input-block-margin);
     margin-right: auto;
     margin-left: auto;
@@ -41,6 +41,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: right;
+    gap: var(--spacing-minimum);
 }
 
 .arrow-container {
@@ -60,6 +61,7 @@
     font-size: 3rem;
     margin: 0;
     padding: 0;
+    pointer-events: none;
 }
 
 .arrow-large {
