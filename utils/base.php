@@ -8,4 +8,4 @@ function component($name): void
 {
     rootInclude("/components/" . $name . ".php");
 }
-
+?>
