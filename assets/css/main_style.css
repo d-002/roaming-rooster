@@ -1,8 +1,28 @@
+@font-face {
+    font-family: "arima";
+    src: url("/assets/fonts/ArimaMadurai-Regular.ttf");
+}
+
+@font-face {
+    font-family: "arima-bold";
+    src: url("/assets/fonts/ArimaMadurai-Bold.ttf");
+}
+
+@font-face {
+    font-family: "inria";
+    src: url("/assets/fonts/InriaSerif-Regular.ttf");
+}
+
+@font-face {
+    font-family: "inria-bold";
+    src: url("/assets/fonts/InriaSerif-Bold.ttf");
+}
 
 :root {
     --title-color: #9FBA72;
     --warning-color: #FFC87F;
     --text-color-main: #663F46;
+    --text-color-main-light: #CFC9C9;
     --text-color-secondary: #6C5750;
     --back-color-base: #E8F7EE;
     --back-color-popup: #C1F5D6;

@@ -11,7 +11,9 @@
         <a href="/pages/admin/fill-database">/!\ SENSITIVE - go to the dummy fill database page</a>
 
         <?php
-include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
+include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
+rootInclude("/utils/dbutils.php");
+
 $db = getSecureDB();
         ?>
 

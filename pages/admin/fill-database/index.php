@@ -12,7 +12,9 @@
 <a href="/pages/admin/query-database">Go back to the query page</a>
 
 <?php
-include $_SERVER["DOCUMENT_ROOT"] . "/private/db.php";
+include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
+rootInclude("/utils/dbutils.php");
+rootInclude("/utils/time.php");
 
 function empty_database($db): void
 {
@@ -72,12 +74,6 @@ function insert($db, $table, $values_arr): void
         $sdmt->bindValue(++$i, $value, pdo_type($value));
 
     $sdmt->execute();
-}
-
-function now(): int
-{
-    $date = new DateTime("now");
-    return $date->getTimestamp();
 }
 
 function fillDatabase(): void

@@ -17,3 +17,4 @@ function assertSession(): void
         die("You are not connected.");
     }
 }
+
