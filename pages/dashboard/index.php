@@ -1,12 +1,8 @@
 <?php
-session_start();
-if (!isset($_SESSION["connected"]) || !$_SESSION["connected"]) {
-    session_destroy();
-    die("You are not connected.");
-}
 
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
+assertSession();
 component("header");
 component("search");
 
