@@ -1,47 +1,50 @@
-<html>
-    <head>
-        <title>Database filling</title>
-        <style>textarea{width:100%;height:200px}</style>
-    </head>
+<html lang="en">
+<head>
+    <title>Database filling</title>
+    <style>textarea {
+            width: 100%;
+            height: 200px
+        }</style>
+</head>
 
-    <body>
-        <h1>WARNING: this will WIPE OUT ALL DATA from the database and create a new, clean one.</h1>
-        <a href="/pages/admin/query-database">Go back to the query page</a>
+<body>
+<h1>WARNING: this will WIPE OUT ALL DATA from the database and create a new, clean one.</h1>
+<a href="/pages/admin/query-database">Go back to the query page</a>
 
-        <?php
-include $_SERVER["DOCUMENT_ROOT"]."/private/db.php";
+<?php
+include $_SERVER["DOCUMENT_ROOT"] . "/private/db.php";
 
-function empty_database($db) {
+function empty_database($db): void
+{
     $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
     $tables = array();
 
     while ($table = $q_tables->fetch())
-        array_push($tables, $table["name"]);
+        $tables[] = $table["name"];
 
     $q_tables = null;
 
-    foreach($tables as $name) {
-        $query = "DELETE FROM ".$name;
+    foreach ($tables as $name) {
+        $query = "DELETE FROM " . $name;
 
         //echo "<p>".$query."</p>";
         $db->query($query);
     }
 }
 
-function pdo_type($value) {
+function pdo_type($value): int
+{
     $type = gettype($value);
-    switch($type) {
-        case "string": return \SQLITE3_TEXT;
-        case "integer": return \SQLITE3_INTEGER;
-        case "boolean": return \SQLITE3_INTEGER;
-        case "double": return \SQLITE3_FLOAT;
-        default: return \SQLITE3_TEXT;
-    }
+    return match ($type) {
+        "boolean", "integer" => PDO::PARAM_INT,
+        default => PDO::PARAM_STR,
+    };
 }
 
-function insert($db, $table, $values_arr) {
+function insert($db, $table, $values_arr): void
+{
     // get columns
-    $q_columns = $db->query("PRAGMA table_info(".$table.")");
+    $q_columns = $db->query("PRAGMA table_info(" . $table . ")");
 
     // build list, excluding ID
     $keys = "";
@@ -54,29 +57,31 @@ function insert($db, $table, $values_arr) {
     }
 
     $values = "";
-    $i = 0;
     for ($i = 0; $i < count($values_arr); $i++) {
         if ($i) $values .= ", ";
         $values .= "?";
     }
 
-    $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
+    $query = "INSERT INTO " . $table . " (" . $keys . ") VALUES (" . $values . ")";
     //echo '<p>'.$query.'</p>';
 
     $sdmt = $db->prepare($query);
 
     $i = 0;
-    foreach($values_arr as $_=>$value)
+    foreach ($values_arr as $value)
         $sdmt->bindValue(++$i, $value, pdo_type($value));
 
     $sdmt->execute();
 }
 
-function now() {
-    return new DateTime("now")->getTimestamp();
+function now(): int
+{
+    $date = new DateTime("now");
+    return $date->getTimestamp();
 }
 
-function fillDatabase() {
+function fillDatabase(): void
+{
     $db = getSecureDB();
 
     empty_database($db);
@@ -118,12 +123,12 @@ function fillDatabase() {
     insert($db, "notifications", array(2, 1, "notification for conversation 1 - other person", now()));
     insert($db, "notifications", array(2, 2, "notification for conversation 2 - other person", now()));
 
-    insert($db, "messages", array(1, 1, "this is a message", now()-1000));
-    insert($db, "messages", array(2, 1, "hello", now()-500));
+    insert($db, "messages", array(1, 1, "this is a message", now() - 1000));
+    insert($db, "messages", array(2, 1, "hello", now() - 500));
     insert($db, "messages", array(1, 1, "world", now()));
-    insert($db, "messages", array(3, 2, "this is another message", now()-1000));
-    insert($db, "messages", array(4, 2, "hello", now()-500));
-    insert($db, "messages", array(3, 2, "world", now()-100));
+    insert($db, "messages", array(3, 2, "this is another message", now() - 1000));
+    insert($db, "messages", array(4, 2, "hello", now() - 500));
+    insert($db, "messages", array(3, 2, "world", now() - 100));
     insert($db, "messages", array(3, 2, "world2", now()));
 
     insert($db, "conversations_requests", array(4, 3, false));
@@ -169,7 +174,7 @@ if (array_key_exists("text", $_GET))
 else
     $query = "";
 
-switch($state) {
+switch ($state) {
     case 0:
         echo '
 <form method="GET">
@@ -188,7 +193,7 @@ switch($state) {
         } catch (Exception $e) {
             echo '
 <p>Error while filling:</p>
-<p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
+<p style="color:red">' . str_replace("\n", "<br />", $e) . '</p>
 <p>Click <a href=".">here</a> to restart the operation.</p>';
         }
         break;
@@ -196,7 +201,7 @@ switch($state) {
         echo 'Operation aborted. Click <a href=".">here</a> to try again.';
         break;
 }
-        ?>
+?>
 
-    </body>
+</body>
 </html>
