@@ -20,7 +20,7 @@ function button($text, $link, $class) {
     echo "<a href='".$link."' class='button ".$class."'>".$text."</a>";
 }
 
-if (1) {
+if (0) {
     button("Dashboard", "/pages/dashboard", "primary");
     button("Sign out", "/pages/signout", "secondary");
 }

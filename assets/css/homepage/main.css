@@ -1,3 +1,12 @@
+:root {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    min-height: 100%;
+}
+
 h1 {
     font-family: "arima-bold";
     font-weight: bold;
@@ -17,11 +26,6 @@ h2 {
     color: black;
 
     font-size: 24px;
-}
-
-body {
-    display: flex;
-    min-height: 100%;
 }
 
 #left {
