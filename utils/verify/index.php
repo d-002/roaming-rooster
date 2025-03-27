@@ -1,6 +1,5 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
-rootInclude("/private/db.php");
 rootInclude("/utils/dbutils.php");
 rootInclude("/utils/sanitize.php");
 
