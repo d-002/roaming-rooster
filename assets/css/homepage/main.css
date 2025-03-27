@@ -1,0 +1,118 @@
+:root {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    min-height: 100%;
+}
+
+h1 {
+    font-family: "arima-bold";
+    font-weight: bold;
+
+    font-size: 64px;
+}
+
+h1:before {
+    font-size: 42px;
+    margin-right: 10px;
+
+    content: "The";
+}
+
+h2 {
+    font-family: "inria";
+    color: black;
+
+    font-size: 24px;
+}
+
+#left {
+    padding: 50px;
+    box-sizing: border-box;
+    width: 55%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#left::-webkit-scrollbar { 
+    display: none;
+}
+
+#right {
+    flex: 1;
+    background: url("/assets/images/sample.jpeg");
+}
+
+#right:before {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--back-color-base), transparent);
+}
+
+br.large {
+    content: "";
+    display: block;
+    height: 100px;
+}
+
+a.button {
+    display: block;
+
+    margin: 20px 0;
+    padding: 12px;
+    width: 250px;
+
+    box-sizing: border-box;
+    border-radius: 30px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-family: "inria-bold";
+    font-size: 24px;
+}
+
+a.button.primary {
+    background-color: var(--text-color-main);
+    color: var(--text-color-main-light);
+}
+
+a.button.secondary {
+    background-color: var(--text-color-main-light);
+    color: var(--text-color-main);
+}
+
+#arrow {
+    position: relative;
+
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+}
+
+#arrow:after {
+    content: "";
+
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+
+    background: url("/assets/images/down.png");
+    background-size: cover;
+    background-position: center;
+}
