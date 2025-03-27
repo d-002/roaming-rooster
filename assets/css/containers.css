@@ -22,6 +22,8 @@
 
 .card {
     background-color: var(--back-color-popup);
+    box-shadow: rgba(from var(--text-color-main) r g b / 0.3) 0 0 30px 10px;
+
     margin-left: var(--reading-margin);
     margin-right: var(--reading-margin);
     padding: 3px var(--big-container-padding);
@@ -35,6 +37,19 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: fit-content;
+}
 
-    box-shadow: rgba(from var(--text-color-main) r g b / 0.3) 0 0 30px 10px;
+.line {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-medium);
+    justify-content: center;
+    align-items: center;
+
+}
+
+.take-all {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: fit-content;
 }

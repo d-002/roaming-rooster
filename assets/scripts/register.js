@@ -5,6 +5,11 @@ let startForm = submits[0];
 let pred = document.getElementById("nav-pred");
 let next = document.getElementById("nav-next");
 
+let username = document.getElementById("username");
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+let confirmation = document.getElementById("password-confirmation");
+
 let pageNumber = 0;
 let numberOfPages = 4;
 let checkedTags = new Set();
@@ -19,6 +24,41 @@ function showElement(pageElement) {
 function hideElement(pageElement) {
     if (!pageElement.classList.contains("reduce"))
         pageElement.classList.add("reduce");
+}
+
+function validateInput(callback, name, element, message) {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                if (this.responseText === "usable") {
+                    callback();
+                } else {
+                    alert(message);
+                }
+            } else {
+                alert(`Cannot verify ${name}, server cannot be reached.`)
+            }
+        }
+    }
+    request.ontimeout = function () {
+        alert(`Cannot verify ${name}, server cannot be reached.`)
+    }
+    request.open("GET", `/utils/verify?${name}=${element.value}`, true);
+    request.send();
+}
+
+function validatePageOne(callback) {
+    if (pageNumber === 1) {
+        if (password.value !== confirmation.value)
+            return alert("The password confirmation is not identical to the password value.");
+        if (!password.value.match(/^[A-Za-z]+$/))
+            return alert("This website is currently in HTTP. Please enter a dummy password as we cannot assert that our website is secure. A dummy password should only contains letters.");
+
+        validateInput(callback, "email", email, "This email is already used or is invalid. Please choose another one. Example: email@example.com is a valid email, a@a is not.");
+    } else {
+        callback();
+    }
 }
 
 function showPage() {
@@ -58,11 +98,18 @@ function showPage() {
 showPage();
 
 startForm.addEventListener("click", e => {
-    e.preventDefault()
-    let card = document.getElementsByClassName("card")[0];
-    card.classList.replace("card-half-page", "card-full-page");
-    pageNumber++;
-    showPage();
+    e.preventDefault();
+    validateInput(
+        () => {
+            let card = document.getElementsByClassName("card")[0];
+            card.classList.replace("card-half-page", "card-full-page");
+            pageNumber++;
+            showPage();
+        },
+        "username",
+        username,
+        "This username is already used. Please choose another one."
+    );
 });
 
 pred.addEventListener("click", () => {
@@ -71,17 +118,21 @@ pred.addEventListener("click", () => {
 });
 
 next.addEventListener("click", () => {
-    if (pageNumber + 1 < numberOfPages) {
-        pageNumber++;
-        showPage();
-    }
+    validatePageOne(() => {
+        if (pageNumber + 1 < numberOfPages) {
+            pageNumber++;
+            showPage();
+        }
+    });
 });
 
 let circles = document.getElementsByClassName("circle");
 for (let circle of circles) {
     circle.addEventListener("click", () => {
-        pageNumber = parseInt(circle.getAttribute("circle"));
-        showPage();
+        validatePageOne(() => {
+            pageNumber = parseInt(circle.getAttribute("circle"));
+            showPage();
+        });
     });
 }
 
