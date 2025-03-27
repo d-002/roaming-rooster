@@ -19,5 +19,8 @@ if (isset($_REQUEST["s"])) {
     insertSearchWidget();
 }
 ?>
+
+<script src="/assets/scripts/search.js"></script>
+
 </body>
 </html>

@@ -15,7 +15,7 @@ function insertSearchWidget($placeholder = "Search a service", $page = true, $co
     <label class="text-field-label">
         <?php echo $placeholder; ?> <br>
         <form class="text-field line-form" action="/pages/search-results">
-            <div class="circle-inside-input page-horizontal minimize <?php if ($content !== null) {
+            <div id="search-symbol" class="circle-inside-input page-horizontal minimize <?php if ($content !== null) {
                 echo "reduce-horizontal";
             } ?>">
                 <?php
@@ -32,10 +32,10 @@ function insertSearchWidget($placeholder = "Search a service", $page = true, $co
                 }
                 ?>
             </div>
-            <input class="circle-inside-input" type="search" placeholder="<?php echo $placeholder; ?>" <?php if ($content !== null) {
+            <input id="s" name="s" class="circle-inside-input" type="search" placeholder="<?php echo $placeholder; ?>" <?php if ($content !== null) {
                 echo "value='$content'";
             } ?>>
-            <div class="circle-inside-input page-horizontal minimize <?php if ($content === null) {
+            <div id="cancel-search" class="circle-inside-input page-horizontal minimize <?php if ($content === null) {
                 echo "reduce-horizontal";
             } ?>">
                 <img src="/assets/images/symbols/cancel.svg" alt="cancel search" class="symbol">
