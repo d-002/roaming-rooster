@@ -82,25 +82,38 @@ a:has(.subtitle) {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 .page {
     max-height: 500px;
     visibility: visible;
     transition: max-height, padding, margin, visibility;
     transition-duration: 0.5s;
     transition-timing-function: ease;
-    /* Might not work on firefox */
-    transition-behavior: allow-discrete;
-}
-
-.hidden {
-    display: none;
 }
 
 .reduce {
-    /* display: none !important; */
     overflow: hidden;
     max-height: 0;
     padding: 0;
+    margin: 0 !important;
+    visibility: collapse;
+}
+
+.page-horizontal {
+    max-width: 400px;
+    visibility: visible;
+    transition: max-width, padding, margin, visibility;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.reduce-horizontal {
+    overflow: hidden;
+    max-width: 0;
+    padding: 0 !important;
     margin: 0 !important;
     visibility: collapse;
 }
@@ -123,4 +136,15 @@ button {
 
 button:hover {
     opacity: 0.8;
+}
+
+.symbol {
+    height: 1em;
+    width: 1em;
+    display: block;
+}
+
+.minimize {
+    height: fit-content;
+    padding: 9px;
 }
