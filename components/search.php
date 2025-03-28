@@ -13,7 +13,7 @@ function insert_search_widget($placeholder = "Search a service", $page = true, $
 {
     ?>
     <label class="text-field-label">
-        <?php echo $placeholder; ?> <br>
+        <?= $placeholder ?> <br>
         <form class="text-field line-form" action="/pages/search-results">
             <div id="search-symbol" class="circle-inside-input page-horizontal minimize <?php if ($content !== null) {
                 echo "reduce-horizontal";
@@ -32,7 +32,7 @@ function insert_search_widget($placeholder = "Search a service", $page = true, $
                 }
                 ?>
             </div>
-            <input id="s" name="s" class="circle-inside-input" type="search" placeholder="<?php echo $placeholder; ?>" <?php if ($content !== null) {
+            <input id="s" name="s" class="circle-inside-input" type="search" placeholder="<?= $placeholder ?>" <?php if ($content !== null) {
                 echo "value='$content'";
             } ?>>
             <div id="cancel-search" class="circle-inside-input page-horizontal minimize <?php if ($content === null) {

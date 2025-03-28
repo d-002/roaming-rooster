@@ -30,7 +30,7 @@ function show_page($error = null): void
     if ($error != null) {
         ?>
         <p class="alert alert-danger" role="alert">
-            <?php echo $error; ?>
+            <?= $error; ?>
         </p>
         <?php
     }
@@ -54,7 +54,7 @@ function show_page($error = null): void
             <div class="line">
                 <?php
                 insertTextSubmit("Login");
-                insertArrowRedirect("Before, I should", "Register", "/pages/register");
+                insert_arrow_redirect("Before, I should", "Register", "/pages/register");
                 ?>
                 <input type="hidden" id="try" name="try" value="try">
             </div>

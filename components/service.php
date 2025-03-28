@@ -17,3 +17,8 @@ function insert_service($service): void
     </div>
     <?php
 }
+
+function insert_product($product): void
+{
+
+}

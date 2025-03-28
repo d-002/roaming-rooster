@@ -1,10 +1,10 @@
-<?php function insertArrowRedirect($user_call, $title, $page)
+<?php function insert_arrow_redirect($user_call, $title, $page): void
 { ?>
     <div class="arrow-redirect">
         <div class="arrow-container">
-            <p> <?php echo $user_call; ?> </p>
+            <p> <?= $user_call ?> </p>
             <p class="arrow arrow-large"> &rarr; </p>
         </div>
-        <a <?php echo "href=" . $page ?>><p class="pointed"><?php echo $title; ?></p></a>
+        <a <?= "href=" . $page ?>><p class="pointed"><?= $title ?></p></a>
     </div>
 <?php } ?>
