@@ -4,6 +4,9 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 assertSession();
 component("header");
 component("search");
+component("service");
+rootInclude("/utils/dbutils.php");
+rootInclude("/utils/search_helper.php");
 
 ?>
 <!DOCTYPE html>
@@ -15,6 +18,11 @@ insertHeader("Results", ["inputs", "containers"]);
 <?php
 if (isset($_REQUEST["s"])) {
     insertSearchWidget(content: $_REQUEST["s"]);
+    $database = getSecureDB();
+    $results = search_service($database, $_REQUEST["s"]);
+    foreach ($results as $result) {
+        insert_service($result);
+    }
 } else {
     insertSearchWidget();
 }

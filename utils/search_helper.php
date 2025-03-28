@@ -1,5 +1,13 @@
 <?php
 
+function search_service(PDO $db, $query): ?array
+{
+    $prepared = $db->prepare("SELECT title, description, user_id FROM services WHERE title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%'");
+    $result = $prepared->execute(["query" => $query]);
+    if (!$result) return null;
+    return $prepared->fetchAll();
+}
+
 function scoreResults($results, $keys, $query): void
 {
     $sound = soundex($query);
@@ -17,5 +25,3 @@ function orderResults($results): void
 {
 
 }
-
-?>

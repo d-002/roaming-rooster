@@ -12,7 +12,7 @@
 <a href="/pages/admin/query-database">Go back to the query page</a>
 
 <?php
-include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 rootInclude("/utils/dbutils.php");
 rootInclude("/utils/time.php");
 
@@ -29,7 +29,6 @@ function empty_database($db): void
     foreach ($tables as $name) {
         $query = "DELETE FROM " . $name;
 
-        //echo "<p>".$query."</p>";
         $db->query($query);
     }
 }
@@ -98,17 +97,21 @@ function fillDatabase(): void
     insert($db, "users", array("world", "World", password_hash("world", PASSWORD_DEFAULT), "world@world.com", 1, "+056789", .69, .42, 2, false));
     insert($db, "users", array("a", "a", password_hash("a", PASSWORD_DEFAULT), "a@a.com", 1, "+0", 3.14, 2.72, 0, false));
     insert($db, "users", array("banned", "ImBanned", password_hash("banned", PASSWORD_DEFAULT), "im@banned.com", 1, "+11111", 0, 0, 3, true));
+    insert($db, "users", array("best_seller", "best_seller", password_hash("best seller", PASSWORD_DEFAULT), "seller@best.com", 1, "+056989", .42, .42, 2, false));
 
     insert($db, "roles", array(1, 0));
     insert($db, "roles", array(1, 1));
     insert($db, "roles", array(2, 0));
     insert($db, "roles", array(2, 2));
     insert($db, "roles", array(3, 0));
+    insert($db, "roles", array(4, 1));
+    insert($db, "roles", array(4, 0));
 
     insert($db, "balances", array(1, 42.69));
     insert($db, "balances", array(2, 100));
     insert($db, "balances", array(3, 0));
     insert($db, "balances", array(3, 10));
+    insert($db, "balances", array(4, 100));
 
     insert($db, "conversations", array(1, 2, "Untitled", false));
     insert($db, "conversations", array(1, 3, "Other", false));
@@ -150,12 +153,17 @@ function fillDatabase(): void
     insert($db, "ratings", array(2, 2, 4.5, "very good"));
     insert($db, "ratings", array(3, 3, 0, "very bad\nSecond line"));
 
-    insert($db, "services", array(1, 1, "selling flowers", "this service is selling flowers", .5, .5));
-    insert($db, "services", array(1, 1, "selling fruits", "this service is selling fruits", .8, .3));
+    insert($db, "services", array(1, 1, "Selling flowers", "This service is selling flowers", .5, .5));
+    insert($db, "services", array(1, 1, "Selling fruits", "This service is selling fruits", .8, .3));
+    insert($db, "services", array(4, 1, "Selling fruits", "This service is selling fruits", .7, .3));
+    insert($db, "services", array(4, 1, "Selling animals", "This service is selling animals", .7, .3));
+    insert($db, "services", array(1, 1, "Selling vegetables", "This service is selling vegetables", .8, .9));
+    insert($db, "services", array(4, 1, "Selling salads", "This service is selling salads", .4, .9));
+    insert($db, "services", array(4, 1, "Selling exotic animals", "This service is selling exotic animals", .10, .9));
 
-    insert($db, "sub_services", array(1, 10, "selling red flowers", "this subservice is selling red flowers", 2.72));
-    insert($db, "sub_services", array(1, 6, "selling yellow flowers", "this subservice is selling yellow flowers", 3.14));
-    insert($db, "sub_services", array(2, 42, "selling blue fruits", "this subservice is selling blue fruits", 6.9));
+    insert($db, "sub_services", array(1, 10, "Selling red flowers", "this subservice is selling red flowers", 2.72));
+    insert($db, "sub_services", array(1, 6, "Selling yellow flowers", "this subservice is selling yellow flowers", 3.14));
+    insert($db, "sub_services", array(2, 42, "Selling blue fruits", "this subservice is selling blue fruits", 6.9));
 
     insert($db, "admin_logs", array(3, now(), "this is an admin log"));
     insert($db, "admin_logs", array(3, now(), "this is another admin log"));
