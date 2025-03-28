@@ -9,8 +9,8 @@ $database = getSecureDB();
 $results = quick_service_search($database, $_REQUEST["s"]);
 
 $answer = "";
-for ($i = 0; $i < min(count($results, 5)); $i++) {
-    $answer .= '°' . htmlspecialchars($results[$i]);
+for ($i = 0; $i < min(count($results), 5); $i++) {
+    $answer .= '°' . htmlspecialchars($results[$i]["title"]);
 }
 
 echo $answer;

@@ -17,6 +17,7 @@ function getSearchResults(query, callback) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText);
             callback(this.responseText.split('°'));
         }
     }
@@ -24,18 +25,21 @@ function getSearchResults(query, callback) {
     request.send();
 }
 
-search.addEventListener("change", () => {
-    if (search.value.length > 2) {
+search.addEventListener("keyup", () => {
+    console.log("World search");
+    if (search.value.length > 1) {
+        console.log("Hello search");
         getSearchResults(search.value, values => {
             let children = [];
             for (const value of values) {
-                let text = document.createTextNode(value);
+                console.log(value)
                 let node = document.createElement('p');
-                node.appendChild(text);
+                node.textContent = value;
                 node.classList.add("suggestion");
                 children.push(node);
             }
-            suggestions.replaceChildren(children);
+            suggestions.replaceChildren(...children);
+            console.log("Replace search");
         });
     }
 });

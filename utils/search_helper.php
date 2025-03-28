@@ -42,7 +42,7 @@ function quick_service_search(PDO $database, $query): array
         return $a["query_distance"] < $b["query_distance"];
     });
 
-    return $prepared->fetchAll();
+    return $services;
 }
 
 function scoreResults($results, $keys, $query): void
