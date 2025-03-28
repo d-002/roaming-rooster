@@ -8,6 +8,25 @@ function search_service(PDO $db, $query): ?array
     return $prepared->fetchAll();
 }
 
+function search_sub_service(PDO $db, $query): ?array
+{
+    $prepared = $db->prepare(<<<EOD
+SELECT sub_services.title AS title,
+    sub_services.description AS description,
+    user_id, price, availability
+FROM sub_services
+JOIN services ON sub_services.service_id = services.id
+WHERE sub_services.title LIKE '%' || :query || '%'
+    OR sub_services.description LIKE '%' || :query || '%'
+    OR services.title LIKE '%' || :query || '%'
+    OR services.description LIKE '%' || :query || '%'
+EOD
+    );
+    $result = $prepared->execute(["query" => $query]);
+    if (!$result) return null;
+    return $prepared->fetchAll();
+}
+
 function scoreResults($results, $keys, $query): void
 {
     $sound = soundex($query);
