@@ -19,7 +19,7 @@ function showPage($error = null): void
     <body class="fill-page main-column take-all justify-content-center align-content-center">
 
     <header class="titles">
-        <a href="/home.php">
+        <a href="/pages/homepage">
             <p class="subtitle">Every local farmer is on</p>
             <h1>The Roaming Rooster</h1>
         </a>
