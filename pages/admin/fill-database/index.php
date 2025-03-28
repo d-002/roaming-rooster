@@ -1,49 +1,51 @@
-<html>
-    <head>
-        <title>Database filling</title>
-        <style>textarea{width:100%;height:200px}</style>
-    </head>
+<html lang="en">
+<head>
+    <title>Database filling</title>
+    <style>textarea {
+            width: 100%;
+            height: 200px
+        }</style>
+</head>
 
-    <body>
-        <h1>WARNING: this will WIPE OUT ALL DATA from the database and create a new, clean one.</h1>
-        <a href="/pages/admin/query-database">Go back to the query page</a>
+<body>
+<h1>WARNING: this will WIPE OUT ALL DATA from the database and create a new, clean one.</h1>
+<a href="/pages/admin/query-database">Go back to the query page</a>
 
-        <?php
-include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-rootInclude("/utils/dbutils.php");
-rootInclude("/utils/time.php");
+<?php
+include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/utils/dbutils.php");
+root_include("/utils/time.php");
 
-function empty_database($db) {
+function empty_database($db): void
+{
     $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
     $tables = array();
 
     while ($table = $q_tables->fetch())
-        array_push($tables, $table["name"]);
+        $tables[] = $table["name"];
 
     $q_tables = null;
 
-    foreach($tables as $name) {
-        $query = "DELETE FROM ".$name;
+    foreach ($tables as $name) {
+        $query = "DELETE FROM " . $name;
 
-        //echo "<p>".$query."</p>";
         $db->query($query);
     }
 }
 
-function pdo_type($value) {
+function pdo_type($value): int
+{
     $type = gettype($value);
-    switch($type) {
-        case "string": return \SQLITE3_TEXT;
-        case "integer": return \SQLITE3_INTEGER;
-        case "boolean": return \SQLITE3_INTEGER;
-        case "double": return \SQLITE3_FLOAT;
-        default: return \SQLITE3_TEXT;
-    }
+    return match ($type) {
+        "boolean", "integer" => PDO::PARAM_INT,
+        default => PDO::PARAM_STR,
+    };
 }
 
-function insert($db, $table, $values_arr) {
+function insert($db, $table, $values_arr): void
+{
     // get columns
-    $q_columns = $db->query("PRAGMA table_info(".$table.")");
+    $q_columns = $db->query("PRAGMA table_info(" . $table . ")");
 
     // build list, excluding ID
     $keys = "";
@@ -56,25 +58,25 @@ function insert($db, $table, $values_arr) {
     }
 
     $values = "";
-    $i = 0;
     for ($i = 0; $i < count($values_arr); $i++) {
         if ($i) $values .= ", ";
         $values .= "?";
     }
 
-    $query = "INSERT INTO ".$table." (".$keys.") VALUES (".$values.")";
+    $query = "INSERT INTO " . $table . " (" . $keys . ") VALUES (" . $values . ")";
     //echo '<p>'.$query.'</p>';
 
     $sdmt = $db->prepare($query);
 
     $i = 0;
-    foreach($values_arr as $_=>$value)
+    foreach ($values_arr as $value)
         $sdmt->bindValue(++$i, $value, pdo_type($value));
 
     $sdmt->execute();
 }
 
-function fillDatabase() {
+function fillDatabase(): void
+{
     $db = getSecureDB();
 
     empty_database($db);
@@ -95,17 +97,21 @@ function fillDatabase() {
     insert($db, "users", array("world", "World", password_hash("world", PASSWORD_DEFAULT), "world@world.com", 1, "+056789", .69, .42, 2, false));
     insert($db, "users", array("a", "a", password_hash("a", PASSWORD_DEFAULT), "a@a.com", 1, "+0", 3.14, 2.72, 0, false));
     insert($db, "users", array("banned", "ImBanned", password_hash("banned", PASSWORD_DEFAULT), "im@banned.com", 1, "+11111", 0, 0, 3, true));
+    insert($db, "users", array("best_seller", "best_seller", password_hash("best seller", PASSWORD_DEFAULT), "seller@best.com", 1, "+056989", .42, .42, 2, false));
 
     insert($db, "roles", array(1, 0));
     insert($db, "roles", array(1, 1));
     insert($db, "roles", array(2, 0));
     insert($db, "roles", array(2, 2));
     insert($db, "roles", array(3, 0));
+    insert($db, "roles", array(4, 1));
+    insert($db, "roles", array(4, 0));
 
     insert($db, "balances", array(1, 42.69));
     insert($db, "balances", array(2, 100));
     insert($db, "balances", array(3, 0));
     insert($db, "balances", array(3, 10));
+    insert($db, "balances", array(4, 100));
 
     insert($db, "conversations", array(1, 2, "Untitled", false));
     insert($db, "conversations", array(1, 3, "Other", false));
@@ -116,12 +122,12 @@ function fillDatabase() {
     insert($db, "notifications", array(2, 1, "notification for conversation 1 - other person", now()));
     insert($db, "notifications", array(2, 2, "notification for conversation 2 - other person", now()));
 
-    insert($db, "messages", array(1, 1, "this is a message", now()-1000));
-    insert($db, "messages", array(2, 1, "hello", now()-500));
+    insert($db, "messages", array(1, 1, "this is a message", now() - 1000));
+    insert($db, "messages", array(2, 1, "hello", now() - 500));
     insert($db, "messages", array(1, 1, "world", now()));
-    insert($db, "messages", array(3, 2, "this is another message", now()-1000));
-    insert($db, "messages", array(4, 2, "hello", now()-500));
-    insert($db, "messages", array(3, 2, "world", now()-100));
+    insert($db, "messages", array(3, 2, "this is another message", now() - 1000));
+    insert($db, "messages", array(4, 2, "hello", now() - 500));
+    insert($db, "messages", array(3, 2, "world", now() - 100));
     insert($db, "messages", array(3, 2, "world2", now()));
 
     insert($db, "conversations_requests", array(4, 3, false));
@@ -147,12 +153,17 @@ function fillDatabase() {
     insert($db, "ratings", array(2, 2, 4.5, "very good"));
     insert($db, "ratings", array(3, 3, 0, "very bad\nSecond line"));
 
-    insert($db, "services", array(1, 1, "selling flowers", "this service is selling flowers", .5, .5));
-    insert($db, "services", array(1, 1, "selling fruits", "this service is selling fruits", .8, .3));
+    insert($db, "services", array(1, 1, "Selling flowers", "This service is selling flowers", .5, .5));
+    insert($db, "services", array(1, 1, "Selling fruits", "This service is selling fruits", .8, .3));
+    insert($db, "services", array(4, 1, "Selling fruits", "This service is selling fruits", .7, .3));
+    insert($db, "services", array(4, 1, "Selling animals", "This service is selling animals", .7, .3));
+    insert($db, "services", array(1, 1, "Selling vegetables", "This service is selling vegetables", .8, .9));
+    insert($db, "services", array(4, 1, "Selling salads", "This service is selling salads", .4, .9));
+    insert($db, "services", array(4, 1, "Selling exotic animals", "This service is selling exotic animals", .10, .9));
 
-    insert($db, "sub_services", array(1, 10, "selling red flowers", "this subservice is selling red flowers", 2.72));
-    insert($db, "sub_services", array(1, 6, "selling yellow flowers", "this subservice is selling yellow flowers", 3.14));
-    insert($db, "sub_services", array(2, 42, "selling blue fruits", "this subservice is selling blue fruits", 6.9));
+    insert($db, "sub_services", array(1, 10, "Selling red flowers", "this subservice is selling red flowers", 2.72));
+    insert($db, "sub_services", array(1, 6, "Selling yellow flowers", "this subservice is selling yellow flowers", 3.14));
+    insert($db, "sub_services", array(2, 42, "Selling blue fruits", "this subservice is selling blue fruits", 6.9));
 
     insert($db, "admin_logs", array(3, now(), "this is an admin log"));
     insert($db, "admin_logs", array(3, now(), "this is another admin log"));
@@ -167,7 +178,7 @@ if (array_key_exists("text", $_GET))
 else
     $query = "";
 
-switch($state) {
+switch ($state) {
     case 0:
         echo '
 <form method="GET">
@@ -186,7 +197,7 @@ switch($state) {
         } catch (Exception $e) {
             echo '
 <p>Error while filling:</p>
-<p style="color:red">'.str_replace("\n", "<br />", $e).'</p>
+<p style="color:red">' . str_replace("\n", "<br />", $e) . '</p>
 <p>Click <a href=".">here</a> to restart the operation.</p>';
         }
         break;
@@ -194,7 +205,7 @@ switch($state) {
         echo 'Operation aborted. Click <a href=".">here</a> to try again.';
         break;
 }
-        ?>
+?>
 
-    </body>
+</body>
 </html>

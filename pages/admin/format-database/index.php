@@ -10,7 +10,7 @@
 
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-rootInclude("/utils/dbutils.php");
+root_include("/utils/dbutils.php");
 
 function empty_database($db) {
     $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');

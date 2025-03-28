@@ -84,6 +84,15 @@
     margin-top: var(--spacing-medium);
 }
 
+.line-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.line-form > * + * {
+    margin-left: var(--spacing-minimum);
+}
+
 .at-least-one {
     display: flex;
     flex-direction: row;
@@ -218,4 +227,51 @@ label:has(input:required)::before {
 
 .required-tip:invalid {
     border: red solid 3px;
+}
+
+label {
+    text-align: right;
+}
+
+.circle-inside-input {
+    color: var(--text-color-main);
+    background-color: var(--back-color-popup);
+    border: solid 3px var(--back-color-base);
+    border-radius: 1000px;
+}
+
+input.circle-inside-input {
+    padding-left: 16px;
+}
+
+.search-options {
+    margin-right: auto;
+    margin-left: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-minimum);
+}
+
+#suggestions {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    border: 2px black dashed;
+    border-radius: 10px;
+    padding: var(--spacing-minimum);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-minimum);
+}
+
+#suggestions:not(:has(.suggestion)) {
+    display: none;
+}
+
+.suggestion {
+    font-size: 0.9em;
+    width: fit-content;
+    text-align: left;
+    margin: 0;
 }

@@ -3,7 +3,7 @@
 function insertTag($name)
 {
     ?>
-    <p class="tag"><?php echo $name; ?></p>
+    <p class="tag"><?= $name ?></p>
     <?php
 }
 

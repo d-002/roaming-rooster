@@ -12,7 +12,7 @@
 
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-rootInclude("/utils/dbutils.php");
+root_include("/utils/dbutils.php");
 
 $db = getSecureDB();
         ?>
@@ -31,7 +31,7 @@ else
     $query = "";
         ?>
 
-        <p>Query: <?php echo $query ?></p>
+        <p>Query: <?= $query ?></p>
         <p>Dumped query result:</p>
         <textarea style="height:200px"><?php
 if ($query === "")

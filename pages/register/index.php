@@ -32,7 +32,7 @@ insertHeader("Register", array("containers", "inputs"));
             <!-- Page 0 -->
             <div class="page" page="0">
                 <?php
-                insertArrowRedirect("I have an account", "Login", "/pages/login");
+                insert_arrow_redirect("I have an account", "Login", "/pages/login");
                 ?>
             </div>
             <div class="form-element page" page="0">
