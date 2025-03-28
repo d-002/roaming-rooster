@@ -7,7 +7,7 @@ component("arrow_redirect");
 component("text_field");
 component("text_submit");
 
-function showPage($error = null): void
+function show_page($error = null): void
 {
     ?>
     <!DOCTYPE html>
@@ -67,7 +67,7 @@ function showPage($error = null): void
 
 if (isset($_REQUEST["try"])) {
     if (!(isset($_REQUEST["username"]) && isset($_REQUEST["password"]))) {
-        showPage("Please enter an username and a password.");
+        show_page("Please enter an username and a password.");
         return;
     }
 
@@ -78,21 +78,21 @@ if (isset($_REQUEST["try"])) {
     echo "username = " . $username;
     echo "password = " . $password;
     if (!isUsernameInDatabase($db, $username)) {
-        showPage("This user does not have an account.");
+        show_page("This user does not have an account.");
         return;
     }
     if (!verifyUserPassword($db, $username, $password)) {
-        showPage("Invalid password, try again.");
+        show_page("Invalid password, try again.");
         return;
     }
 
     $id = getUserIdByUsername($db, $username);
-    $ban = isUserBanned($db, $id);
-    if ($ban === null) {
-        showPage("Cannot verify if your account is banned");
+    $banned = isUserBanned($db, $id);
+    if ($banned === null) {
+        show_page("Cannot verify if your account is banned");
         return;
-    } else if ($ban) {
-        showPage("Your account id banned");
+    } else if ($banned) {
+        show_page("Your account id banned");
         return;
     }
 
@@ -102,6 +102,6 @@ if (isset($_REQUEST["try"])) {
 
     header("Location: /pages/dashboard");
 } else {
-    showPage();
+    show_page();
 }
 ?>
