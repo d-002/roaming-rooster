@@ -2,7 +2,7 @@
 
 function search_service(PDO $db, $query): ?array
 {
-    $prepared = $db->prepare("SELECT title, description, user_id FROM services WHERE title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%'");
+    $prepared = $db->prepare("SELECT id, title, description, user_id FROM services WHERE title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%'");
     $result = $prepared->execute(["query" => $query]);
     if (!$result) return null;
     return $prepared->fetchAll();

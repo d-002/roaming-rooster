@@ -23,7 +23,7 @@ if (isset($_REQUEST["s"])) {
     $products = search_sub_service($database, $_REQUEST["s"]);
 
     ?>
-    <h2>Services</h2>
+    <h2 class="search-result">Services</h2>
     <div class="widget-list">
         <?php
         foreach ($results as $result) {
@@ -31,11 +31,11 @@ if (isset($_REQUEST["s"])) {
         }
         ?>
     </div>
-    <h2>Products</h2>
+    <h2 class="search-result">Products</h2>
     <div class="widget-list">
         <?php
         foreach ($products as $product) {
-
+            insert_product($product);
         }
         ?>
     </div>
