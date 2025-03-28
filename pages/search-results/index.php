@@ -23,6 +23,7 @@ if (isset($_REQUEST["s"])) {
     $products = search_sub_service($database, $_REQUEST["s"]);
 
     ?>
+    <div class="suggestions"></div>
     <h2 class="search-result">Services</h2>
     <div class="widget-list">
         <?php
