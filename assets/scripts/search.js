@@ -29,6 +29,7 @@ search.addEventListener("keyup", () => {
         getSearchResults(search.value, values => {
             let children = [];
             for (const value of values) {
+                if (value === "") continue;
                 let node = document.createElement('p');
                 node.textContent = value;
                 node.classList.add("suggestion");

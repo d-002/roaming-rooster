@@ -243,3 +243,35 @@ label {
 input.circle-inside-input {
     padding-left: 16px;
 }
+
+.search-options {
+    margin-right: auto;
+    margin-left: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-minimum);
+}
+
+#suggestions {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    border: 2px black dashed;
+    border-radius: 10px;
+    padding: var(--spacing-minimum);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-minimum);
+}
+
+#suggestions:not(:has(.suggestion)) {
+    display: none;
+}
+
+.suggestion {
+    font-size: 0.9em;
+    width: fit-content;
+    text-align: left;
+    margin: 0;
+}

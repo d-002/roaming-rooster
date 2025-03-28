@@ -17,13 +17,20 @@ insertHeader("Results", ["inputs", "containers"]);
 <body>
 <?php
 if (isset($_REQUEST["s"])) {
-    insert_search_widget(content: $_REQUEST["s"]);
+    ?>
+    <div class="search-options">
+        <?php
+        insert_search_widget(content: $_REQUEST["s"]);
+        ?>
+        <div id="suggestions"></div>
+    </div>
+    <?php
+
     $database = getSecureDB();
     $results = search_service($database, $_REQUEST["s"]);
     $products = search_sub_service($database, $_REQUEST["s"]);
 
     ?>
-    <div id="suggestions"></div>
     <h2 class="search-result">Services</h2>
     <div class="widget-list">
         <?php
