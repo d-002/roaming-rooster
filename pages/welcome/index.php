@@ -4,8 +4,8 @@
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
-rootInclude("/utils/dbutils.php");
-rootInclude("/utils/sanitize.php");
+root_include("/utils/dbutils.php");
+root_include("/utils/sanitize.php");
 
 insertHeader("Welcome", ["inputs", "containers"]);
 ?>

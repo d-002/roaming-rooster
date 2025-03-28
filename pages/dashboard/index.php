@@ -2,7 +2,7 @@
 
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
-assertSession();
+assert_session();
 component("header");
 component("search");
 

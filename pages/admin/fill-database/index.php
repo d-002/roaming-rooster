@@ -13,8 +13,8 @@
 
 <?php
 include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
-rootInclude("/utils/dbutils.php");
-rootInclude("/utils/time.php");
+root_include("/utils/dbutils.php");
+root_include("/utils/time.php");
 
 function empty_database($db): void
 {

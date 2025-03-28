@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 try {
-    rootInclude("/utils/dbutils.php");
+    root_include("/utils/dbutils.php");
     $database = getSecureDB();
     $prepared = $database->query("SELECT * FROM services");
     $services = $prepared->fetchAll(PDO::FETCH_ASSOC);

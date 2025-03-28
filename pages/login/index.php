@@ -1,6 +1,6 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
-rootInclude("/utils/dbutils.php");
+root_include("/utils/dbutils.php");
 
 component("header");
 component("arrow_redirect");
