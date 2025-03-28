@@ -15,7 +15,7 @@ insertHeader("Dashboard", ["inputs", "containers"]);
 <body>
 <p>Hello world, you are connected</p>
 <?php
-insertSearchWidget(page: false);
+insert_search_widget(page: false);
 ?>
 </body>
 </html>

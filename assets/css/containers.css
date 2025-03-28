@@ -53,3 +53,12 @@
     flex-shrink: 1;
     flex-basis: fit-content;
 }
+
+.widget-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: var(--spacing-medium);
+    margin: var(--spacing-minimum);
+    justify-content: center;
+}

@@ -3,7 +3,7 @@
 function insert_service($service): void
 {
     ?>
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-6 col-lg-4 page search-result">
         <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h5 class="card-title"><?= htmlspecialchars($service['title']) ?></h5>

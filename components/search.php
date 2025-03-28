@@ -1,6 +1,6 @@
 <?php
 
-function insertSearchImage()
+function insert_search_image()
 {
     ?>
     <div class="symbol">
@@ -9,7 +9,7 @@ function insertSearchImage()
     <?php
 }
 
-function insertSearchWidget($placeholder = "Search a service", $page = true, $content = null): void
+function insert_search_widget($placeholder = "Search a service", $page = true, $content = null): void
 {
     ?>
     <label class="text-field-label">
@@ -20,12 +20,12 @@ function insertSearchWidget($placeholder = "Search a service", $page = true, $co
             } ?>">
                 <?php
                 if ($page) {
-                    insertSearchImage();
+                    insert_search_image();
                 } else {
                     ?>
                     <a href="/pages/search-results">
                         <?php
-                        insertSearchImage();
+                        insert_search_image();
                         ?>
                     </a>
                     <?php
