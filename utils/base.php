@@ -13,11 +13,14 @@ function start_secure_session(): void {
     if (session_status() === PHP_SESSION_NONE) session_start();
 }
 
+function has_session(): bool {
+    start_secure_session();
+    return isset($_SESSION["connected"]) && $_SESSION["connected"];
+}
+
 function assert_session(): void
 {
-    start_secure_session();
-
-    if (!isset($_SESSION["connected"]) || !$_SESSION["connected"]) {
+    if (!has_session()) {
         session_destroy();
         header("Location: /pages/login");
         die("You are not connected.");

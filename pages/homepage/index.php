@@ -3,13 +3,16 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
 
 // check if the user is registered to edit the buttons
-$db = getSecureDB();
-start_secure_session();
-$username = $_SESSION["username"];
 
-$isConnected = checkValidUsername($db, $username) !== -1;
+$isConnected = has_session();
 
-$db = null; // disconnect from the database early
+if ($isConnected) {
+    $username = $_SESSION["username"];
+    $db = getSecureDB();
+    $isConnected = checkValidUsername($db, $username) !== -1;
+
+    $db = null; // disconnect from the database early
+}
 ?>
 
 <!DOCTYPE html>
