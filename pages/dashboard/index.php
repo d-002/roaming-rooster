@@ -5,6 +5,7 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 assert_session();
 component("header");
 component("search");
+component("dashboard_widgets");
 
 ?>
 <!DOCTYPE html>
@@ -12,10 +13,22 @@ component("search");
 <?php
 insertHeader("Dashboard", ["inputs", "containers"]);
 ?>
+
 <body>
 <p>Hello world, you are connected</p>
 <?php
+// initial username check, to not have to do it later
+$db = getSecureDB();
+
+$username = $_SESSION["username"];
+$id = checkValidUsername($db, $username);
+if ($id == -1) {
+    die("Cannot access this page right now");
+}
+echo "<p>DEBUG: connected with ID ".$id."</p>";
+
 insert_search_widget(page: false);
+
 ?>
 </body>
 </html>
