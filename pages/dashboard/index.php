@@ -15,7 +15,6 @@ insertHeader("Dashboard", ["inputs", "containers"]);
 ?>
 
 <body>
-<p>Hello world, you are connected</p>
 <?php
 // initial username check, to not have to do it later
 $db = getSecureDB();

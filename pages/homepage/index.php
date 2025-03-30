@@ -1,13 +1,23 @@
+<?php
+require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/utils/dbutils.php");
+
+// check if the user is registered to edit the buttons
+$db = getSecureDB();
+start_secure_session();
+$username = $_SESSION["username"];
+
+$isConnected = checkValidUsername($db, $username) !== -1;
+
+$db = null; // disconnect from the database early
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
-
 component("header");
-
 insertHeader("Home", array("homepage/main"));
 ?>
-
 <body>
 <div id="left">
     <h2>Every local farmer is on</h2>
@@ -21,7 +31,7 @@ insertHeader("Home", array("homepage/main"));
             echo "<a href='" . $link . "' class='button " . $class . "'>" . $text . "</a>";
         }
 
-        if (0) {
+        if ($isConnected) {
             button("Dashboard", "/pages/dashboard", "primary");
             button("Sign out", "/pages/signout", "secondary");
         } else {

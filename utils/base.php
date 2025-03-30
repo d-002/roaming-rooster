@@ -9,9 +9,13 @@ function component($name): void
     root_include("/components/" . $name . ".php");
 }
 
+function start_secure_session(): void {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+}
+
 function assert_session(): void
 {
-    if (session_status() === PHP_SESSION_NONE) session_start();
+    start_secure_session();
 
     if (!isset($_SESSION["connected"]) || !$_SESSION["connected"]) {
         session_destroy();
