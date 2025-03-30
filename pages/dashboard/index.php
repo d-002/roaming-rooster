@@ -1,5 +1,4 @@
 <?php
-
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 assert_session();
@@ -30,5 +29,7 @@ insert_search_widget(page: false);
 
 insert_all_widgets($db, $id);
 ?>
+
+<a href="/pages/signout">Log out</a>
 </body>
 </html>
