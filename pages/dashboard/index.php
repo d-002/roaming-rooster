@@ -28,6 +28,7 @@ echo "<p>DEBUG: connected with ID ".$id."</p>";
 
 insert_search_widget(page: false);
 
+insert_all_widgets($db, $id);
 ?>
 </body>
 </html>

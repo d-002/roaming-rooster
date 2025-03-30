@@ -60,6 +60,30 @@ function verifyUserPassword(PDO $db, $username, $password): bool
     return password_verify($password, $elements[0]["password"]);
 }
 
+function hasUserGotRole(PDO $db, $id, $roleID): bool {
+    $st = $db->prepare("SELECT role FROM roles WHERE id = (:id)");
+    if (!$st->execute(["id" => $id])) return false;
+
+    while ($elt = $st->fetch()) {
+        // single equality here
+        if ($elt["role"] == $roleID) return true;
+    }
+
+    return false;
+}
+
+function isBusiness(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 0);
+}
+
+function isCustomer(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 1);
+}
+
+function isAdmin(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 2);
+}
+
 function addRoleToUser(PDO $db, $id, $role): void
 {
     $st = $db->prepare("INSERT INTO roles (user_id, role) VALUES (:id, :role)");
