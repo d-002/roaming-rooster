@@ -11,7 +11,8 @@ function component($name): void
 
 function assert_session(): void
 {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) session_start();
+
     if (!isset($_SESSION["connected"]) || !$_SESSION["connected"]) {
         session_destroy();
         header("Location: /pages/login");
