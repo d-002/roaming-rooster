@@ -16,7 +16,7 @@ The production website is on Infinityfree, at [this address](http://roaming-roos
 
 - Install [xampp](https://www.apachefriends.org/download.html)
 - Open xampp, then open `httpd.conf` in the Apache server Config section:
-- Edit the file that opens to contain a link to the project (search for "DocumentRoot"):
+- Edit the file that opens to contain a link to the project (search for `DocumentRoot` in the file):
 ```
 DocumentRoot "/path/to/roaming-rooster"
 <Directory "/path/to/roaming-rooster">
