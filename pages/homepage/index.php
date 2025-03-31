@@ -12,7 +12,7 @@ insertHeader("Home", array("homepage/main"));
 <div id="left">
     <h2>Every local farmer is on</h2>
     <h1>Roaming Rooster</h1>
-    <br class="large"/>
+    <br class="large">
 
     <div class="center">
         <?php
@@ -30,14 +30,16 @@ insertHeader("Home", array("homepage/main"));
         } ?>
     </div>
 
-    <br class="large"/>
-    <p id="arrow">See services</p>
-    <br class="large"/>
+    <br class="large">
+    <p id="arrow">
+        See services
+    </p>
+    <br class="large">
 
     <?php
     ?>
 
-    <br class="large"/>
+    <br class="large">
     <a href="/pages/services" class="button secondary">Browse</a>
 </div>
 
