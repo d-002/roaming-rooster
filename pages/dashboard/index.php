@@ -23,7 +23,7 @@ $id = checkValidUsername($db, $username);
 if ($id == -1) {
     die("Cannot access this page right now");
 }
-echo "<p>DEBUG: connected with ID ".$id."</p>";
+echo "<p>DEBUG: connected with ID " . $id . "</p>";
 
 insert_search_widget(page: false);
 

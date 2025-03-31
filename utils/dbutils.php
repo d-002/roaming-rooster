@@ -61,11 +61,15 @@ function verifyUserPassword(PDO $db, $username, $password): bool
 }
 
 function hasUserGotRole(PDO $db, $id, $roleID): bool {
-    $st = $db->prepare("SELECT * FROM roles WHERE user_id = (:id)");
+    $st = $db->prepare("SELECT * FROM roles WHERE user_id = :id");
     if (!$st->execute(["id" => $id])) return false;
 
     while ($elt = $st->fetch()) {
-        // single equality here
+        // single equality here: in case the value in the database is a string,
+        // it will be converted into a number to make sure the comparison works.
+        // for a well-prepared database, this should not matter as the data should
+        // already be an integer, but changing == into === could break and easily
+        // pass unnoticed if changes to the database are made in the future
         if ($elt["role"] == $roleID) return true;
     }
 
