@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px; background: #4CAF50; color: white; border: none;
+        }
+        </style>
+    </head>
+
+    <body>
+        <h2>user login</h2>
+        <!--submit form to login.php, use method POST to send data-->
+        <form action="login.php" method="post">
+            <!--Enter the username -->
+            <div class="form-group">
+                <label>username: </label>
+                <input type="text" name="username" required>
+            </div>        
+            <!--Enter the password -->
+            <div class="form-group">
+                <label>password: </label>
+                <input type="password" name="password" required>
+            </div>
+            <!--Click button to login -->
+            <button type="submit">login</button>
+        </form>
+        <!--No account, go to register page -->
+        <p>no account <a href="register.html"> register now</a></p>
+    </body>
+
+</html>

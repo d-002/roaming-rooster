@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>register</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; }
+        .form-group { margin-bottom: 15px; }
+        input[type="tel"], input[type="email"] { width: 100%; padding: 8px; margin-top: 5px; }
+        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h2>User register</h2>
+    <!--submit form to register.php, use method POST to send data-->
+    <form action="register.php" method="post">
+        <!--Create username in users_table-->
+        <div class="form-group">
+            <label>username</label>
+            <input type="text" name="username" required>
+        </div>
+        <!--Create display_name in users_table-->
+        <div class="form-group">
+            <label>display name:</label>
+            <input type="text" name="display_name" required>
+        </div>
+        <!--Create password in users_table-->
+        <div class="form-group">
+            <label>password</label>
+            <input type="password" name="password" required>
+        </div>
+        <!--Create email in users_table-->
+        <div class="form-group">
+            <label>email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <!--Create phone in users_table-->
+        <div class="form-group">
+            <label>phone:</label>
+            <input type="tel" name="phone">
+        </div>
+
+        <!--Select role for user-->
+        <div class="form-group">
+            <label>Role:</label>
+            <select name="role" required>
+                <option value="">Select</option>
+                <option value="0">Seller</option>
+                <option value="1">Customer</option>
+                <!--Missing Administrator here-->
+            </select>
+        </div>
+
+        <!--Finish register-->
+        <button type="submit">register</button>
+    </form>
+    <!--Go to login page-->
+    <p>have account  <a href="login.html"> login now</a></p>
+</body>
+</html>
