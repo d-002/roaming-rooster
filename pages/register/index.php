@@ -18,7 +18,7 @@ insertHeader("Register", array("containers", "inputs"));
 
 <div class="fill-page main-column">
     <header class="titles page" page="0">
-        <a href="/home.php">
+        <a href="/pages/homepage">
             <p class="subtitle">Join a strong community on</p>
             <h1>The Roaming Rooster</h1>
         </a>
@@ -32,7 +32,7 @@ insertHeader("Register", array("containers", "inputs"));
             <!-- Page 0 -->
             <div class="page" page="0">
                 <?php
-                insertArrowRedirect("I have an account", "Login", "/pages/login");
+                insert_arrow_redirect("I have an account", "Login", "/pages/login");
                 ?>
             </div>
             <div class="form-element page" page="0">

@@ -12,14 +12,28 @@ The production website is on Infinityfree, at [this address](http://roaming-roos
 
 ### Debugging
 
-1. Install [xampp](https://www.apachefriends.org/download.html)
-2. Run xampp, then go to Apache > Config > Apache (httpd.conf)
-3. Edit the file that opens to contain a link to the project (search for "DocumentRoot"):
+1. **xampp configuration**
+
+- Install [xampp](https://www.apachefriends.org/download.html)
+- Open xampp, then open `httpd.conf` in the Apache server Config section:
+- Edit the file that opens to contain a link to the project (search for `DocumentRoot` in the file):
 ```
 DocumentRoot "/path/to/roaming-rooster"
 <Directory "/path/to/roaming-rooster">
 ```
-4. Open the website on the given port, for example [localhost:80](http://localhost:80)
+
+2. **php configuration**
+
+- Still in xampp, open Config > `php.ini`
+- Search for the line `;extension=pdo_sqlite` and remove the semicolon (`;`) at the start
+- Do the same for the line `;extension=sqlite3`
+
+3. **Opening the development website**
+
+- Launch the Apache server in xampp.
+- Open the website on the given port, for example [localhost:80](http://localhost:80)
+- Push your work on separate branches, not on main
+
 
 ### Files and directories
 

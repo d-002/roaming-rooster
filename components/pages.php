@@ -3,7 +3,7 @@
 function insertPageCircle($page)
 {
     ?>
-    <div class="circle page-circle btn" circle="<?php echo $page; ?>"></div>
+    <div class="circle page-circle btn" circle="<?= $page ?>"></div>
     <?php
 }
 
@@ -23,8 +23,8 @@ function insertCircles($number_of_pages, $start)
 function insertNavigationButton($txt, $id)
 {
     ?>
-    <div id="<?php echo $id; ?>" class="btn btn-primary btn-nav">
-        <p><?php echo $txt; ?></p>
+    <div id="<?= $id ?>" class="btn btn-primary btn-nav">
+        <p><?= $txt ?></p>
     </div>
     <?php
 }

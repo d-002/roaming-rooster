@@ -1,4 +1,4 @@
 <?php function insertTextSubmit($name): void
 { ?>
-    <input class="text-submit" value="<?php echo $name; ?>" type='submit'>
+    <input class="text-submit" value="<?= $name ?>" type='submit'>
 <?php } ?>

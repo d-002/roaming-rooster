@@ -4,8 +4,8 @@
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
-rootInclude("/utils/dbutils.php");
-rootInclude("/utils/sanitize.php");
+root_include("/utils/dbutils.php");
+root_include("/utils/sanitize.php");
 
 insertHeader("Welcome", ["inputs", "containers"]);
 ?>
@@ -34,7 +34,7 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
 
     insertUserInDatabase($db, $email, $username, $password, display: $display, phone: $phone, is_customer: $is_customer, is_seller: $is_seller);
     ?>
-    <p class="subtitle">Welcome <?php echo $_REQUEST["username"]; ?> on</p>
+    <p class="subtitle">Welcome <?= $_REQUEST["username"]; ?> on</p>
     <h1>The Roaming Rooster</h1>
     <a href="/pages/login"><p class="pointed">Login</p></a>
     <?php
