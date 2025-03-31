@@ -1,3 +1,11 @@
+<?php
+// check if user is authorized
+include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/pages/admin/common-utils.php");
+
+quickAdminCheck();
+?>
+
 <html>
     <head>
         <title>Manual database prompts</title>
@@ -12,7 +20,6 @@
 
         <?php
 include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-root_include("/utils/dbutils.php");
 
 $db = getSecureDB();
         ?>

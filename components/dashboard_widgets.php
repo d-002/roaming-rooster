@@ -37,7 +37,7 @@ function template_widget_buttons($title, $texts, $addresses) {
     for ($i = 0; $i < count($texts); $i++) {
         echo "<a href='";
         echo htmlspecialchars($addresses[$i]);
-        echo "'>";
+        echo "' style='display: block'>";
         echo htmlspecialchars($texts[$i]);
         echo "</a>";
     }
@@ -74,10 +74,14 @@ function widget_adminOptions($db, $id) {
     template_widget_buttons(
         "My Admin actions",
         array(
-            "test"
+            "query database",
+            "format database (SENSITIVE)",
+            "fill database (SENSITIVE)"
         ),
         array(
-            "/pages/404"
+            "/pages/admin/query-database",
+            "/pages/admin/format-database",
+            "/pages/admin/fill-database"
         )
     );
 }
