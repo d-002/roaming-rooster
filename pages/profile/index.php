@@ -4,7 +4,7 @@ component("header");
 
 insertHeader("Register", array("containers", "inputs"));
 
-rootInclude("/utils/dbutils.php");
+root_include("/utils/dbutils.php");
 
 session_start();
 if (!isset($_SESSION["connected"]) || $_SESSION["connected"] !== true) {
