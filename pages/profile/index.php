@@ -26,7 +26,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         <h1>Your Profile</h1>
 
         <?php if ($user): ?>
-            <p><strong>Username:</strong> <?= htmlspecialchars($user["username"]) ?></p>
+            <p><strong>Username:</strong> <?= htmlspecialchars($username) ?></p>
             <p><strong>Display Name:</strong> <?= htmlspecialchars($user["display_name"]) ?></p>
             <p><strong>Email:</strong> <?= htmlspecialchars($user["email"]) ?></p>
         <?php else: ?>
