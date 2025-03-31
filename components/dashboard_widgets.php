@@ -21,27 +21,35 @@ function insert_all_widgets($db, $id) {
     widget_notifications($db, $id);
 }
 
-// widget template for listing debug db results (UNSAFE)
+// widget template for listing debug db results (UNSAFE, DEVELOPMENT ONLY)
 function template_widget_dblist($title, $contents) {
-    echo "<table border=1><th>" . $title . "</th>";
-    foreach($contents as $elt)
-        echo "<tr><td>" . strval($elt) . "</td></tr>";
-    echo "</table>";
+?>
+
+<table border=1><th><?php echo $title ?></th>
+    <?php foreach($contents as $elt) {?>
+        <tr><td><?php echo strval($elt) ?></td></tr>
+    <?php } ?>
+</table>
+
+<?php
 }
 
 // widget template for having multiple buttons
 // texts and addresses should have the same size
 function template_widget_buttons($title, $texts, $addresses) {
-    echo "<div>";
-    echo "<p><strong>" . htmlspecialchars($title) . "</strong></p>";
-    for ($i = 0; $i < count($texts); $i++) {
-        echo "<a href='";
-        echo htmlspecialchars($addresses[$i]);
-        echo "' style='display: block'>";
-        echo htmlspecialchars($texts[$i]);
-        echo "</a>";
-    }
-    echo "</div>";
+?>
+
+<div>
+    <p><strong><?php echo htmlspecialchars($title) ?></strong></p>
+
+    <?php for ($i = 0; $i < count($texts); $i++) { ?>
+        <a href="<?php echo htmlspecialchars($addresses[$i]) ?>" style="display: block">
+            <?php echo htmlspecialchars($texts[$i]) ?>
+        </a>
+    <?php } ?>
+</div>
+
+<?php
 }
 
 /* WIDGETS */
