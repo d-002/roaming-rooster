@@ -29,6 +29,8 @@ h2 {
 }
 
 #left {
+    z-index: 1;
+
     padding: 50px;
     box-sizing: border-box;
     width: 55%;
@@ -48,7 +50,13 @@ h2 {
 }
 
 #right {
-    flex: 1;
+    position: absolute;
+    height: 100%;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    width: 500px;
+    max-width: 70%;
     background: url("/assets/images/sample.jpeg");
 }
 
