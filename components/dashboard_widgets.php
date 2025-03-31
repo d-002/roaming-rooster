@@ -7,22 +7,22 @@ function insert_all_widgets($db, $id) {
     $isAdmin = isAdmin($db, $id);
 
     if ($isBusiness) {
-        widget_businessOptions($db, $id);
+        widget_business_options($db, $id);
     }
 
     if ($isCustomer) {
-        widget_customerOptions($db, $id);
+        widget_customer_options($db, $id);
     }
 
     if ($isAdmin) {
-        widget_adminOptions($db, $id);
+        widget_admin_options($db, $id);
     }
 
     widget_notifications($db, $id);
 }
 
 // widget template for listing debug db results (UNSAFE)
-function templace_widget_dblist($title, $contents) {
+function template_widget_dblist($title, $contents) {
     echo "<table border=1><th>" . $title . "</th>";
     foreach($contents as $elt)
         echo "<tr><td>" . strval($elt) . "</td></tr>";
@@ -46,7 +46,7 @@ function template_widget_buttons($title, $texts, $addresses) {
 
 /* WIDGETS */
 
-function widget_businessOptions($db, $id) {
+function widget_business_options($db, $id) {
     template_widget_buttons(
         "My Seller actions",
         array(
@@ -58,7 +58,7 @@ function widget_businessOptions($db, $id) {
     );
 }
 
-function widget_customerOptions($db, $id) {
+function widget_customer_options($db, $id) {
     template_widget_buttons(
         "My Customer actions",
         array(
@@ -70,7 +70,7 @@ function widget_customerOptions($db, $id) {
     );
 }
 
-function widget_adminOptions($db, $id) {
+function widget_admin_options($db, $id) {
     template_widget_buttons(
         "My Admin actions",
         array(
@@ -97,6 +97,6 @@ function widget_notifications($db, $id) {
             array_push($arr, '"' . $text . '" received at ' . $date);
         }
 
-    templace_widget_dblist("Latest notifications", $arr);
+    template_widget_dblist("Latest notifications", $arr);
 }
 ?>
