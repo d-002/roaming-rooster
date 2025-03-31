@@ -15,7 +15,7 @@ if (!isset($_SESSION["connected"]) || $_SESSION["connected"] !== true) {
 $username = $_SESSION["username"];
 $db = getSecureDB();
 
-$stmt = $db->prepare("SELECT username, display_name, email FROM users WHERE username = ? LIMIT 1");
+$stmt = $db->prepare("SELECT display_name, email FROM users WHERE username = ? LIMIT 1");
 $stmt->execute([$username]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
