@@ -6,11 +6,7 @@ insertHeader("Register", array("containers", "inputs"));
 
 root_include("/utils/dbutils.php");
 
-session_start();
-if (!isset($_SESSION["connected"]) || $_SESSION["connected"] !== true) {
-    header("Location: /pages/login");
-    exit;
-}
+assert_session();
 
 $username = $_SESSION["username"];
 $db = getSecureDB();
