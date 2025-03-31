@@ -61,7 +61,7 @@ function verifyUserPassword(PDO $db, $username, $password): bool
 }
 
 function hasUserGotRole(PDO $db, $id, $roleID): bool {
-    $st = $db->prepare("SELECT role FROM roles WHERE id = (:id)");
+    $st = $db->prepare("SELECT * FROM roles WHERE user_id = (:id)");
     if (!$st->execute(["id" => $id])) return false;
 
     while ($elt = $st->fetch()) {
