@@ -7,18 +7,18 @@ function insert_all_widgets($db, $id) {
     $isAdmin = isAdmin($db, $id);
 
     if ($isBusiness) {
-        widget_businessOptions($db);
+        widget_businessOptions($db, $id);
     }
 
     if ($isCustomer) {
-        widget_customerOptions($db);
+        widget_customerOptions($db, $id);
     }
 
     if ($isAdmin) {
-        widget_adminOptions($db);
+        widget_adminOptions($db, $id);
     }
 
-    widget_notifications($db);
+    widget_notifications($db, $id);
 }
 
 // widget template for listing debug db results (UNSAFE)
@@ -46,7 +46,7 @@ function template_widget_buttons($title, $texts, $addresses) {
 
 /* WIDGETS */
 
-function widget_businessOptions($db) {
+function widget_businessOptions($db, $id) {
     template_widget_buttons(
         "My Seller actions",
         array(
@@ -58,7 +58,7 @@ function widget_businessOptions($db) {
     );
 }
 
-function widget_customerOptions($db) {
+function widget_customerOptions($db, $id) {
     template_widget_buttons(
         "My Customer actions",
         array(
@@ -70,7 +70,7 @@ function widget_customerOptions($db) {
     );
 }
 
-function widget_adminOptions($db) {
+function widget_adminOptions($db, $id) {
     template_widget_buttons(
         "My Admin actions",
         array(
@@ -82,6 +82,17 @@ function widget_adminOptions($db) {
     );
 }
 
-function widget_notifications($db) {
+function widget_notifications($db, $id) {
+    $st = $db->prepare("SELECT * FROM notifications WHERE user_id = (:id)");
+
+    $arr = [];
+    if ($st->execute(["id" => $id]))
+        while($elt = $st->fetch()) {
+            $text = $elt["text"];
+            $date = date("l jS \of F Y \at h:i:s A", $elt["time"]);
+            array_push($arr, '"' . $text . '" received at ' . $date);
+        }
+
+    templace_widget_dblist("Latest notifications", $arr);
 }
 ?>
