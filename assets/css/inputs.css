@@ -44,6 +44,12 @@
     gap: var(--spacing-minimum);
 }
 
+@media screen and (max-device-width: 700px) {
+    .arrow-redirect {
+        flex-wrap: wrap;
+    }
+}
+
 .arrow-container {
     display: flex;
     flex-direction: column;

@@ -45,7 +45,12 @@
     gap: var(--spacing-medium);
     justify-content: center;
     align-items: center;
+}
 
+@media screen and (max-device-width: 700px) {
+    .line {
+        flex-wrap: wrap;
+    }
 }
 
 .take-all {
