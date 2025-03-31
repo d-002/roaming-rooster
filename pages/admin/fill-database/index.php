@@ -99,11 +99,12 @@ function fillDatabase(): void
     insert($db, "themes", array(3, 4, 0xffffff, 0x0000ff));
     insert($db, "themes", array(5, 6, 0x000000, 0x808080));
 
-    insert($db, "users", array("hello", "Hello", password_hash("hello", PASSWORD_DEFAULT), "hello@hello.com", 0, "+012345", .42, .69, 1, false));
-    insert($db, "users", array("world", "World", password_hash("world", PASSWORD_DEFAULT), "world@world.com", 1, "+056789", .69, .42, 2, false));
-    insert($db, "users", array("a", "a", password_hash("a", PASSWORD_DEFAULT), "a@a.com", 1, "+0", 3.14, 2.72, 0, false));
-    insert($db, "users", array("banned", "ImBanned", password_hash("banned", PASSWORD_DEFAULT), "im@banned.com", 1, "+11111", 0, 0, 3, true));
-    insert($db, "users", array("best_seller", "best_seller", password_hash("best seller", PASSWORD_DEFAULT), "seller@best.com", 1, "+056989", .42, .42, 2, false));
+    insert($db, "users", array("hello", "Hello", password_hash("hello", PASSWORD_DEFAULT), "hello@hello.com", false, "+012345", .42, .69, 1, false));
+    insert($db, "users", array("world", "World", password_hash("world", PASSWORD_DEFAULT), "world@world.com", true, "+056789", .69, .42, 2, false));
+    insert($db, "users", array("a", "a", password_hash("a", PASSWORD_DEFAULT), "a@a.com", 1, "+0", 3.14, 2.72, false, false));
+    insert($db, "users", array("banned", "ImBanned", password_hash("banned", PASSWORD_DEFAULT), "im@banned.com", true, "+11111", 0, 0, 3, true));
+    insert($db, "users", array("best_seller", "best_seller", password_hash("best seller", PASSWORD_DEFAULT), "seller@best.com", true, "+056989", .42, .42, 2, false));
+    insert($db, "users", array("admin", "admin", password_hash("admin", PASSWORD_DEFAULT), "admin@admin.com", true, "+admin", 0, 0, 0, false));
 
     insert($db, "roles", array(1, 0));
     insert($db, "roles", array(1, 1));
@@ -112,12 +113,17 @@ function fillDatabase(): void
     insert($db, "roles", array(3, 0));
     insert($db, "roles", array(4, 1));
     insert($db, "roles", array(4, 0));
+    insert($db, "roles", array(5, 0));
+    insert($db, "roles", array(6, 0));
+    insert($db, "roles", array(6, 1));
+    insert($db, "roles", array(6, 2));
 
     insert($db, "balances", array(1, 42.69));
     insert($db, "balances", array(2, 100));
     insert($db, "balances", array(3, 0));
     insert($db, "balances", array(3, 10));
     insert($db, "balances", array(4, 100));
+    insert($db, "balances", array(5, 1000000));
 
     insert($db, "conversations", array(1, 2, "Untitled", false));
     insert($db, "conversations", array(1, 3, "Other", false));
@@ -127,6 +133,7 @@ function fillDatabase(): void
     insert($db, "notifications", array(1, 2, "notification for conversation 2", now()));
     insert($db, "notifications", array(2, 1, "notification for conversation 1 - other person", now()));
     insert($db, "notifications", array(2, 2, "notification for conversation 2 - other person", now()));
+    insert($db, "notifications", array(2, 2, "notification to admin user, from conversation 2", now()));
 
     insert($db, "messages", array(1, 1, "this is a message", now() - 1000));
     insert($db, "messages", array(2, 1, "hello", now() - 500));
