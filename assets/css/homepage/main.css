@@ -10,6 +10,7 @@ body {
 h1 {
     font-family: "arima-bold", serif;
     font-weight: bold;
+    text-shadow: var(--back-color-base) 0 0 8px;
 
     font-size: 64px;
 }
@@ -24,6 +25,7 @@ h1::before {
 h2 {
     font-family: "inria", serif;
     color: black;
+    text-shadow: var(--back-color-base) 0 0 8px;
 
     font-size: 24px;
 }
@@ -33,7 +35,9 @@ h2 {
 
     padding: 50px;
     box-sizing: border-box;
-    width: 55%;
+    min-width: 55vw;
+    width: 500px;
+    max-width: 100vw;
     max-height: 100%;
 
     display: flex;
@@ -104,6 +108,7 @@ a.button.secondary {
 #arrow {
     display: flex;
     flex-direction: column;
+    text-shadow: var(--back-color-base) 0 0 8px;
 
     font-size: 20px;
     /* Default font weight is 400 */
