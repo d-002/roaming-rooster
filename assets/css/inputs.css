@@ -144,6 +144,12 @@
     background-color: var(--title-color);
 }
 
+@media screen and (max-device-width: 500px){
+    .circle {
+        display: none;
+    }
+}
+
 .pages-nav {
     display: flex;
     flex-direction: row;
