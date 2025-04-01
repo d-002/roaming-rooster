@@ -1,4 +1,9 @@
 
+input {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .text-field-label {
     font-size: medium;
     text-align: right;
@@ -21,6 +26,20 @@
     font-size: xx-large;
     padding: var(--input-block-margin) var(--input-block-padding);
     width: 100%;
+    max-width: 98vw;
+    overflow: scroll;
+}
+
+@media screen and (max-device-width: 700px) {
+    .text-field {
+        font-size: x-large;
+    }
+}
+
+@media screen and (max-device-width: 430px) {
+    .text-field {
+        font-size: large;
+    }
 }
 
 .text-submit {
@@ -150,7 +169,7 @@
     background-color: var(--title-color);
 }
 
-@media screen and (max-device-width: 500px){
+@media screen and (max-device-width: 500px) {
     .circle {
         display: none;
     }
