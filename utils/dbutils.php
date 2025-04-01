@@ -1,6 +1,7 @@
 <?php
-function getSecureDB(): PDO {
-    $db = new PDO("sqlite:".$_SERVER["DOCUMENT_ROOT"]."/private/main-database.db");
+function getSecureDB(): PDO
+{
+    $db = new PDO("sqlite:" . $_SERVER["DOCUMENT_ROOT"] . "/private/main-database.db");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_PERSISTENT, true);
 
@@ -98,4 +99,11 @@ function insertUserInDatabase(PDO $db, $email, $username, $password, $display = 
     if ($is_customer)
         addRoleToUser($db, $id, 1);
 }
-?>
+
+function get_tags(PDO $db, $limit): array
+{
+    $prepared = $db->prepare("SELECT name FROM tags LIMIT :limit");
+    if (!$prepared->execute(["limit" => $limit])) return [];
+    return $prepared->fetchColumn();
+}
+
