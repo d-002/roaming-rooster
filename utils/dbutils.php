@@ -60,10 +60,49 @@ function verifyUserPassword(PDO $db, $username, $password): bool
     return password_verify($password, $elements[0]["password"]);
 }
 
+function hasUserGotRole(PDO $db, $id, $roleID): bool {
+    $st = $db->prepare("SELECT * FROM roles WHERE user_id = :id");
+    if (!$st->execute(["id" => $id])) return false;
+
+    while ($elt = $st->fetch()) {
+        // single equality here: in case the value in the database is a string,
+        // it will be converted into a number to make sure the comparison works.
+        // for a well-prepared database, this should not matter as the data should
+        // already be an integer, but changing == into === could break and easily
+        // pass unnoticed if changes to the database are made in the future
+        if ($elt["role"] == $roleID) return true;
+    }
+
+    return false;
+}
+
+function isBusiness(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 0);
+}
+
+function isCustomer(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 1);
+}
+
+function isAdmin(PDO $db, $id) {
+    return hasUserGotRole($db, $id, 2);
+}
+
 function addRoleToUser(PDO $db, $id, $role): void
 {
     $st = $db->prepare("INSERT INTO roles (user_id, role) VALUES (:id, :role)");
     $st->execute(["id" => $id, "role" => $role]);
+}
+
+function checkValidUsername(PDO $db, $username): int {
+    // checks if this username has basic page access
+    // returns user ID if so, -1 otherwise
+
+    if (!isUsernameInDatabase($db, $username)) return -1;
+    $id = getUserIDByUsername($db, $username);
+    if (isUserBanned($db, $id)) return -1;
+
+    return $id;
 }
 
 function insertUserInDatabase(PDO $db, $email, $username, $password, $display = null, $phone = null, $latitude = null, $longitude = null, $theme_id = null, $is_customer = false, $is_seller = false): void

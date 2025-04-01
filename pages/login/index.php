@@ -75,8 +75,7 @@ if (isset($_REQUEST["try"])) {
     $password = $_REQUEST["password"];
     $db = getSecureDB();
 
-    echo "username = " . $username;
-    echo "password = " . $password;
+    // echo "username = " . $username . ", password = " . $password;
     if (!isUsernameInDatabase($db, $username)) {
         show_page("This user does not have an account.");
         return;
@@ -94,6 +93,11 @@ if (isset($_REQUEST["try"])) {
     } else if ($banned) {
         show_page("Your account id banned");
         return;
+    }
+
+    if (session_status() !== PHP_SESSION_NONE) {
+        // destroy previous session, to avoid errors and make sure the new user is the one logged in
+        session_destroy();
     }
 
     session_start();

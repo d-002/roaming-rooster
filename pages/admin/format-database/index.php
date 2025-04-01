@@ -1,3 +1,11 @@
+<?php
+// check if user is authorized
+include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/pages/admin/common-utils.php");
+
+quickAdminCheck();
+?>
+
 <html lang="en">
     <head>
         <title>Database formatting</title>
@@ -9,9 +17,6 @@
         <a href="/pages/admin/query-database">Go back to the query page</a>
 
         <?php
-include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-root_include("/utils/dbutils.php");
-
 function empty_database($db) {
     $q_tables = $db->query('SELECT name FROM sqlite_master WHERE type="table"');
     $tables = array();

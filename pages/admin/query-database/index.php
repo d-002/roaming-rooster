@@ -1,3 +1,11 @@
+<?php
+// check if user is authorized
+include $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/pages/admin/common-utils.php");
+
+quickAdminCheck();
+?>
+
 <html>
     <head>
         <title>Manual database prompts</title>
@@ -11,9 +19,6 @@
         <a href="/pages/admin/fill-database">/!\ SENSITIVE - go to the dummy fill database page</a>
 
         <?php
-include $_SERVER["DOCUMENT_ROOT"]."/utils/base.php";
-root_include("/utils/dbutils.php");
-
 $db = getSecureDB();
         ?>
 
