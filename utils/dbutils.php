@@ -104,6 +104,10 @@ function get_tags(PDO $db, $limit): array
 {
     $prepared = $db->prepare("SELECT name FROM tags LIMIT :limit");
     if (!$prepared->execute(["limit" => $limit])) return [];
-    return $prepared->fetchColumn();
+    $array = [];
+    while ($element = $prepared->fetchColumn()) {
+        $array[] = $element;
+    }
+    return $array;
 }
 
