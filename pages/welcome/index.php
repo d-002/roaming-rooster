@@ -11,11 +11,11 @@ insertHeader("Welcome", ["inputs", "containers"]);
 ?>
 <body class="fill-page container align-content-center text-center">
 <?php
-if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["password-confirmation"]) && isset($_REQUEST["email"])) {
+if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["passwordconfirmation"]) && isset($_REQUEST["email"])) {
     $db = getSecureDB();
 
     $password = $_REQUEST["password"];
-    $confirmation = $_REQUEST["password-confirmation"];
+    $confirmation = $_REQUEST["passwordconfirmation"];
     $email = $_REQUEST["email"];
     $username = $_REQUEST["username"];
 

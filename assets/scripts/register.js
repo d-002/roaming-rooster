@@ -8,7 +8,7 @@ let next = document.getElementById("nav-next");
 let username = document.getElementById("username");
 let email = document.getElementById("email");
 let password = document.getElementById("password");
-let confirmation = document.getElementById("password-confirmation");
+let confirmation = document.getElementById("passwordconfirmation");
 
 let pageNumber = 0;
 let numberOfPages = 4;
