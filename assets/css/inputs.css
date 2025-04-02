@@ -273,6 +273,9 @@ label {
 
 input.circle-inside-input {
     padding-left: 16px;
+    min-width: 0;
+    width: 400px;
+    max-width: 60vw;
 }
 
 .search-options {
