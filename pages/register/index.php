@@ -62,7 +62,7 @@ insertHeader("Register", array("containers", "inputs"));
                 <p class="form-section">Password</p>
                 <?php
                 insertTextField("Choose password", "password", true, "password");
-                insertTextField("Confirm password", "password-confirmation", true, "password");
+                insertTextField("Confirm password", "passwordconfirmation", true, "password");
                 ?>
             </div>
 
