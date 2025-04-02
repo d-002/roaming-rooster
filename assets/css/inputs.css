@@ -1,4 +1,9 @@
 
+input {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .text-field-label {
     font-size: medium;
     text-align: right;
@@ -21,6 +26,20 @@
     font-size: xx-large;
     padding: var(--input-block-margin) var(--input-block-padding);
     width: 100%;
+    max-width: 98vw;
+    overflow: scroll;
+}
+
+@media screen and (max-device-width: 700px) {
+    .text-field {
+        font-size: x-large;
+    }
+}
+
+@media screen and (max-device-width: 430px) {
+    .text-field {
+        font-size: large;
+    }
 }
 
 .text-submit {
@@ -42,6 +61,12 @@
     align-items: center;
     justify-content: right;
     gap: var(--spacing-minimum);
+}
+
+@media screen and (max-device-width: 700px) {
+    .arrow-redirect {
+        flex-wrap: wrap;
+    }
 }
 
 .arrow-container {
@@ -144,6 +169,12 @@
     background-color: var(--title-color);
 }
 
+@media screen and (max-device-width: 500px) {
+    .circle {
+        display: none;
+    }
+}
+
 .pages-nav {
     display: flex;
     flex-direction: row;
@@ -242,6 +273,9 @@ label {
 
 input.circle-inside-input {
     padding-left: 16px;
+    min-width: 0;
+    width: 400px;
+    max-width: 60vw;
 }
 
 .search-options {

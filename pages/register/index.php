@@ -2,6 +2,9 @@
 <html lang="en" class="fill-page">
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/utils/dbutils.php");
+
+$db = getSecureDB();
 
 // Reusable components
 component("header");
@@ -80,8 +83,8 @@ insertHeader("Register", array("containers", "inputs"));
                 <p class="form-section">About you</p>
                 <input type="hidden" id="tags-input" name="tags-input" value="">
                 <?php
-                // TODO look in database
-                insertTags(["text", "test", "lorem", "ipsum", "cats", "dogs", "second", "third", "test2", "longtext", "longertextlong", "best", "a"]);
+                $tags = get_tags($db, 30);
+                insertTags($tags);
                 ?>
                 <p class="form-text">Can be edited at any moment. Full list will be on your profile page.</p>
             </div>
