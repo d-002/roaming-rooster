@@ -43,6 +43,11 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     <p class="subtitle">Invalid request</p>
     <?php
     print_r($_REQUEST);
+    print_r(phpinfo());
+    print_r($_POST);
+    print_r($_COOKIE);
+    print_r($_GET);
+    print_r(file_get_contents("php://input"));
 }
 ?>
 </body>
