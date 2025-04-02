@@ -54,7 +54,7 @@ h2 {
 }
 
 #right {
-    position: absolute;
+    position: fixed;
     height: 100%;
     z-index: 0;
     top: 0;
@@ -62,6 +62,7 @@ h2 {
     width: 500px;
     max-width: 70%;
     background: url("/assets/images/sample.jpeg");
+    background-position: center;
 }
 
 #right::before {
