@@ -167,3 +167,14 @@ function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
         }
     }
 }
+
+function getUserTags(PDO $db, int $userId): array {
+    $stmt = $db->prepare("
+    SELECT t.name
+    FROM tags t
+    JOIN tags_users_join tuj ON t.id = tuj.tag_id
+    WHERE tuj.user_id = ?
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
