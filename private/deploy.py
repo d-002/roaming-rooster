@@ -19,8 +19,7 @@ IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 ignored = {key: False for key in IGNORE_LIST}
 
 if len(sys.argv) == 5:
-    #token = sys.argv[3]
-    token = "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"
+    token = sys.argv[3]
 
     with os.popen('git rev-parse --abbrev-ref HEAD') as p:
         current_branch = p.read().strip()
@@ -171,8 +170,6 @@ def list_remote(path, relative_path):
             time = parser.parse(time).timestamp()
 
             files[relative_path_to_file] = (time, False)
-
-            print(time, path_to_file)
 
         elif file_type == 'dir':
             # python 3.9+
