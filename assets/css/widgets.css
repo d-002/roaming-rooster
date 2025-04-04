@@ -42,3 +42,8 @@
     text-align: right;
     font-size: 0.7em;
 }
+
+.turned .symbol {
+    transform: rotate(-90deg);
+    transition: 0.5s transform;
+}

@@ -10,7 +10,7 @@ function insert_widget($title, $callback): void
             </div>
             <h2><?= $title ?></h2>
         </div>
-        <div class="widget-content">
+        <div class="widget-content page">
             <?php
             $callback();
             ?>
