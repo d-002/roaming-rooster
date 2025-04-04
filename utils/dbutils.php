@@ -152,17 +152,17 @@ function get_tags(PDO $db, $limit): array
 
 function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
     $tagNames = array_filter(array_map('trim', explode(',', $tagsInput)));
+    $selectStmt = $db->prepare("SELECT id FROM tags WHERE name = ?");
     foreach ($tagNames as $tagName) {
         if (empty($tagName)) continue;
-        $stmt = $db->prepare("SELECT id FROM tags WHERE name = ?");
-        $stmt->execute([$tagName]);
-        $tagId = $stmt->fetchColumn();
+        $selectStmt->execute([$tagName]);
+        $tagId = $selectStmt->fetchColumn();
+        $selectStmt->closeCursor();
 
         if ($tagId) {
-            $stmt = $db->prepare("INSERT INTO tags_users_join (tag_id, user_id) VALUES (?, ?)");
-            $stmt->execute([$tagId, $userId]);
-        }
-        else {
+            $insertStmt = $db->prepare("INSERT INTO tags_users_join (tag_id, user_id) VALUES (?, ?)");
+            $insertStmt->execute([$tagId, $userId]);
+        } else {
             error_log("Tag not found: " . $tagName);
         }
     }
