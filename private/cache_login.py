@@ -21,8 +21,7 @@ LOGIN_FILE = join(temp_path, 'login')
 TSTAMP_FILE = join(temp_path, 'timestamp')
 TIMEOUT = 86400 * 30
 
-print('Using files: %s\n             %s\n' %(LOGIN_FILE, TSTAMP_FILE))
-
+print()
 def get_login():
     # utils functions
     def update_time():
@@ -45,7 +44,7 @@ def get_login():
                     login = pickle.load(f)
                 update_time()
 
-                print('Using cached login info (%s, ********)\n' %login[0])
+                print(f'Using cached login info ({login[0]}, ********)\n')
 
                 return login
             else:

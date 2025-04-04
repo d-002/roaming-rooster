@@ -10,3 +10,9 @@ ErrorDocument 401 /pages/error/401.html
 ErrorDocument 403 /pages/error/403.html
 ErrorDocument 404 /pages/error/404.html
 ErrorDocument 500 /pages/error/500.html
+
+# no cache 
+<IfModule mod_headers.c>
+Header set Cache-Control "no-cache, no-store, must-revalidate"
+Header set Expires 0
+</IfModule>

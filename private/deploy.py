@@ -1,23 +1,66 @@
 import os
 import sys
-from dateutil import parser
 from os.path import basename, dirname, isdir, getmtime
+
+from dateutil import parser
 from ftplib import FTP
+
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
+import json
 
 # ----- CONFIG -----
 
 # will not use os.path.join() to keep paths with a slash for easier conversion
 ROOT_REMOTE = '/htdocs'
 ROOT_LOCAL = None
-IGNORE_LIST = ['.git', '.github', '.gitignore',
-               'README.md', '.gitignore', '__pycache__']
+IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 
 ignored = {key: False for key in IGNORE_LIST}
 
-if len(sys.argv) == 4:
+if len(sys.argv) == 5:
     print('Detected github actions mode (login in args)')
+    print('Will use last git modification date for updating')
     login = tuple(sys.argv[1:3])
-    ROOT_LOCAL = sys.argv[3]
+    token = sys.argv[3]
+    ROOT_LOCAL = sys.argv[4]
+    IS_LOCAL = False
+
+    with os.popen('git rev-parse --abbrev-ref HEAD') as p:
+        current_branch = p.read().strip()
+
+    print('Current branch:', current_branch)
+
+    base_url = 'https://api.github.com/repos/d-002/roaming-rooster/commits'
+
+    # get list of modified files in this commit
+    try:
+        url = f"{base_url}?sha={current_branch}&per_page=1"
+        headers = {"Authorization": f"token {token}"}
+
+        with urlopen(Request(url, headers=headers)) as response:
+            data = json.loads(response.read())[0]
+
+        sha = data["sha"]
+        time = data["commit"]["author"]["date"]
+        COMMIT_TIME = parser.parse(time).timestamp()
+
+        url = f"{base_url}/{sha}"
+
+        with urlopen(Request(url, headers=headers)) as response:
+            files = json.loads(response.read())["files"]
+
+        GIT_MODIFIED_FILES = [ROOT_LOCAL+'/'+file['filename']
+                              for file in files
+                              if file['status'] == 'modified']
+
+    except HTTPError as e:
+        print('Could not access repo through GitHub API.', file=sys.stderr)
+        print('Make sure a valid token has been provided.', file=sys.stderr)
+        print('Reason:', e.code, e.reason, file=sys.stderr)
+        exit(1)
+    finally:
+        del token
 
 else:
     if len(sys.argv) == 1:
@@ -25,10 +68,27 @@ else:
         sys.argv.append('..')
 
     print('Detected local run, using cached credentials system')
+    print('Will use local files modification date for updating')
     ROOT_LOCAL = sys.argv[1]
+    IS_LOCAL = True
 
     import cache_login
     login = cache_login.get_login()
+
+# add files in gitignore to ignore list (but ignore regex)
+added = []
+with open(ROOT_LOCAL+'/.gitignore') as f:
+    for line in f.read().split('\n'):
+        if '*' in line: continue
+        if not line: continue
+
+        added.append(line)
+
+IGNORE_LIST += added
+print('Added paths from gitignore to ignore list:')
+for a in added:
+    print(' - '+a)
+print()
 
 # ----- FTP -----
 
@@ -104,9 +164,9 @@ def list_remote(path, relative_path):
         if file_type == 'file':
             # get the modification date of the file
             time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
-            timestamp = parser.parse(time).timestamp()
+            time = parser.parse(time).timestamp()
 
-            files[relative_path_to_file] = (timestamp, False)
+            files[relative_path_to_file] = (time, False)
 
         elif file_type == 'dir':
             # python 3.9+
@@ -145,10 +205,15 @@ def list_local(path, relative_path):
 
         # check for ignored filenames
         elif not ignore(name):
-            # get last modification timestamp in the repo
-            # time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
-            # time = parser.parse(time).timestamp()
-            time = 10000000000000
+            if IS_LOCAL:
+                # get last file modification time
+                time = os.path.getmtime(path_to_file)
+            else:
+                # get last modification timestamp in the repo
+                if path_to_file in GIT_MODIFIED_FILES:
+                    time = COMMIT_TIME
+                else:
+                    time = 0 # don't udpate this file
 
             files[relative_path_to_file] = (time, False)
 
@@ -261,16 +326,18 @@ if __name__ == '__main__':
     check_ftp()
     print('\nListing remote files...')
     remote_files = list_remote(ROOT_REMOTE, '')
-    print('Found %d files.' %len(remote_files))
+    print(f'Found {len(remote_files)} files.')
 
     print('\nListing local files...')
     local_files = list_local(ROOT_LOCAL, '')
-    print('Found %d files.' %len(local_files))
+    print(f'Found {len(local_files)} files.')
 
     check_ftp()
     print('\nChecking for and making changes...')
     sync(remote_files, local_files)
     print('Done.')
+
+    del login
 
     # check if everything was ignored
     for key, value in ignored.items():
