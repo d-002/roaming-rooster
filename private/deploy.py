@@ -15,8 +15,10 @@ ignored = {key: False for key in IGNORE_LIST}
 
 if len(sys.argv) == 4:
     print('Detected github actions mode (login in args)')
+    print('Will use last git modification date for updating')
     login = tuple(sys.argv[1:3])
     ROOT_LOCAL = sys.argv[3]
+    IS_LOCAL = False
 
 else:
     if len(sys.argv) == 1:
@@ -24,7 +26,9 @@ else:
         sys.argv.append('..')
 
     print('Detected local run, using cached credentials system')
+    print('Will use local files modification date for updating')
     ROOT_LOCAL = sys.argv[1]
+    IS_LOCAL = True
 
     import cache_login
     login = cache_login.get_login()
@@ -39,7 +43,7 @@ with open(ROOT_LOCAL+'/.gitignore') as f:
         added.append(line)
 
 IGNORE_LIST += added
-print('WARNING: added paths from gitignore to ignore list:')
+print('Added paths from gitignore to ignore list:')
 for a in added:
     print(' - '+a)
 print()
@@ -117,8 +121,8 @@ def list_remote(path, relative_path):
 
         if file_type == 'file':
             # get the modification date of the file
-            time_str = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
-            time= parser.parse(time_str).timestamp()
+            time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
+            time = parser.parse(time).timestamp()
 
             files[relative_path_to_file] = (time, False)
 
@@ -159,8 +163,13 @@ def list_local(path, relative_path):
 
         # check for ignored filenames
         elif not ignore(name):
-            # get last modification timestamp in the repo
-            time = os.path.getmtime(path_to_file)
+            if IS_LOCAL:
+                # get last file modification time
+                time = os.path.getmtime(path_to_file)
+            else:
+                # get last modification timestamp in the repo
+                time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
+                time = parser.parse(time).timestamp()
 
             files[relative_path_to_file] = (time, False)
 
