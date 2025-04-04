@@ -33,6 +33,14 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     $is_customer = isset($_REQUEST["want-buy"]);
 
     insertUserInDatabase($db, $email, $username, $password, display: $display, phone: $phone, is_customer: $is_customer, is_seller: $is_seller);
+
+    $userId = getUserIdByUsername($db, $username);
+
+    if (isset($_REQUEST["tags-input"])) {
+        $tagsInput = $_REQUEST["tags-input"];
+        insertUserTags($db, $userId, $tagsInput);
+    }
+
     ?>
     <p class="subtitle">Welcome <?= $_REQUEST["username"]; ?> on</p>
     <h1>The Roaming Rooster</h1>

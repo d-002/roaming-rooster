@@ -150,3 +150,31 @@ function get_tags(PDO $db, $limit): array
     return $array;
 }
 
+function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
+    $tagNames = array_filter(array_map('trim', explode(',', $tagsInput)));
+    $selectStmt = $db->prepare("SELECT id FROM tags WHERE name = ?");
+    foreach ($tagNames as $tagName) {
+        if (empty($tagName)) continue;
+        $selectStmt->execute([$tagName]);
+        $tagId = $selectStmt->fetchColumn();
+        $selectStmt->closeCursor();
+
+        if ($tagId) {
+            $insertStmt = $db->prepare("INSERT INTO tags_users_join (tag_id, user_id) VALUES (:tag_id, :user_id)");
+            $insertStmt->execute(["tag_id" => $tagId, "user_id" => $userId]);
+        } else {
+            error_log("Tag not found: " . $tagName);
+        }
+    }
+}
+
+function getUserTags(PDO $db, int $userId): array {
+    $stmt = $db->prepare("
+    SELECT t.name
+    FROM tags t
+    JOIN tags_users_join tuj ON t.id = tuj.tag_id
+    WHERE tuj.user_id = ?
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
