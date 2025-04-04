@@ -57,8 +57,6 @@ if len(sys.argv) == 5:
     finally:
         del token
 
-    GIT_MODIFIED_FILES = []
-
     print('Detected github actions mode (login in args)')
     print('Will use last git modification date for updating')
     login = tuple(sys.argv[1:3])
