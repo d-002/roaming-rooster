@@ -19,7 +19,12 @@ IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 ignored = {key: False for key in IGNORE_LIST}
 
 if len(sys.argv) == 5:
+    print('Detected github actions mode (login in args)')
+    print('Will use last git modification date for updating')
+    login = tuple(sys.argv[1:3])
     token = sys.argv[3]
+    ROOT_LOCAL = sys.argv[4]
+    IS_LOCAL = False
 
     with os.popen('git rev-parse --abbrev-ref HEAD') as p:
         current_branch = p.read().strip()
@@ -45,11 +50,9 @@ if len(sys.argv) == 5:
         with urlopen(Request(url, headers=headers)) as response:
             files = json.loads(response.read())["files"]
 
-        GIT_MODIFIED_FILES = [ROOT_REMOTE+'/'+file['filename']
+        GIT_MODIFIED_FILES = [ROOT_LOCAL+'/'+file['filename']
                               for file in files
                               if file['status'] == 'modified']
-
-        print(sha, COMMIT_TIME, GIT_MODIFIED_FILES)
 
     except HTTPError as e:
         print('Could not access repo through GitHub API.', file=sys.stderr)
@@ -58,12 +61,6 @@ if len(sys.argv) == 5:
         exit(1)
     finally:
         del token
-
-    print('Detected github actions mode (login in args)')
-    print('Will use last git modification date for updating')
-    login = tuple(sys.argv[1:3])
-    ROOT_LOCAL = sys.argv[4]
-    IS_LOCAL = False
 
 else:
     if len(sys.argv) == 1:
@@ -171,8 +168,6 @@ def list_remote(path, relative_path):
 
             files[relative_path_to_file] = (time, False)
 
-            print(time, path_to_file)
-
         elif file_type == 'dir':
             # python 3.9+
             files |= list_remote(path_to_file, relative_path_to_file)
@@ -219,8 +214,6 @@ def list_local(path, relative_path):
                     time = COMMIT_TIME
                 else:
                     time = 0 # don't udpate this file
-
-                print(time, path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
