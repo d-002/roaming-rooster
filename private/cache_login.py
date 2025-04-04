@@ -44,7 +44,7 @@ def get_login():
                     login = pickle.load(f)
                 update_time()
 
-                print('Using cached login info (%s, ********)\n' %login[0])
+                print(f'Using cached login info ({login[0]}, ********)\n')
 
                 return login
             else:

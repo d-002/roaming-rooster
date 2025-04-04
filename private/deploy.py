@@ -1,8 +1,14 @@
 import os
 import sys
-from dateutil import parser
 from os.path import basename, dirname, isdir, getmtime
+
+from datetime import datetime
+from dateutil import parser
 from ftplib import FTP
+
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
+import json
 
 # ----- CONFIG -----
 
@@ -13,11 +19,37 @@ IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 
 ignored = {key: False for key in IGNORE_LIST}
 
-if len(sys.argv) == 4:
+if len(sys.argv) == 5:
+    #token = sys.argv[3]
+    token = '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'
+
+    # get commit time
+    with os.popen('git rev-parse --abbrev-ref HEAD') as p:
+        current_branch = p.read().strip()
+
+    print('Current branch:', current_branch)
+
+    url = 'https://api.github.com/repos/d-002/roaming-rooster/commits'
+    url += f"?sha={current_branch}&per_page=1"
+    request = Request(url, headers={"Authorization": f"token {token}"})
+
+    try:
+        with urlopen(request) as response:
+            data = json.loads(response.read())
+    except HTTPError as e:
+        print('Could not access repo through GitHub API.', file=sys.stderr)
+        print('Make sure a valid token has been provided.', file=sys.stderr)
+        print('Reason:', e.code, e.reason, file=sys.stderr)
+        exit(1)
+
+    isotime = data[0]["commit"]["author"]["date"]
+
+    COMMIT_TIME = datetime.fromisoformat(isotime).timestamp()
+
     print('Detected github actions mode (login in args)')
     print('Will use last git modification date for updating')
     login = tuple(sys.argv[1:3])
-    ROOT_LOCAL = sys.argv[3]
+    ROOT_LOCAL = sys.argv[4]
     IS_LOCAL = False
 
 else:
@@ -29,6 +61,7 @@ else:
     print('Will use local files modification date for updating')
     ROOT_LOCAL = sys.argv[1]
     IS_LOCAL = True
+    COMMIT_TIME = None
 
     import cache_login
     login = cache_login.get_login()
@@ -168,10 +201,8 @@ def list_local(path, relative_path):
                 # get last file modification time
                 time = os.path.getmtime(path_to_file)
             else:
-                # get last modification timestamp in the repo
-                time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
-                time = parser.parse(time).timestamp()
-                print(time, path_to_file)
+                # get last modification timestamp in the repo, on branch main
+                time = COMMIT_TIME
 
             files[relative_path_to_file] = (time, False)
 
@@ -284,16 +315,18 @@ if __name__ == '__main__':
     check_ftp()
     print('\nListing remote files...')
     remote_files = list_remote(ROOT_REMOTE, '')
-    print('Found %d files.' %len(remote_files))
+    print(f'Found {len(remote_files)} files.')
 
     print('\nListing local files...')
     local_files = list_local(ROOT_LOCAL, '')
-    print('Found %d files.' %len(local_files))
+    print(f'Found {len(local_files)} files.')
 
     check_ftp()
     print('\nChecking for and making changes...')
     sync(remote_files, local_files)
     print('Done.')
+
+    del login
 
     # check if everything was ignored
     for key, value in ignored.items():
