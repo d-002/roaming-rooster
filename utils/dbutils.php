@@ -161,8 +161,7 @@ function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
         if ($tagId) {
             $stmt = $db->prepare("INSERT INTO tags_users_join (tag_id, user_id) VALUES (?, ?)");
             $stmt->execute([$tagId, $userId]);
-        }
-        else {
+        } else {
             error_log("Tag not found: " . $tagName);
         }
     }
