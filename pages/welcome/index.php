@@ -36,8 +36,8 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
 
     $userId = getUserIdByUsername($db, $username);
 
-    if (isset($_REQUEST['tags-input'])) {
-        $tagsInput = $_REQUEST['tags-input'];
+    if (isset($_REQUEST["tags-input"])) {
+        $tagsInput = $_REQUEST["tags-input"];
         insertUserTags($db, $userId, $tagsInput);
     }
 
