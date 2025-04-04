@@ -146,8 +146,9 @@ def list_local(path, relative_path):
         # check for ignored filenames
         elif not ignore(name):
             # get last modification timestamp in the repo
-            time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
-            time = parser.parse(time).timestamp()
+            # time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
+            # time = parser.parse(time).timestamp()
+            time = 10000000000000
 
             files[relative_path_to_file] = (time, False)
 
