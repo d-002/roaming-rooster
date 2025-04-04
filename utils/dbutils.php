@@ -150,3 +150,9 @@ function get_tags(PDO $db, $limit): array
     return $array;
 }
 
+function random_services(PDO $db, $limit): array {
+    $prepared = $db->prepare("SELECT id, title, description, user_id FROM services ORDER BY random() LIMIT ?");
+    if (!$prepared->execute([$limit])) return [];
+    return $prepared->fetchAll();
+}
+
