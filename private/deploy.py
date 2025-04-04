@@ -9,8 +9,7 @@ from ftplib import FTP
 # will not use os.path.join() to keep paths with a slash for easier conversion
 ROOT_REMOTE = '/htdocs'
 ROOT_LOCAL = None
-IGNORE_LIST = ['.git', '.github', '.gitignore',
-               'README.md', '.gitignore', '__pycache__']
+IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 
 ignored = {key: False for key in IGNORE_LIST}
 
@@ -29,6 +28,21 @@ else:
 
     import cache_login
     login = cache_login.get_login()
+
+# add files in gitignore to ignore list (but ignore regex)
+added = []
+with open(ROOT_LOCAL+'/.gitignore') as f:
+    for line in f.read().split('\n'):
+        if '*' in line: continue
+        if not line: continue
+
+        added.append(line)
+
+IGNORE_LIST += added
+print('WARNING: added paths from gitignore to ignore list:')
+for a in added:
+    print(' - '+a)
+print()
 
 # ----- FTP -----
 
