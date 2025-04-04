@@ -19,31 +19,46 @@ IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 ignored = {key: False for key in IGNORE_LIST}
 
 if len(sys.argv) == 5:
-    token = sys.argv[3]
+    #token = sys.argv[3]
+    token = "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"
 
-    # get commit time
     with os.popen('git rev-parse --abbrev-ref HEAD') as p:
         current_branch = p.read().strip()
 
     print('Current branch:', current_branch)
 
-    url = 'https://api.github.com/repos/d-002/roaming-rooster/commits'
-    url += f"?sha={current_branch}&per_page=1"
-    request = Request(url, headers={"Authorization": f"token {token}"})
+    base_url = 'https://api.github.com/repos/d-002/roaming-rooster/commits'
 
+    # get list of modified files in this commit
     try:
-        with urlopen(request) as response:
-            data = json.loads(response.read())
+        url = f"{base_url}?sha={current_branch}&per_page=1"
+        headers = {"Authorization": f"token {token}"}
+
+        with urlopen(Request(url, headers=headers)) as response:
+            data = json.loads(response.read())[0]
+
+        sha = data["sha"]
+        time = data["commit"]["author"]["date"]
+        COMMIT_TIME = parser.parse(time).timestamp()
+
+        url = f"{base_url}/{sha}"
+
+        with urlopen(Request(url, headers=headers)) as response:
+            files = json.loads(response.read())["files"]
+
+        GIT_MODIFIED_FILES = [ROOT_REMOTE+'/'+file['filename']
+                              for file in files
+                              if file['status'] == 'modified']
+
     except HTTPError as e:
         print('Could not access repo through GitHub API.', file=sys.stderr)
         print('Make sure a valid token has been provided.', file=sys.stderr)
         print('Reason:', e.code, e.reason, file=sys.stderr)
         exit(1)
+    finally:
+        del token
 
-    time = data[0]["commit"]["author"]["date"]
-
-    COMMIT_TIME = parser.parse(time).timestamp()
-    print(COMMIT_TIME)
+    GIT_MODIFIED_FILES = []
 
     print('Detected github actions mode (login in args)')
     print('Will use last git modification date for updating')
@@ -60,7 +75,6 @@ else:
     print('Will use local files modification date for updating')
     ROOT_LOCAL = sys.argv[1]
     IS_LOCAL = True
-    COMMIT_TIME = None
 
     import cache_login
     login = cache_login.get_login()
@@ -201,8 +215,11 @@ def list_local(path, relative_path):
                 # get last file modification time
                 time = os.path.getmtime(path_to_file)
             else:
-                # get last modification timestamp in the repo, on branch main
-                time = COMMIT_TIME
+                # get last modification timestamp in the repo
+                if path_to_file in GIT_MODIFIED_FILES:
+                    time = COMMIT_TIME
+                else:
+                    time = 0 # don't udpate this file
 
             files[relative_path_to_file] = (time, False)
 
