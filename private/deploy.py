@@ -49,6 +49,8 @@ if len(sys.argv) == 5:
                               for file in files
                               if file['status'] == 'modified']
 
+        print(sha, COMMIT_TIME, GIT_MODIFIED_FILES)
+
     except HTTPError as e:
         print('Could not access repo through GitHub API.', file=sys.stderr)
         print('Make sure a valid token has been provided.', file=sys.stderr)
