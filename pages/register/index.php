@@ -31,7 +31,7 @@ insertHeader("Register", array("containers", "inputs"));
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
-        <form class="classic-form" action="/pages/welcome" id="register-form" method="post">
+        <form class="classic-form" action="/pages/welcome/" id="register-form" method="post">
             <!-- Page 0 -->
             <div class="page" page="0">
                 <?php
@@ -62,7 +62,7 @@ insertHeader("Register", array("containers", "inputs"));
                 <p class="form-section">Password</p>
                 <?php
                 insertTextField("Choose password", "password", true, "password");
-                insertTextField("Confirm password", "password-confirmation", true, "password");
+                insertTextField("Confirm password", "passwordconfirmation", true, "password");
                 ?>
             </div>
 
