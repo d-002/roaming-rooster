@@ -2,7 +2,6 @@ import os
 import sys
 from os.path import basename, dirname, isdir, getmtime
 
-from datetime import datetime
 from dateutil import parser
 from ftplib import FTP
 
@@ -42,9 +41,9 @@ if len(sys.argv) == 5:
         print('Reason:', e.code, e.reason, file=sys.stderr)
         exit(1)
 
-    isotime = data[0]["commit"]["author"]["date"]
+    time = data[0]["commit"]["author"]["date"]
 
-    COMMIT_TIME = datetime.fromisoformat(isotime).timestamp()
+    COMMIT_TIME = parser.parse(time).timestamp()
 
     print('Detected github actions mode (login in args)')
     print('Will use last git modification date for updating')
@@ -156,7 +155,6 @@ def list_remote(path, relative_path):
             # get the modification date of the file
             time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
             time = parser.parse(time).timestamp()
-            print(time, path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
