@@ -1,7 +1,7 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 component("header");
-component('tags');
+component("tags");
 
 insertHeader("Profile", array("containers", "inputs"));
 
