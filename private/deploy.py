@@ -123,6 +123,7 @@ def list_remote(path, relative_path):
             # get the modification date of the file
             time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
             time = parser.parse(time).timestamp()
+            print(time, path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
@@ -170,6 +171,7 @@ def list_local(path, relative_path):
                 # get last modification timestamp in the repo
                 time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
                 time = parser.parse(time).timestamp()
+                print(time, path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
