@@ -171,6 +171,8 @@ def list_remote(path, relative_path):
 
             files[relative_path_to_file] = (time, False)
 
+            print(time, path_to_file)
+
         elif file_type == 'dir':
             # python 3.9+
             files |= list_remote(path_to_file, relative_path_to_file)
@@ -217,6 +219,8 @@ def list_local(path, relative_path):
                     time = COMMIT_TIME
                 else:
                     time = 0 # don't udpate this file
+
+                print(time, path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
