@@ -19,8 +19,7 @@ IGNORE_LIST = ['.git', '.github', '.gitignore', 'README.md']
 ignored = {key: False for key in IGNORE_LIST}
 
 if len(sys.argv) == 5:
-    #token = sys.argv[3]
-    token = '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'
+    token = sys.argv[3]
 
     # get commit time
     with os.popen('git rev-parse --abbrev-ref HEAD') as p:
@@ -44,6 +43,7 @@ if len(sys.argv) == 5:
     time = data[0]["commit"]["author"]["date"]
 
     COMMIT_TIME = parser.parse(time).timestamp()
+    print(COMMIT_TIME)
 
     print('Detected github actions mode (login in args)')
     print('Will use last git modification date for updating')
@@ -157,6 +157,8 @@ def list_remote(path, relative_path):
             time = parser.parse(time).timestamp()
 
             files[relative_path_to_file] = (time, False)
+
+            print(time, path_to_file)
 
         elif file_type == 'dir':
             # python 3.9+
