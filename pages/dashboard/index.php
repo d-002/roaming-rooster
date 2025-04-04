@@ -3,14 +3,13 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 assert_session();
 component("header");
-component("search");
 component("dashboard_widgets");
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Dashboard", ["inputs", "containers"]);
+insertHeader("Dashboard", ["inputs", "containers", "widgets"]);
 ?>
 
 <body>
@@ -24,8 +23,6 @@ if ($id == -1) {
     die("Cannot access this page right now");
 }
 echo "<p>DEBUG: connected with ID " . $id . "</p>";
-
-insert_search_widget(page: false);
 
 insert_all_widgets($db, $id);
 ?>

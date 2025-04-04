@@ -64,6 +64,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     row-gap: var(--spacing-medium);
+    column-gap: var(--spacing-small);
     margin: var(--spacing-minimum);
     justify-content: center;
 }

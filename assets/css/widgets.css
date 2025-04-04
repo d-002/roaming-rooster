@@ -1,0 +1,27 @@
+@import 'main_style.css';
+
+.widget {
+    border: var(--accent-color-secondary) 2px solid;
+    border-radius: 32px;
+    box-sizing: border-box;
+    background-clip: border-box;
+    background: var(--accent-color-secondary);
+    overflow: hidden;
+    height: fit-content;
+}
+
+.widget > * {
+    padding: 16px;
+}
+
+.widget-header {
+    color: var(--back-color-base);
+    padding-bottom: 5px;
+}
+
+.widget-content {
+    overflow: auto;
+    background: var(--back-color-base);
+    margin: 0;
+    padding-top: 5px;
+}
