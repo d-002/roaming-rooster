@@ -24,8 +24,6 @@
     background-color: var(--back-color-popup);
     box-shadow: rgba(from var(--text-color-main) r g b / 0.3) 0 0 30px 10px;
 
-    margin-left: var(--reading-margin);
-    margin-right: var(--reading-margin);
     padding: 3px var(--big-container-padding);
 
     display: flex;
@@ -37,6 +35,11 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: fit-content;
+}
+
+.root-content {
+    margin-left: var(--reading-margin);
+    margin-right: var(--reading-margin);
 }
 
 .line {

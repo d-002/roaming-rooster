@@ -309,3 +309,11 @@ input.circle-inside-input {
     text-align: left;
     margin: 0;
 }
+
+.circle-inside-accent {
+    color: var(--text-color-main);
+    background-color: var(--back-color-popup);
+    border: solid 3px var(--back-color-base);
+    border-radius: 1000px;
+    padding: 3px;
+}

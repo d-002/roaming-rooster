@@ -4,16 +4,22 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 assert_session();
 component("header");
 component("dashboard_widgets");
+component("common/page_header");
+component("common/notifications");
+component("common/profile");
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Dashboard", ["inputs", "containers", "widgets"]);
+insertHeader("Dashboard", ["inputs", "containers", "widgets", "page_header"]);
 ?>
 
 <body>
 <?php
+
+insert_header("Dashboard");
+
 // initial username check, to not have to do it later
 $db = getSecureDB();
 
