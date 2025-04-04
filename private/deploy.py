@@ -117,10 +117,10 @@ def list_remote(path, relative_path):
 
         if file_type == 'file':
             # get the modification date of the file
-            time = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
-            timestamp = parser.parse(time).timestamp()
+            time_str = ftp.voidcmd('MDTM '+path_to_file)[4:].strip()
+            time= parser.parse(time_str).timestamp()
 
-            files[relative_path_to_file] = (timestamp, False)
+            files[relative_path_to_file] = (time, False)
 
         elif file_type == 'dir':
             # python 3.9+
@@ -160,8 +160,7 @@ def list_local(path, relative_path):
         # check for ignored filenames
         elif not ignore(name):
             # get last modification timestamp in the repo
-            time = os.popen('git log -1 --pretty="format:%%ci" "%s"' %path_to_file).read()
-            time = parser.parse(time).timestamp()
+            time = os.path.getmtime(path_to_file)
 
             files[relative_path_to_file] = (time, False)
 
