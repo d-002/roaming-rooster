@@ -1,6 +1,6 @@
 <?php
 
-function insert_header($title): void
+function insert_header($title, $id): void
 {
     ?>
     <header>

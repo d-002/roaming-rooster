@@ -5,6 +5,9 @@ assert_session();
 component("header");
 component("search");
 component("service");
+component("common/page_header");
+component("common/notifications");
+component("common/profile");
 root_include("/utils/dbutils.php");
 root_include("/utils/search_helper.php");
 
@@ -12,10 +15,11 @@ root_include("/utils/search_helper.php");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Results", ["inputs", "containers"]);
+insertHeader("Results", ["inputs", "containers", "page_header"]);
 ?>
 <body>
 <?php
+insert_header("Search results", 0);
 if (isset($_REQUEST["s"])) {
     ?>
     <div class="search-options">
@@ -49,7 +53,14 @@ if (isset($_REQUEST["s"])) {
     </div>
     <?php
 } else {
-    insert_search_widget();
+    ?>
+    <div class="search-options">
+        <?php
+        insert_search_widget();
+        ?>
+        <div id="suggestions"></div>
+    </div>
+    <?php
 }
 ?>
 

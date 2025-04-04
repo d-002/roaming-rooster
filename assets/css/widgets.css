@@ -29,3 +29,16 @@
     font-size: 1.3em;
     margin: 0;
 }
+
+.notification {
+    margin: 5px;
+}
+
+.notification p {
+    margin: 0;
+}
+
+.notification-date {
+    text-align: right;
+    font-size: 0.7em;
+}

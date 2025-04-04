@@ -18,7 +18,6 @@ insertHeader("Dashboard", ["inputs", "containers", "widgets", "page_header"]);
 <body>
 <?php
 
-insert_header("Dashboard");
 
 // initial username check, to not have to do it later
 $db = getSecureDB();
@@ -28,8 +27,8 @@ $id = checkValidUsername($db, $username);
 if ($id == -1) {
     die("Cannot access this page right now");
 }
-echo "<p>DEBUG: connected with ID " . $id . "</p>";
 
+insert_header("Dashboard", $id);
 insert_all_widgets($db, $id);
 ?>
 

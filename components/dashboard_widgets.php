@@ -3,48 +3,31 @@ root_include("/utils/dbutils.php");
 component("search");
 component("dashboard/widget");
 
-function insert_all_widgets($db, $id)
+function insert_all_widgets($db, $id): void
 {
     ?>
     <div class="widget-list">
-       <?php
-       $is_business = isBusiness($db, $id);
-       $is_customer = isCustomer($db, $id);
-       $is_admin = isAdmin($db, $id);
+        <?php
+        $is_business = isBusiness($db, $id);
+        $is_customer = isCustomer($db, $id);
+        $is_admin = isAdmin($db, $id);
 
-       widget_notifications($db, $id);
+        widget_notifications($db, $id);
 
-       if ($is_business) {
-           widget_business_options($db, $id);
-       }
+        if ($is_business) {
+            widget_business_options($db, $id);
+        }
 
-       if ($is_customer) {
-           insert_search_widget(page: false);
-           widget_customer_options($db, $id);
-       }
+        if ($is_customer) {
+            insert_search_widget(page: false);
+            widget_customer_options($db, $id);
+        }
 
-       if ($is_admin) {
-           widget_admin_options($db, $id);
-       }
-       ?>
+        if ($is_admin) {
+            widget_admin_options($db, $id);
+        }
+        ?>
     </div>
-    <?php
-}
-
-// widget template for listing debug db results (UNSAFE, DEVELOPMENT ONLY)
-function template_widget_dblist($title, $contents)
-{
-    ?>
-
-    <table border=1>
-        <th><?php echo $title ?></th>
-        <?php foreach ($contents as $elt) { ?>
-            <tr>
-                <td><?php echo strval($elt) ?></td>
-            </tr>
-        <?php } ?>
-    </table>
-
     <?php
 }
 
@@ -56,8 +39,8 @@ function template_widget_buttons($texts, $addresses)
 
     <div>
         <?php for ($i = 0; $i < count($texts); $i++) { ?>
-            <a href="<?php echo htmlspecialchars($addresses[$i]) ?>" style="display: block">
-                <?php echo htmlspecialchars($texts[$i]) ?>
+            <a href="<?= htmlspecialchars($addresses[$i]) ?>" style="display: block">
+                <?= htmlspecialchars($texts[$i]) ?>
             </a>
         <?php } ?>
     </div>
@@ -113,19 +96,36 @@ function widget_admin_options($db, $id)
     });
 }
 
-function widget_notifications($db, $id)
+function display_notification($notification): void
 {
-    $st = $db->prepare("SELECT * FROM notifications WHERE user_id = (:id)");
+    ?>
+    <div class="notification">
+        <p class="notification-text"><?= $notification["text"] ?></p>
+        <p class="notification-date"><?= $notification["date"] ?></p>
+    </div>
+    <?php
+}
 
-    $arr = [];
-    if ($st->execute(["id" => $id]))
-        while ($elt = $st->fetch()) {
-            $text = $elt["text"];
-            $date = date("l jS \of F Y \at h:i:s A", $elt["time"]);
-            $arr[] = '"' . $text . '" received at ' . $date;
-        }
+function widget_notifications($db, $id): void
+{
+    $st = $db->prepare("SELECT * FROM notifications WHERE user_id = (:id) ORDER BY notifications.time DESC");
 
-    template_widget_dblist("Latest notifications", $arr);
+    if ($st->execute(["id" => $id])) {
+        insert_widget("Latest notifications", function () use ($st) {
+            ?>
+            <div>
+                <?php
+                while ($elt = $st->fetch()) {
+                    display_notification([
+                        "text" => htmlspecialchars($elt["text"]),
+                        "date" => "Received: " . date("D, Y-m-d h:i:sa", $elt["time"]),
+                    ]);
+                }
+                ?>
+            </div>
+            <?php
+        });
+    }
 }
 
 ?>
