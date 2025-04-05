@@ -27,4 +27,5 @@ jobs:
         env:
           username: ${{secrets.INFINITYFREE_USERNAME}}
           password: ${{secrets.INFINITYFREE_PASSWORD}}
-        run: python3 private/deploy.py "$username" "$password" "."
+          token: ${{secrets.TOKEN_GITHUB}}
+        run: python3 private/deploy.py "$username" "$password" "$token" "."

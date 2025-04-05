@@ -34,8 +34,14 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     $is_customer = isset($_REQUEST["want-buy"]);
 
     insertUserInDatabase($db, $email, $username, $password, display: $display, phone: $phone, is_customer: $is_customer, is_seller: $is_seller);
-    $id = getUserIdByUsername($db, $username);
-    send_notification($db, "Welcome " . htmlspecialchars($display) . " on The Roaming Rooster!", user: $id);
+    $userId = getUserIdByUsername($db, $username);
+    send_notification($db, "Welcome " . htmlspecialchars($display) . " on The Roaming Rooster!", user: $userId);
+
+    if (isset($_REQUEST["tags-input"])) {
+        $tagsInput = $_REQUEST["tags-input"];
+        insertUserTags($db, $userId, $tagsInput);
+    }
+
     ?>
     <p class="subtitle">Welcome <?= $_REQUEST["username"]; ?> on</p>
     <h1>The Roaming Rooster</h1>
@@ -45,6 +51,12 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     ?>
     <p class="subtitle">Invalid request</p>
     <?php
+    print_r($_REQUEST);
+    print_r(phpinfo());
+    print_r($_POST);
+    print_r($_COOKIE);
+    print_r($_GET);
+    print_r(file_get_contents("php://input"));
 }
 ?>
 </body>
