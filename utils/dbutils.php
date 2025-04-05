@@ -150,6 +150,12 @@ function get_tags(PDO $db, $limit): array
     return $array;
 }
 
+function random_services(PDO $db, $limit): array {
+    $prepared = $db->prepare("SELECT id, title, description, user_id FROM services ORDER BY random() LIMIT ?");
+    if (!$prepared->execute([$limit])) return [];
+    return $prepared->fetchAll();
+}
+
 function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
     $tagNames = array_filter(array_map('trim', explode(',', $tagsInput)));
     $selectStmt = $db->prepare("SELECT id FROM tags WHERE name = ?");

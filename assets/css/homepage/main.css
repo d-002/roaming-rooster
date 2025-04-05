@@ -114,6 +114,9 @@ a.button.secondary {
     font-size: 20px;
     /* Default font weight is 400 */
     color: black;
+
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
 #arrow::after {
@@ -124,4 +127,9 @@ a.button.secondary {
     background-size: 100% 100%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.widget-list > * {
+    flex-basis: 35%;
+    flex-grow: 1;
 }

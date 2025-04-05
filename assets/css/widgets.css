@@ -1,0 +1,49 @@
+@import 'main_style.css';
+
+.widget {
+    border: var(--accent-color-secondary) 2px solid;
+    border-radius: 32px;
+    box-sizing: border-box;
+    background-clip: border-box;
+    background: var(--accent-color-secondary);
+    overflow: hidden;
+    height: fit-content;
+}
+
+.widget > * {
+    padding: 16px;
+}
+
+.widget-header {
+    color: var(--back-color-base);
+}
+
+.widget-content {
+    overflow: auto;
+    background: var(--back-color-base);
+    margin: 0;
+    padding-top: 5px;
+}
+
+.widget-header > h2 {
+    font-size: 1.3em;
+    margin: 0;
+}
+
+.notification {
+    margin: 5px;
+}
+
+.notification p {
+    margin: 0;
+}
+
+.notification-date {
+    text-align: right;
+    font-size: 0.7em;
+}
+
+.turned .symbol {
+    transform: rotate(-90deg);
+    transition: 0.5s transform;
+}
