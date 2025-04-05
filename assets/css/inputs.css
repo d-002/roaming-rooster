@@ -316,4 +316,11 @@ input.circle-inside-input {
     border: solid 3px var(--back-color-base);
     border-radius: 1000px;
     padding: 3px;
+    cursor: pointer;
+}
+
+.circle-inside-accent:hover {
+    color: var(--text-color-main);
+    background-color: var(--accent-color-main);
+    border: solid 3px var(--warning-color);
 }

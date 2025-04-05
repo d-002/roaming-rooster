@@ -13,8 +13,8 @@ function insert_header($title, $id): void
         <aside class="line">
             <?php
             $db = getSecureDB();
-            insert_notifications($db, 0);
-            insert_profile_button(0);
+            insert_notifications($db, $id);
+            insert_profile_button($id);
             ?>
         </aside>
     </header>

@@ -96,30 +96,19 @@ function widget_admin_options($db, $id)
     });
 }
 
-function display_notification($notification): void
-{
-    ?>
-    <div class="notification">
-        <p class="notification-text"><?= $notification["text"] ?></p>
-        <p class="notification-date"><?= $notification["date"] ?></p>
-    </div>
-    <?php
-}
-
 function widget_notifications($db, $id): void
 {
-    $st = $db->prepare("SELECT * FROM notifications WHERE user_id = (:id) ORDER BY notifications.time DESC");
+    $nots = get_user_notifications($db, $id);
 
-    if ($st->execute(["id" => $id])) {
-        insert_widget("Latest notifications", function () use ($st) {
+    if (count($nots) != 0) {
+        insert_widget("Latest notifications", function () use ($nots) {
             ?>
             <div>
                 <?php
-                while ($elt = $st->fetch()) {
-                    display_notification([
-                        "text" => htmlspecialchars($elt["text"]),
-                        "date" => "Received: " . date("D, Y-m-d h:i:sa", $elt["time"]),
-                    ]);
+                foreach ($nots as $not) {
+                    $not["safe_text"] = htmlspecialchars($not["text"]);
+                    $not["date"] = "Received: " . date("D, Y-m-d h:i:sa", $not["time"]);
+                    display_notification($not);
                 }
                 ?>
             </div>
