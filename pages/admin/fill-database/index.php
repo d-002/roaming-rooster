@@ -130,9 +130,7 @@ function fillDatabase(): void
     insert($db, "conversations", array(3, 4, "Closed conversation", true));
 
     insert($db, "notifications", array(1, 1, "notification for conversation 1", now()));
-    insert($db, "notifications", array(1, 2, "notification for conversation 2", now()));
     insert($db, "notifications", array(2, 1, "notification for conversation 1 - other person", now()));
-    insert($db, "notifications", array(2, 2, "notification for conversation 2 - other person", now()));
     insert($db, "notifications", array(2, 2, "notification to admin user, from conversation 2", now()));
 
     insert($db, "messages", array(1, 1, "this is a message", now() - 1000));

@@ -4,6 +4,7 @@
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
+component("common/notifications");
 root_include("/utils/dbutils.php");
 root_include("/utils/sanitize.php");
 
@@ -33,8 +34,8 @@ if (isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQU
     $is_customer = isset($_REQUEST["want-buy"]);
 
     insertUserInDatabase($db, $email, $username, $password, display: $display, phone: $phone, is_customer: $is_customer, is_seller: $is_seller);
-
     $userId = getUserIdByUsername($db, $username);
+    send_notification($db, "Welcome " . htmlspecialchars($display) . " on The Roaming Rooster!", user: $userId);
 
     if (isset($_REQUEST["tags-input"])) {
         $tagsInput = $_REQUEST["tags-input"];

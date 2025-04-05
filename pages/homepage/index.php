@@ -1,6 +1,7 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
+component("service");
 
 // check if the user is registered to edit the buttons
 
@@ -19,13 +20,12 @@ if ($isConnected) {
 <html lang="en">
 <?php
 component("header");
-insertHeader("Home", array("homepage/main"));
+insertHeader("Home", array("homepage/main", "containers"));
 ?>
 <body>
 <div id="left">
     <h2>Every local farmer is on</h2>
     <h1>Roaming Rooster</h1>
-    <br class="large">
 
     <div class="center">
         <?php
@@ -43,17 +43,31 @@ insertHeader("Home", array("homepage/main"));
         } ?>
     </div>
 
-    <br class="large">
+    <?php
+    component("logo");
+    ?>
+
     <p id="arrow">
         See services
     </p>
-    <br class="large">
+
+    <a href="/pages/services" class="button secondary">Browse</a>
 
     <?php
+    $db = getSecureDB();
+    $services = random_services($db, 6);
+    if (count($services) != 0) {
+        ?>
+        <div class="widget-list">
+            <?php
+            foreach ($services as $service) {
+                insert_service($service);
+            }
+            ?>
+        </div>
+        <?php
+    }
     ?>
-
-    <br class="large">
-    <a href="/pages/services" class="button secondary">Browse</a>
 </div>
 
 <div id="right"></div>

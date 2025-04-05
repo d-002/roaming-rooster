@@ -1,0 +1,22 @@
+
+header {
+    background-color: var(--title-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    height: fit-content;
+}
+
+header .logo {
+    margin: 10px;
+}
+
+header .logo * {
+    width: 3.5em;
+    height: 3.5em;
+    max-width: 10vw;
+}

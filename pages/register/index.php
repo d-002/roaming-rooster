@@ -27,7 +27,7 @@ insertHeader("Register", array("containers", "inputs"));
         </a>
     </header>
 
-    <div class="card card-half-page">
+    <div class="card root-content card-half-page">
         <div class="logo-decoration-container">
             <?php component("logo"); ?>
         </div>
