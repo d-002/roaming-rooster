@@ -23,8 +23,10 @@ insertHeader("Home", array("chat", array()));
 
     <div id="bottom">
         <form method="POST">
+            <input type="text" />
+            <input type="submit" value="Send" />
         </form>
-        <a id="refresh" alt="Refresh chat" href=""></a>
+        <a id="refresh" href=""></a>
     </div>
 </body>
 </html>

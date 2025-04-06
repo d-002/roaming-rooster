@@ -1,5 +1,6 @@
 :root {
     --bottom-height: 80px;
+    --my-message: #7C9A4C;
 }
 
 html, body {
@@ -43,7 +44,7 @@ div:has(#main) {
 }
 
 #main>div.mine {
-    background-color: #7C9A4C;
+    background-color: var(--my-message);
     margin-left: auto;
 }
 
@@ -61,14 +62,67 @@ div:has(#main) {
 }
 
 #bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
     height: var(--bottom-height);
+
+    padding: 0 20px;
+}
+
+form {
+    flex: 1;
+
+    display: flex;
+    gap: 20px;
+}
+
+form input {
+    border: 2px solid var(--text-color-main);
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 8px;
+
+    color: var(--text-color-main);
+}
+
+form input[type=text] {
+    flex: 1;
+}
+
+form input[type=submit] {
+    transition: .1s linear;
+
+    background-color: var(--my-message);
+    color: white;
+}
+
+form input[type=submit]:hover {
+    filter: brightness(1.1);
 }
 
 #refresh {
+    transition: .3s transform;
+
+    display: block;
+
     width: 40px;
     height: 40px;
 
+    filter: invert(.3) drop-shadow(0 0 10px white);
+
     background: url("/assets/images/refresh.png");
-    background-size: cover;
+    background-size: 80%;
     background-position: center;
+    background-repeat: no-repeat;
+}
+
+#refresh:hover:not(:active) {
+    transform: rotate(180deg);
+}
+
+#refresh:active {
+    transform: rotate(360deg);
 }
