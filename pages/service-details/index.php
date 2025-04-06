@@ -7,12 +7,12 @@ component("header");
 component("service");
 root_include("/utils/dbutils.php");
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET["id"])) {
     header("Location: services.php");
     exit();
 }
 
-$serviceId = $_GET['id'];
+$serviceId = $_GET["id"];
 
 try {
     $database = getSecureDB();
@@ -33,22 +33,22 @@ try {
 <html lang="en">
 
 <?php
-insertHeader(htmlspecialchars($service['title'] . 'Details'));
+insertHeader(htmlspecialchars($service["title"] . "Details"));
 ?>
 
 <body class="bg-light">
 <div class="container py-5">
     <div class="card shadow">
         <div class="card-body">
-            <h1 class="card-title mb-4"><?= htmlspecialchars($service['title']) ?></h1>
+            <h1 class="card-title mb-4"><?= htmlspecialchars($service["title"]) ?></h1>
             <div class="alert alert-secondary">
                 <small>
-                    Provider: Seller<?= $service['user_id'] ?> |
-                    Category: Customized Services<?= $service['theme_id'] ?>
+                    Provider: Seller<?= $service["user_id"] ?> |
+                    Category: Customized Services<?= $service["theme_id"] ?>
                 </small>
             </div>
-            <p class="lead"><?= htmlspecialchars($service['description']) ?></p>
-            <p class="text-muted">Coordinates: <?= $service['latitude'] ?>, <?= $service['longitude'] ?></p>
+            <p class="lead"><?= htmlspecialchars($service["description"]) ?></p>
+            <p class="text-muted">Coordinates: <?= $service["latitude"] ?>, <?= $service["longitude"] ?></p>
 
             <h3 class="mt-5 mb-3">Sub Services</h3>
             <div class="list-group">
@@ -56,10 +56,10 @@ insertHeader(htmlspecialchars($service['title'] . 'Details'));
                     <div class="list-group-item">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h5><?= htmlspecialchars($sub['title']) ?></h5>
-                                <p class="mb-0"><?= htmlspecialchars($sub['description']) ?></p>
+                                <h5><?= htmlspecialchars($sub["title"]) ?></h5>
+                                <p class="mb-0"><?= htmlspecialchars($sub["description"]) ?></p>
                             </div>
-                            <span class="badge bg-success fs-6">$<?= number_format($sub['price'], 2) ?></span>
+                            <span class="badge bg-success fs-6">$<?= number_format($sub["price"], 2) ?></span>
                         </div>
                     </div>
                 <?php endforeach; ?>

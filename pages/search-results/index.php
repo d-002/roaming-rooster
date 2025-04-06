@@ -5,17 +5,17 @@ assert_session();
 component("header");
 component("search");
 component("service");
-component("common/page_header");
+component("common/page-header");
 component("common/notifications");
 component("common/profile");
 root_include("/utils/dbutils.php");
-root_include("/utils/search_helper.php");
+root_include("/utils/search-helper.php");
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Results", ["inputs", "containers", "page_header"]);
+insertHeader("Results", ["inputs", "containers", "page-header"]);
 ?>
 <body>
 <?php

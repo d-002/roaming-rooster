@@ -95,17 +95,6 @@ function addRoleToUser(PDO $db, $id, $role): void
     $st->execute(["id" => $id, "role" => $role]);
 }
 
-function checkValidUsername(PDO $db, $username): int {
-    // checks if this username has basic page access
-    // returns user ID if so, -1 otherwise
-
-    if (!isUsernameInDatabase($db, $username)) return -1;
-    $id = getUserIDByUsername($db, $username);
-    if (isUserBanned($db, $id)) return -1;
-
-    return $id;
-}
-
 function insertUserInDatabase(PDO $db, $email, $username, $password, $display = null, $phone = null, $latitude = null, $longitude = null, $theme_id = null, $is_customer = false, $is_seller = false): void
 {
     $data = [

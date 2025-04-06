@@ -3,8 +3,6 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 component("header");
 component("tags");
 
-insertHeader("Profile", array("containers", "inputs"));
-
 root_include("/utils/dbutils.php");
 
 assert_session();
@@ -20,6 +18,8 @@ if ($user) {
     $userId = $user["id"];
     $userTags = getUserTags($db, $userId);
 }
+
+insertHeader("Profile", array("containers", "inputs"));
 ?>
 
 <!DOCTYPE html>

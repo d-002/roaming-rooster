@@ -3,9 +3,9 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
 
 component("header");
-component("arrow_redirect");
-component("text_field");
-component("text_submit");
+component("arrow-redirect");
+component("text-field");
+component("text-submit");
 component("common/notifications");
 
 function show_page($error = null): void
@@ -103,7 +103,7 @@ if (isset($_REQUEST["try"])) {
 
     session_start();
     $_SESSION["username"] = $username;
-    $_SESSION["user_id"] = $id;
+    $_SESSION["id"] = $id;
     $_SESSION["connected"] = true;
 
     send_notification($db, "You are connected. Welcome back.", user: $id);
