@@ -1,0 +1,74 @@
+:root {
+    --bottom-height: 80px;
+}
+
+html, body {
+    height: 100%;
+}
+
+div:has(#main) {
+    height: calc(100% - var(--bottom-height));
+    overflow: hidden;
+
+    background-color: #F4FBF7;
+}
+
+#main {
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    max-width: 760px;
+    height: 100%;
+
+    margin: auto;
+    padding: 30px;
+}
+
+#main p {
+    margin: 0;
+}
+
+#main>div {
+    max-width: 70%;
+
+    padding: 15px;
+
+    border: 1px solid #00000005;
+    border-radius: 14px;
+
+    box-shadow: 0 0 20px #0001;
+}
+
+#main>div.mine {
+    background-color: #7C9A4C;
+    margin-left: auto;
+}
+
+#main>div:not(.mine) {
+    background-color: #0002;
+    margin-right: auto;
+}
+
+#main>div.mine>p {
+    color: white;
+}
+
+#main>div:not(.mine)>p {
+    color: var(--text-color-secondary);
+}
+
+#bottom {
+    height: var(--bottom-height);
+}
+
+#refresh {
+    width: 40px;
+    height: 40px;
+
+    background: url("/assets/images/refresh.png");
+    background-size: cover;
+    background-position: center;
+}
