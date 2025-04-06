@@ -103,7 +103,7 @@ if (isset($_REQUEST["try"])) {
 
     session_start();
     $_SESSION["username"] = $username;
-    $_SESSION["user_id"] = $id;
+    $_SESSION["id"] = $id;
     $_SESSION["connected"] = true;
 
     send_notification($db, "You are connected. Welcome back.", user: $id);

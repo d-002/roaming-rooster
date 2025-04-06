@@ -21,15 +21,13 @@ insertHeader("Dashboard", ["inputs", "containers", "widgets", "page-header"]);
 // initial username check, to not have to do it later
 $db = getSecureDB();
 
-$username = $_SESSION["username"];
-$id = checkValidUsername($db, $username);
-if ($id == -1) {
-    die("Cannot access this page right now");
-}
+$id = $_SESSION["id"];
 
 insert_header("Dashboard", $id);
 insert_all_widgets($db, $id);
 ?>
+
+<a href="/pages/signout">Log out</a>
 
 <script src="/assets/scripts/widget.js"></script>
 

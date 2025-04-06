@@ -13,9 +13,10 @@ function start_secure_session(): void {
     if (session_status() === PHP_SESSION_NONE) session_start();
 }
 
+// session assertion, but not as drastic as assert_session
 function has_session(): bool {
     start_secure_session();
-    return isset($_SESSION["connected"]) && $_SESSION["connected"];
+    return isset($_SESSION["connected"]) && $_SESSION["username"] && isset($_SESSION["id"]);
 }
 
 function assert_session(): void
