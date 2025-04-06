@@ -8,10 +8,10 @@ $db = getSecureDB();
 
 // Reusable components
 component("header");
-component("text_field");
-component("arrow_redirect");
-component("text_submit");
-component("check_group");
+component("text-field");
+component("arrow-redirect");
+component("text-submit");
+component("check-group");
 component("pages");
 component("tags");
 

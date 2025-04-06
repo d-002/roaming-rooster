@@ -1,7 +1,8 @@
 <?php
 root_include("/utils/dbutils.php");
 component("search");
-component("dashboard/widget");
+component("dashboard/widget-base");
+component("dashboard/buttons");
 
 function insert_all_widgets($db, $id): void
 {
@@ -31,34 +32,18 @@ function insert_all_widgets($db, $id): void
     <?php
 }
 
-// widget template for having multiple buttons
-// texts and addresses should have the same size
-function template_widget_buttons($texts, $addresses)
-{
-    ?>
-
-    <div>
-        <?php for ($i = 0; $i < count($texts); $i++) { ?>
-            <a href="<?= htmlspecialchars($addresses[$i]) ?>" style="display: block">
-                <?= htmlspecialchars($texts[$i]) ?>
-            </a>
-        <?php } ?>
-    </div>
-
-    <?php
-}
 
 /* WIDGETS */
 
 function widget_business_options($db, $id)
 {
     insert_widget("My Seller actions", function () {
-        template_widget_buttons(
+        buttons_widget(
             array(
                 "Create a service"
             ),
             array(
-                "/pages/404"
+                "/pages/error/404"
             )
         );
     });
@@ -67,12 +52,12 @@ function widget_business_options($db, $id)
 function widget_customer_options($db, $id)
 {
     insert_widget("My Customer actions", function () {
-        template_widget_buttons(
+        buttons_widget(
             array(
                 "Browse services"
             ),
             array(
-                "/pages/404"
+                "/pages/error/404"
             )
         );
     });
@@ -81,7 +66,7 @@ function widget_customer_options($db, $id)
 function widget_admin_options($db, $id)
 {
     insert_widget("My Admin actions", function () {
-        template_widget_buttons(
+        buttons_widget(
             array(
                 "query database",
                 "format database (SENSITIVE)",

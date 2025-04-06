@@ -1,6 +1,5 @@
 <?php
-
-component("fancy_checkbox");
+component("fancy-checkbox");
 
 function insertCheckboxFancyGroup($elements) {
     ?> <div class="at-least-one"> <?php

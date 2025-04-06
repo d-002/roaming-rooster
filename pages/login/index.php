@@ -3,9 +3,9 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
 
 component("header");
-component("arrow_redirect");
-component("text_field");
-component("text_submit");
+component("arrow-redirect");
+component("text-field");
+component("text-submit");
 component("common/notifications");
 
 function show_page($error = null): void
