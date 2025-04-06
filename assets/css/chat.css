@@ -1,6 +1,7 @@
 :root {
     --bottom-height: 80px;
     --my-message: #7C9A4C;
+    --other-message: #0002;
 }
 
 html, body {
@@ -49,7 +50,7 @@ div:has(#main) {
 }
 
 #main>div:not(.mine) {
-    background-color: #0002;
+    background-color: var(--other-message);
     margin-right: auto;
 }
 
