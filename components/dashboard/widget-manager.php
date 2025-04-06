@@ -1,7 +1,9 @@
 <?php
 root_include("/utils/dbutils.php");
 component("search");
+
 component("dashboard/widget-base");
+component("dashboard/base");
 component("dashboard/buttons");
 component("dashboard/business");
 component("dashboard/customer");
@@ -18,6 +20,7 @@ function insert_all_widgets($db, $id): void
         $is_admin = isAdmin($db, $id);
 
         widget_notifications($db, $id);
+        base_widget($db, $id);
 
         if ($is_business) {
             business_widgets($db, $id);
@@ -35,5 +38,4 @@ function insert_all_widgets($db, $id): void
     </div>
     <?php
 }
-
 ?>

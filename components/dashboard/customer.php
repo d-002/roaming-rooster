@@ -7,7 +7,7 @@ function customer_widgets($db, $id)
                 "Browse services"
             ),
             array(
-                "/pages/error/404"
+                "/pages/services"
             )
         );
     });
