@@ -17,11 +17,11 @@ function insert_notifications(PDO $db, $id)
 function display_notification($notification): void
 {
     ?>
-    <div class="notification line" not="<?= $notification["id"] ?>">
+    <div class="notification line dashboard-line" not="<?= $notification["id"] ?>">
         <?php
         if ($notification["user_id"] != BROADCAST_ID) {
             ?>
-            <div class="circle-inside-accent">
+            <div class="circle-inside-accent remove-notification">
                 <img src="/assets/images/symbols/cancel.svg" alt="remove notification" class="symbol">
             </div>
             <?php
@@ -34,7 +34,7 @@ function display_notification($notification): void
         <?php
         if ($notification["conversation_id"] != SYSTEM_ID) {
             ?>
-            <div class="circle-inside-accent">
+            <div class="circle-inside-accent inspect-notification">
                 <p class="symbol">&rarr;</p>
             </div>
             <?php

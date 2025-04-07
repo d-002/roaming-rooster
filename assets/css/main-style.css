@@ -114,7 +114,7 @@ a:has(.subtitle) {
     transition-timing-function: ease;
 }
 
-.reduce {
+.page.reduce {
     overflow: hidden;
     max-height: 0;
     padding: 0;
@@ -171,4 +171,8 @@ button:hover {
 .minimize {
     height: fit-content;
     padding: 9px;
+}
+
+a {
+    text-decoration: none;
 }

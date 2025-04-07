@@ -1,5 +1,6 @@
-let widgets_headers = document.getElementsByClassName("widget-header");
-for (const widgetHeader of widgets_headers) {
+let widgetsHeaders = document.getElementsByClassName("widget-header");
+
+for (const widgetHeader of widgetsHeaders) {
     widgetHeader.addEventListener("click", () => {
         let sibling = widgetHeader.nextElementSibling;
         let parent = widgetHeader.parentElement;
