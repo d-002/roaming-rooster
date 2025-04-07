@@ -9,10 +9,6 @@ $isConnected = has_session();
 
 if ($isConnected) {
     $username = $_SESSION["username"];
-    $db = getSecureDB();
-    $isConnected = checkValidUsername($db, $username) !== -1;
-
-    $db = null; // disconnect from the database early
 }
 ?>
 
