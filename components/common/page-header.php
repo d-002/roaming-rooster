@@ -4,11 +4,15 @@ function insert_header($title, $id): void
 {
     ?>
     <header>
-        <?php
-        component("logo");
-        ?>
+        <div class="logo-decoration-container">
+            <?php
+            component("logo");
+            ?>
+        </div>
         <div class="title">
-            <h1><?= $title ?></h1>
+            <a href="/pages/homepage">
+                <h1><?= $title ?></h1>
+            </a>
         </div>
         <aside class="line">
             <?php

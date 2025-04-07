@@ -2,7 +2,7 @@
 
 .widget {
     border: var(--accent-color-secondary) 2px solid;
-    border-radius: 32px;
+    border-radius: var(--medium-corner);
     box-sizing: border-box;
     background-clip: border-box;
     background: var(--accent-color-secondary);
@@ -16,6 +16,7 @@
 
 .widget-header {
     color: var(--back-color-base);
+    cursor: pointer;
 }
 
 .widget-content {
@@ -46,4 +47,20 @@
 .turned .symbol {
     transform: rotate(-90deg);
     transition: 0.5s transform;
+}
+
+.dashboard-line {
+    padding: 3px;
+}
+
+a.dashboard-line {
+    display: block;
+}
+
+.dashboard-line + .dashboard-line {
+    border-top: 1px solid;
+}
+
+a.dashboard-line:hover {
+    background-color: #aaaaaaaa;
 }
