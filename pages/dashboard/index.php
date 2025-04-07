@@ -30,6 +30,7 @@ insert_all_widgets($db, $id);
 <a href="/pages/signout">Log out</a>
 
 <script src="/assets/scripts/widget.js"></script>
+<script src="/assets/scripts/notification.js"></script>
 
 </body>
 </html>
