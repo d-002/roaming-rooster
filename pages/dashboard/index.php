@@ -29,7 +29,7 @@ insert_search_widget(page: false);
 
 insert_all_widgets($db, $id);
 ?>
-
+<p><a href="/pages/shopping_cart">Go to Shopping cart</a></p>
 <a href="/pages/signout">Log out</a>
 </body>
 </html>
