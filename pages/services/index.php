@@ -1,9 +1,10 @@
 <?php
 
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
+root_include("/utils/dbutils.php");
+component("search");
 
 try {
-    root_include("/utils/dbutils.php");
     $database = getSecureDB();
     $prepared = $database->query("SELECT * FROM services");
     $services = $prepared->fetchAll(PDO::FETCH_ASSOC);
@@ -16,19 +17,25 @@ try {
 <html lang="en">
 <?php
 component("header");
-insertHeader("Services");
+insert_head("Services", ["containers", "inputs", "page-header"]);
 ?>
-<body class="bg-light">
-<div class="container py-5">
-    <h1 class="mb-4 text-center">Available Services</h1>
-    <div class="row g-4">
-        <?php
-        component("service");
-        foreach ($services as $service) {
-            insert_service($service);
-        }
-        ?>
-    </div>
+<body>
+<?php
+component("common/page-header");
+insert_header("Available Services");
+?>
+<div class="search-options">
+    <?php
+    insert_search_widget(page: false);
+    ?>
+</div>
+<div class="widget-list">
+    <?php
+    component("service");
+    foreach ($services as $service) {
+        insert_service($service);
+    }
+    ?>
 </div>
 </body>
 </html>

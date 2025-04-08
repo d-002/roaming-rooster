@@ -12,8 +12,10 @@ function insert_search_image()
 function insert_search_widget($placeholder = "Search a service", $page = true, $content = null): void
 {
     ?>
-    <label class="text-field-label">
-        <?= $placeholder ?> <br>
+    <div class="text-field-label">
+        <label for="s">
+            <?= $placeholder ?>
+        </label> <br>
         <form class="text-field line-form" action="/pages/search-results">
             <div id="search-symbol" class="circle-inside-input page-horizontal minimize <?php if ($content !== null) {
                 echo "reduce-horizontal";
@@ -32,7 +34,8 @@ function insert_search_widget($placeholder = "Search a service", $page = true, $
                 }
                 ?>
             </div>
-            <input id="s" name="s" class="circle-inside-input" type="search" placeholder="<?= $placeholder ?>" <?php if ($content !== null) {
+            <input id="s" name="s" class="circle-inside-input" type="search"
+                   placeholder="<?= $placeholder ?>" <?php if ($content !== null) {
                 echo "value='$content'";
             } ?>>
             <div id="cancel-search" class="circle-inside-input page-horizontal minimize <?php if ($content === null) {
@@ -41,7 +44,7 @@ function insert_search_widget($placeholder = "Search a service", $page = true, $
                 <img src="/assets/images/symbols/cancel.svg" alt="cancel search" class="symbol">
             </div>
         </form>
-    </label>
+    </div>
     <?php
 }
 

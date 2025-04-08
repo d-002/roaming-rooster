@@ -5,7 +5,7 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 component("header");
 
-insertHeader("Recommendation");
+insert_head("Recommendation");
 ?>
 
 <style>

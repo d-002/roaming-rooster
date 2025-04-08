@@ -15,7 +15,7 @@ component("check-group");
 component("pages");
 component("tags");
 
-insertHeader("Register", array("containers", "inputs"));
+insert_head("Register", array("containers", "inputs"));
 ?>
 <body class="fill-page">
 

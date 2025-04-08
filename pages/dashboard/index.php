@@ -12,7 +12,7 @@ component("common/profile");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Dashboard", ["inputs", "containers", "widgets", "page-header"]);
+insert_head("Dashboard", ["inputs", "containers", "widgets", "page-header"]);
 ?>
 
 <body>
