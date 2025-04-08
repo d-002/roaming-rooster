@@ -15,11 +15,11 @@ root_include("/utils/search-helper.php");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insertHeader("Results", ["inputs", "containers", "page-header"]);
+insert_head("Results", ["inputs", "containers", "page-header"]);
 ?>
 <body>
 <?php
-insert_header("Search results", 0);
+insert_header("Search results", $_SESSION["id"]);
 if (isset($_REQUEST["s"])) {
     ?>
     <div class="search-options">

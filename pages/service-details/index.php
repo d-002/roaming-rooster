@@ -33,7 +33,7 @@ try {
 <html lang="en">
 
 <?php
-insertHeader(htmlspecialchars($service["title"] . "Details"));
+insert_head(htmlspecialchars($service["title"] . "Details"));
 ?>
 
 <body class="bg-light">

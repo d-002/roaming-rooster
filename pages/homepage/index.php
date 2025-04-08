@@ -16,7 +16,7 @@ if ($isConnected) {
 <html lang="en">
 <?php
 component("header");
-insertHeader("Home", array("homepage", "containers"));
+insert_head("Home", array("homepage", "containers"));
 ?>
 <body>
 <div id="left">
