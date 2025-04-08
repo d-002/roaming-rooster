@@ -72,3 +72,9 @@
     justify-content: center;
     font-size: 1.2em;
 }
+
+.widget-list > .search-result {
+    max-width: 500px;
+    min-width: 180px;
+    width: 30%;
+}

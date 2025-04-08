@@ -19,19 +19,17 @@ component("header");
 insert_head("Services", ["containers", "inputs", "page-header"]);
 ?>
 <body>
-<div class="container py-5">
+<?php
+component("common/page-header");
+insert_header("Available Services");
+?>
+<div class="widget-list">
     <?php
-    component("common/page-header");
-    insert_header("Available Services");
+    component("service");
+    foreach ($services as $service) {
+        insert_service($service);
+    }
     ?>
-    <div class="row g-4">
-        <?php
-        component("service");
-        foreach ($services as $service) {
-            insert_service($service);
-        }
-        ?>
-    </div>
 </div>
 </body>
 </html>
