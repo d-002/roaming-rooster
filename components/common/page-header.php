@@ -1,6 +1,6 @@
 <?php
 
-function insert_header($title, $id): void
+function insert_header($title, $id = null): void
 {
     ?>
     <header>
@@ -14,13 +14,19 @@ function insert_header($title, $id): void
                 <h1><?= $title ?></h1>
             </a>
         </div>
-        <aside class="line">
-            <?php
-            $db = getSecureDB();
-            insert_notifications($db, $id);
-            insert_profile_button($id);
+        <?php
+        if ($id) {
             ?>
-        </aside>
+            <aside class="line">
+                <?php
+                $db = getSecureDB();
+                insert_notifications($db, $id);
+                insert_profile_button($id);
+                ?>
+            </aside>
+            <?php
+        }
+        ?>
     </header>
     <?php
 }

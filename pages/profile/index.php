@@ -19,7 +19,7 @@ if ($user) {
     $userTags = getUserTags($db, $userId);
 }
 
-insertHeader("Profile", array("containers", "inputs"));
+insert_head("Profile", array("containers", "inputs"));
 ?>
 
 <!DOCTYPE html>

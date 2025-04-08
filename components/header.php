@@ -1,4 +1,4 @@
-<?php function insertHeader($name, $css = array())
+<?php function insert_head($name, $css = array()): void
 { ?>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">

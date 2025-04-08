@@ -14,7 +14,7 @@ function show_page($error = null): void
     <!DOCTYPE html>
     <html lang="en" class="fill-page">
     <?php
-    insertHeader("Login", ["inputs", "containers"]);
+    insert_head("Login", ["inputs", "containers"]);
     ?>
 
     <body class="fill-page main-column take-all justify-content-center align-content-center">
