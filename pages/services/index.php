@@ -2,6 +2,7 @@
 
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
+component("search");
 
 try {
     $database = getSecureDB();
@@ -23,6 +24,11 @@ insert_head("Services", ["containers", "inputs", "page-header"]);
 component("common/page-header");
 insert_header("Available Services");
 ?>
+<div class="search-options">
+    <?php
+    insert_search_widget(page: false);
+    ?>
+</div>
 <div class="widget-list">
     <?php
     component("service");
