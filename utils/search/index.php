@@ -2,7 +2,7 @@
 
 require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 root_include("/utils/dbutils.php");
-root_include("/utils/search_helper.php");
+root_include("/utils/search-helper.php");
 
 $database = getSecureDB();
 
