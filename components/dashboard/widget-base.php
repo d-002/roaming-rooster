@@ -1,5 +1,4 @@
 <?php
-
 function insert_widget($title, $callback): void
 {
     ?>
@@ -18,3 +17,4 @@ function insert_widget($title, $callback): void
     </div>
     <?php
 }
+?>
