@@ -14,7 +14,8 @@ component("common/profile");
 <?php
 insert_head("Dashboard",
     array("inputs", "containers", "widgets", "page-header"),
-    array("widget", "notification"));
+    array("widget"),
+    array("notification"));
 ?>
 
 <body>
