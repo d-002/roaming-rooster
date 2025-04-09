@@ -12,10 +12,10 @@ component("common/profile");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insert_head("Dashboard", ["inputs", "containers", "widgets", "page-header"]);
+insert_head("Dashboard",
+    array("inputs", "containers", "widgets", "page-header"),
+    array("widget", "notification"));
 ?>
-<script src="/assets/scripts/widget.js"></script>
-<script src="/assets/scripts/notification.js" type="module"></script>
 
 <body>
 <?php
