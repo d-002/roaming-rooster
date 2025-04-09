@@ -1,14 +1,8 @@
-let form = document.getElementById("register-form");
-let submits = form.getElementsByClassName("text-submit");
-let startForm = submits[0];
+let form, submits, startForm;
 
-let pred = document.getElementById("nav-pred");
-let next = document.getElementById("nav-next");
+let pred, next;
 
-let username = document.getElementById("username");
-let email = document.getElementById("email");
-let password = document.getElementById("password");
-let confirmation = document.getElementById("passwordconfirmation");
+let username, email, password, confirmation;
 
 let pageNumber = 0;
 let numberOfPages = 4;
@@ -95,84 +89,100 @@ function showPage() {
     }
 }
 
-showPage();
+function main() {
+    form = document.getElementById("register-form");
+    submits = form.getElementsByClassName("text-submit");
+    startForm = submits[0];
 
-startForm.addEventListener("click", e => {
-    e.preventDefault();
-    validateInput(
-        () => {
-            let card = document.getElementsByClassName("card")[0];
-            card.classList.replace("card-half-page", "card-full-page");
-            pageNumber++;
-            showPage();
-        },
-        "username",
-        username,
-        "This username is already used. Please choose another one."
-    );
-});
+    pred = document.getElementById("nav-pred");
+    next = document.getElementById("nav-next");
 
-pred.addEventListener("click", () => {
-    pageNumber--;
+    username = document.getElementById("username");
+    email = document.getElementById("email");
+    password = document.getElementById("password");
+    confirmation = document.getElementById("passwordconfirmation");
+
     showPage();
-});
 
-next.addEventListener("click", () => {
-    validatePageOne(() => {
-        if (pageNumber + 1 < numberOfPages) {
-            pageNumber++;
-            showPage();
-        }
+    startForm.addEventListener("click", e => {
+        e.preventDefault();
+        validateInput(
+            () => {
+                let card = document.getElementsByClassName("card")[0];
+                card.classList.replace("card-half-page", "card-full-page");
+                pageNumber++;
+                showPage();
+            },
+            "username",
+            username,
+            "This username is already used. Please choose another one."
+        );
     });
-});
 
-let circles = document.getElementsByClassName("circle");
-for (let circle of circles) {
-    circle.addEventListener("click", () => {
+    pred.addEventListener("click", () => {
+        pageNumber--;
+        showPage();
+    });
+
+    next.addEventListener("click", () => {
         validatePageOne(() => {
-            pageNumber = parseInt(circle.getAttribute("circle"));
-            showPage();
+            if (pageNumber + 1 < numberOfPages) {
+                pageNumber++;
+                showPage();
+            }
         });
     });
-}
 
-let tags = document.getElementsByClassName("tag");
-let tagsInput = document.getElementById("tags-input");
-for (const tag of tags) {
-    tag.addEventListener("click", () => {
-        if (tag.getAttribute("checked") === "true") {
-            checkedTags.delete(tag.textContent);
-            tag.setAttribute("checked", "false");
-        } else {
-            checkedTags.add(tag.textContent);
-            tag.setAttribute("checked", "true");
-        }
-        tagsInput.value = Array.from(checkedTags).join(",");
-    });
-}
-
-let inputs = document.getElementsByTagName("input");
-let canHandle = true;
-for (const input of inputs) {
-    if (input.required) {
-        let parent = input.closest(".page");
-        if (parent != null) {
-            console.log("Adding event");
-            input.addEventListener("invalid", () => {
-                if (!canHandle) return;
-                console.log("Handling");
-                pageNumber = parseInt(parent.getAttribute("page"));
+    let circles = document.getElementsByClassName("circle");
+    for (let circle of circles) {
+        circle.addEventListener("click", () => {
+            validatePageOne(() => {
+                pageNumber = parseInt(circle.getAttribute("circle"));
                 showPage();
-                input.classList.add("required-tip");
-                canHandle = false;
-                setTimeout(() => {
-                    input.focus();
-                    input.reportValidity();
-                    setTimeout(() => {
-                        canHandle = true;
-                    }, 5);
-                }, 500);
             });
+        });
+    }
+
+    let tags = document.getElementsByClassName("tag");
+    let tagsInput = document.getElementById("tags-input");
+    for (const tag of tags) {
+        tag.addEventListener("click", () => {
+            if (tag.getAttribute("checked") === "true") {
+                checkedTags.delete(tag.textContent);
+                tag.setAttribute("checked", "false");
+            } else {
+                checkedTags.add(tag.textContent);
+                tag.setAttribute("checked", "true");
+            }
+            tagsInput.value = Array.from(checkedTags).join(",");
+        });
+    }
+
+    let inputs = document.getElementsByTagName("input");
+    let canHandle = true;
+    for (const input of inputs) {
+        if (input.required) {
+            let parent = input.closest(".page");
+            if (parent != null) {
+                console.log("Adding event");
+                input.addEventListener("invalid", () => {
+                    if (!canHandle) return;
+                    console.log("Handling");
+                    pageNumber = parseInt(parent.getAttribute("page"));
+                    showPage();
+                    input.classList.add("required-tip");
+                    canHandle = false;
+                    setTimeout(() => {
+                        input.focus();
+                        input.reportValidity();
+                        setTimeout(() => {
+                            canHandle = true;
+                        }, 5);
+                    }, 500);
+                });
+            }
         }
     }
 }
+
+window.addEventListener("load", main);

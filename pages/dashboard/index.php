@@ -14,6 +14,8 @@ component("common/profile");
 <?php
 insert_head("Dashboard", ["inputs", "containers", "widgets", "page-header"]);
 ?>
+<script src="/assets/scripts/widget.js"></script>
+<script src="/assets/scripts/notification.js" type="module"></script>
 
 <body>
 <?php
@@ -28,9 +30,6 @@ insert_all_widgets($db, $id);
 ?>
 
 <a href="/pages/signout">Log out</a>
-
-<script src="/assets/scripts/widget.js"></script>
-<script src="/assets/scripts/notification.js"></script>
 
 </body>
 </html>
