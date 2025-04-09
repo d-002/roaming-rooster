@@ -15,7 +15,9 @@ component("check-group");
 component("pages");
 component("tags");
 
-insert_head("Register", array("containers", "inputs"));
+insert_head("Register",
+    array("containers", "inputs"),
+    array("inputs", "register"));
 ?>
 <body class="fill-page">
 
@@ -114,9 +116,6 @@ insert_head("Register", array("containers", "inputs"));
         </form>
     </div>
 </div>
-
-<script src="/assets/scripts/inputs.js"></script>
-<script src="/assets/scripts/register.js"></script>
 
 </body>
 </html>

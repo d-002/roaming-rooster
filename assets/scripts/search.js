@@ -1,14 +1,5 @@
 let cancel, validate, search, results, suggestions;
 
-cancel.addEventListener("click", () => {
-    cancel.classList.add("reduce-horizontal");
-    validate.classList.remove("reduce-horizontal");
-    search.value = "";
-    for (const result of results) {
-        result.classList.add("reduce");
-    }
-});
-
 function getSearchResults(query, callback) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -26,6 +17,15 @@ function main() {
     search = document.getElementById("s");
     results = document.getElementsByClassName("search-result");
     suggestions = document.getElementById("suggestions");
+
+    cancel.addEventListener("click", () => {
+        cancel.classList.add("reduce-horizontal");
+        validate.classList.remove("reduce-horizontal");
+        search.value = "";
+        for (const result of results) {
+            result.classList.add("reduce");
+        }
+    });
 
     search.addEventListener("keyup", () => {
         if (search.value.length > 1) {

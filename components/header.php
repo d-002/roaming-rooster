@@ -14,7 +14,7 @@
         <?php }?>
 
         <?php foreach($js as $src) {?>
-            <script src="/assets/scripts/<?=$src?>.js"></script>
+            <script src="/assets/scripts/<?=$src?>.js" type="module"></script>
         <?php }?>
     </head>
 <?php } ?>

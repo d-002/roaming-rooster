@@ -15,7 +15,9 @@ root_include("/utils/search-helper.php");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insert_head("Results", ["inputs", "containers", "page-header"]);
+insert_head("Results",
+    array("inputs", "containers", "page-header"),
+    array("search"));
 ?>
 <body>
 <?php
@@ -63,8 +65,6 @@ if (isset($_REQUEST["s"])) {
     <?php
 }
 ?>
-
-<script src="/assets/scripts/search.js"></script>
 
 </body>
 </html>
