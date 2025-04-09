@@ -26,7 +26,7 @@ input {
     padding: var(--input-block-margin) var(--input-block-padding);
     width: 100%;
     max-width: 98vw;
-    overflow: scroll;
+    overflow: auto;
 }
 
 @media screen and (max-device-width: 700px) {
