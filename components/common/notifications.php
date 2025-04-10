@@ -56,7 +56,7 @@ function get_user_notifications(PDO $db, $id): array
     return $st->execute(["id" => $id]) ? $st->fetchAll() : [];
 }
 
-function read_notification(PDO $db, $user_id, $notification_id): void
+function delete_notification(PDO $db, $user_id, $notification_id): void
 {
     $prepared = $db->prepare("DELETE FROM notifications WHERE user_id = :user_id AND id = :id");
     $prepared->execute([

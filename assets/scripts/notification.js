@@ -5,6 +5,7 @@ function remove_notification(notification) {
             notification.remove();
         }
     }
-    request.open("POST", "/utils/notification.php");
-    request.send("id=" + notification.getAttribute("not"));
+    let id = notification.getAttribute("not");
+    request.open("POST", "/utils/notification.php?id=" + id);
+    request.send();
 }
