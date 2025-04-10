@@ -29,7 +29,7 @@ try {
 <html lang="en" class="fill-page">
 
 <?php
-insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "inputs"]);
+insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "inputs"], osm: true);
 ?>
 
 <body class="fill-page main-column">
@@ -42,6 +42,10 @@ insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "in
         <div class="alert alert-secondary">
             <p>Provider: <?= $service["display_name"] ?></p>
             <p class="text-muted">Coordinates: <?= $service["latitude"] ?>, <?= $service["longitude"] ?></p>
+            <div class="osm-map">
+                <div class="osm-mark" lat="<?= $service["latitude"] ?>" lon="<?= $service["longitude"] ?>"
+                     target="service"></div>
+            </div>
         </div>
         <div class="widget-list">
             <img class="search-result" src="<?= htmlspecialchars($service["img_main_url"]) ?>" alt="Main service image">
@@ -59,5 +63,11 @@ insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "in
         <a href="/pages/services" class="btn btn-outline-secondary mt-4">Back to List</a>
     </div>
 </div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="/assets/scripts/map.js"></script>
+
 </body>
 </html>
