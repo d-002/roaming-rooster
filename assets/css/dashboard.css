@@ -3,6 +3,11 @@ body {
     flex-direction: column;
 }
 
+#search-container>* {
+    margin: auto;
+    width: fit-content;
+}
+
 /* override this since the styling is different in the dashboard */
 .widget-list {
     flex: 1;
