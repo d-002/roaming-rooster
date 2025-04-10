@@ -114,7 +114,7 @@ form input[type=submit]:hover {
 
     filter: invert(.3) drop-shadow(0 0 10px white);
 
-    background: url("/assets/images/refresh.png");
+    background: url("/assets/images/refresh.svg");
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
