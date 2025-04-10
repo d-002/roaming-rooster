@@ -78,18 +78,17 @@ input {
 .arrow-container > * {
     margin: 0;
     padding: 0;
-    line-height: 7px;
 }
 
 .arrow {
-    font-size: 3rem;
     margin: 0;
     padding: 0;
     pointer-events: none;
 }
 
 .arrow-large {
-    transform: scaleX(4.5);
+    width: 100%;
+    height: 40px;
 }
 
 .pointed {

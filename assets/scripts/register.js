@@ -74,10 +74,10 @@ function showPage() {
     let special = document.getElementsByClassName("page-ex");
     for (let pageElement of special) {
         let exception = parseInt(pageElement.getAttribute("page-ex"));
-        if (pageNumber !== exception) {
-            showElement(pageElement);
-        } else {
+        if (pageNumber === exception) {
             hideElement(pageElement)
+        } else {
+            showElement(pageElement);
         }
     }
     let circles = document.getElementsByClassName("page-circle");

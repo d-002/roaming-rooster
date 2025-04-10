@@ -35,7 +35,7 @@ function display_notification($notification): void
         if ($notification["conversation_id"] != SYSTEM_ID) {
             ?>
             <div class="circle-inside-accent inspect-notification">
-                <p class="symbol">&rarr;</p>
+                <img src="/assets/images/symbols/arrow.svg" class="symbol" alt="Open notification">
             </div>
             <?php
         }
