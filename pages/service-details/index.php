@@ -33,6 +33,20 @@ insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "in
 ?>
 
 <body class="fill-page main-column">
+    <!-- Display pruchase successed -->
+<?php if (isset($_SESSION['purchase_success'])): ?>
+    <div class="alert alert-success">
+        <?= $_SESSION['purchase_success'] ?>
+    </div>
+    <?php unset($_SESSION['purchase_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['purchase_error'])): ?>
+    <div class="alert alert-danger">
+        <?= $_SESSION['purchase_error'] ?>
+    </div>
+    <?php unset($_SESSION['purchase_error']); ?>
+<?php endif; ?>
 <header class="titles">
     <h1><?= htmlspecialchars($service["title"]) ?></h1>
 </header>
