@@ -1,4 +1,4 @@
-<?php function insert_head($name, $css = array()): void
+<?php function insert_head($name, $css = array(), $osm = false): void
 { ?>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +13,13 @@
         foreach ($css as $link) {
             ?>
             <link rel="stylesheet" href="/assets/css/<?= $link ?>.css">
+            <?php
+        }
+        if ($osm) {
+            ?>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                  crossorigin=""/>
             <?php
         }
         ?>
