@@ -7,7 +7,7 @@ root_include("/utils/dbutils.php");
 <html lang="en">
 <?php
 component("header");
-insertHeader("Home", array("chat"));
+insert_head("Home", array("chat"));
 ?>
 <body>
     <div><div id="main">
