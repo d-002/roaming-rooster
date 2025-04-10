@@ -6,8 +6,7 @@ component("search");
 
 try {
     $database = getSecureDB();
-    $prepared = $database->query("SELECT * FROM services");
-    $services = $prepared->fetchAll(PDO::FETCH_ASSOC);
+    $services = service_request($database, "SELECT id FROM services", []);
 } catch (PDOException $error) {
     die("Error: " . $error->getMessage());
 }

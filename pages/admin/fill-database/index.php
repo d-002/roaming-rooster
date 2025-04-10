@@ -166,11 +166,11 @@ function fillDatabase(): void
 
     insert($db, "services", array(1, 1, "Selling flowers", "This service is selling flowers", .5, .5));
     insert($db, "services", array(1, 1, "Selling fruits", "This service is selling fruits", .8, .3));
-    insert($db, "services", array(4, 1, "Selling fruits", "This service is selling fruits", .7, .3));
+    insert($db, "services", array(4, 2, "Selling fruits", "This service is selling fruits", .7, .3));
     insert($db, "services", array(4, 1, "Selling animals", "This service is selling animals", .7, .3));
-    insert($db, "services", array(1, 1, "Selling vegetables", "This service is selling vegetables", .8, .9));
+    insert($db, "services", array(1, 2, "Selling vegetables", "This service is selling vegetables", .8, .9));
     insert($db, "services", array(4, 1, "Selling salads", "This service is selling salads", .4, .9));
-    insert($db, "services", array(4, 1, "Selling exotic animals", "This service is selling exotic animals", .10, .9));
+    insert($db, "services", array(4, 3, "Selling exotic animals", "This service is selling exotic animals", .10, .9));
 
     insert($db, "sub_services", array(1, 10, "Selling red flowers", "this subservice is selling red flowers", 2.72));
     insert($db, "sub_services", array(1, 6, "Selling yellow flowers", "this subservice is selling yellow flowers", 3.14));
