@@ -178,7 +178,11 @@ a {
 }
 
 .service-image {
-    max-width: 45%;
+    max-width: 42%;
     width: 150px;
     height: auto;
+}
+
+.osm-map {
+    height: 300px;
 }
