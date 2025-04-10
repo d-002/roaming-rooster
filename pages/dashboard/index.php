@@ -27,18 +27,10 @@ $id = $_SESSION["id"];
 
 insert_header("Dashboard", $id);
 
-?>
-<div class="widget-list">
-</div>
-
-<div class="temp-widget-list">
-<?php
 insert_all_widgets($db, $id);
-?>
-</div>
-<?php
 
 insert_module("widget");
+insert_module("dashboard");
 insert_script("notification");
 ?>
 

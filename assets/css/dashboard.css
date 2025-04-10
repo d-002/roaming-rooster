@@ -13,7 +13,8 @@ body {
 }
 
 .temp-widget-list {
-    display: none;
+    filter: opacity(0);
+    position: fixed;
 }
 
 /* override this since the styling is different in the dashboard */
@@ -28,5 +29,5 @@ body {
 .widget-column {
     display: flex;
     flex-direction: column;
-    column-gap: var(--spacing-medium);
+    gap: var(--spacing-small);
 }
