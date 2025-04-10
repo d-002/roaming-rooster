@@ -1,4 +1,4 @@
-:root, body, .fill-page {
+:root, body {
     height: 100%;
 }
 
@@ -12,8 +12,5 @@
     align-content: flex-start;
     row-gap: var(--spacing-small);
     column-gap: var(--spacing-medium);
-
-    margin: var(--spacing-minimum);
-    font-size: 1.2em;
 }
 
