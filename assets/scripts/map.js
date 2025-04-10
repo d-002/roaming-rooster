@@ -1,7 +1,7 @@
 const maps = document.getElementsByClassName("osm-map");
 
 for (const map of maps) {
-    // https://stackoverflow.com/questions/925164/openstreetmap-embedding-map-in-webpage-like-google-maps
+    // stackoverflow.com/q/925164
     const markersElements = map.querySelectorAll(".osm-mark");
     const markersData = [];
     for (const element of markersElements) {
@@ -14,7 +14,7 @@ for (const map of maps) {
     }
     map.replaceChildren();
     let mapApi = L.map(map).setView([0, 0], 3);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mapApi);
