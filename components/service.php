@@ -33,6 +33,18 @@ function insert_product($product): void
             <p class="card-text"><?= htmlspecialchars($product["description"]) ?></p>
         </div>
         <span class="badge bg-success fs-6">$<?= number_format($product["price"], 2) ?></span>
+
+        <!--A buy button-->
+        <?php if ($product["price"] > 0): ?>
+        <form action="/utils/purchases.php" method="post">
+            <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+            <input type="hidden" name="price" value="<?= $product['price'] ?>">
+            <button type="submit" class="btn btn-sm btn-success">Buy Now</button>
+        </form>
+        <?php else: ?>
+            <p class="text-muted mt-2">Not available now</p>
+        <?php endif; ?>
+        
     </div>
     <?php
 }
