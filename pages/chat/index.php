@@ -7,7 +7,7 @@ root_include("/utils/dbutils.php");
 <html lang="en">
 <?php
 component("header");
-insertHeader("Home", array("chat"));
+insert_head("Home", array("chat"));
 ?>
 <body>
     <div><div id="main">
@@ -23,8 +23,9 @@ insertHeader("Home", array("chat"));
 
     <div id="bottom">
         <form method="POST">
-            <input type="text" />
-            <input type="submit" value="Send" />
+            <label for="main-input"></label>
+            <input type="text" id="main-input" placeholder="Type message...">
+            <input type="submit" value="Send">
         </form>
         <a id="refresh" href=""></a>
     </div>
