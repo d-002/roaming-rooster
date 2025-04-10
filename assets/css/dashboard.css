@@ -8,6 +8,10 @@ body {
     width: fit-content;
 }
 
+.widget-header.line {
+    justify-content: space-between;
+}
+
 /* override this since the styling is different in the dashboard */
 .widget-list {
     flex: 1;
