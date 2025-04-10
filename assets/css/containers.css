@@ -1,6 +1,6 @@
 @import "main-style.css";
 
-.fill-page {
+:root, body, .fill-page {
     height: 100%;
 }
 
@@ -63,11 +63,15 @@
 }
 
 .widget-list {
+    height: calc(100% - var(--header-height));
+    overflow: auto hidden;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     row-gap: var(--spacing-medium);
     column-gap: var(--spacing-small);
+
     margin: var(--spacing-minimum);
     font-size: 1.2em;
 }
