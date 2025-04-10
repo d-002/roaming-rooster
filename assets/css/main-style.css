@@ -176,3 +176,9 @@ button:hover {
 a {
     text-decoration: none;
 }
+
+.service-image {
+    max-width: 45%;
+    width: 150px;
+    height: auto;
+}

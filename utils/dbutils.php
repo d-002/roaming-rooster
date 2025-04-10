@@ -61,7 +61,8 @@ function verifyUserPassword(PDO $db, $username, $password): bool
     return password_verify($password, $elements[0]["password"]);
 }
 
-function hasUserGotRole(PDO $db, $id, $roleID): bool {
+function hasUserGotRole(PDO $db, $id, $roleID): bool
+{
     $st = $db->prepare("SELECT * FROM roles WHERE user_id = :id");
     if (!$st->execute(["id" => $id])) return false;
 
@@ -77,15 +78,18 @@ function hasUserGotRole(PDO $db, $id, $roleID): bool {
     return false;
 }
 
-function isBusiness(PDO $db, $id) {
+function isBusiness(PDO $db, $id)
+{
     return hasUserGotRole($db, $id, 0);
 }
 
-function isCustomer(PDO $db, $id) {
+function isCustomer(PDO $db, $id)
+{
     return hasUserGotRole($db, $id, 1);
 }
 
-function isAdmin(PDO $db, $id) {
+function isAdmin(PDO $db, $id)
+{
     return hasUserGotRole($db, $id, 2);
 }
 
@@ -139,13 +143,32 @@ function get_tags(PDO $db, $limit): array
     return $array;
 }
 
-function random_services(PDO $db, $limit): array {
-    $prepared = $db->prepare("SELECT id, title, description, user_id FROM services ORDER BY random() LIMIT ?");
-    if (!$prepared->execute([$limit])) return [];
+function service_request(PDO $db, string $id_request, array $request_args): array
+{
+    $content = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/utils/sql/service.sql");
+    $content = str_replace('$id_request', $id_request, $content);
+    $prepared = $db->prepare($content);
+    if (!$prepared->execute($request_args)) {
+        echo "ERROR";
+        return [];
+    }
     return $prepared->fetchAll();
 }
 
-function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
+function random_services(PDO $db, $limit): array
+{
+    return service_request($db, "SELECT id FROM services ORDER BY random() LIMIT ?", [$limit]);
+}
+
+function products_from_service(PDO $db, $id): array
+{
+    $prepared = $db->prepare("SELECT * FROM sub_services WHERE service_id = ?");
+    if (!$prepared->execute([$id])) return [];
+    return $prepared->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insertUserTags(PDO $db, int $userId, string $tagsInput): void
+{
     $tagNames = array_filter(array_map('trim', explode(',', $tagsInput)));
     $selectStmt = $db->prepare("SELECT id FROM tags WHERE name = ?");
     foreach ($tagNames as $tagName) {
@@ -163,7 +186,8 @@ function insertUserTags(PDO $db, int $userId, string $tagsInput): void {
     }
 }
 
-function getUserTags(PDO $db, int $userId): array {
+function getUserTags(PDO $db, int $userId): array
+{
     $stmt = $db->prepare("
     SELECT t.name
     FROM tags t

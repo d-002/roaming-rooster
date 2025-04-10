@@ -5,9 +5,9 @@ component("service");
 
 // check if the user is registered to edit the buttons
 
-$isConnected = has_session();
+$is_connected = has_session();
 
-if ($isConnected) {
+if ($is_connected) {
     $username = $_SESSION["username"];
 }
 ?>
@@ -16,7 +16,7 @@ if ($isConnected) {
 <html lang="en">
 <?php
 component("header");
-insert_head("Home", array("homepage/main", "containers"));
+insert_head("Home", array("homepage/main", "containers", "inputs"));
 ?>
 <body>
 <div id="left">
@@ -30,7 +30,7 @@ insert_head("Home", array("homepage/main", "containers"));
             echo "<a href='" . $link . "' class='button " . $class . "'>" . $text . "</a>";
         }
 
-        if ($isConnected) {
+        if ($is_connected) {
             button("Dashboard", "/pages/dashboard", "primary");
             button("Sign out", "/pages/signout", "secondary");
         } else {

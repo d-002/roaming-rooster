@@ -7,65 +7,56 @@ component("header");
 component("service");
 root_include("/utils/dbutils.php");
 
-if (!isset($_GET["id"])) {
-    header("Location: services.php");
+if (!isset($_REQUEST["id"])) {
+    header("Location: /pages/services");
     exit();
 }
 
-$serviceId = $_GET["id"];
+$service_id = $_REQUEST["id"];
 
 try {
     $database = getSecureDB();
 
-    $stmt = $database->prepare("SELECT * FROM services WHERE ID = ?");
-    $stmt->execute([$serviceId]);
-    $service = $stmt->fetch(PDO::FETCH_ASSOC);
+    $service = service_request($database, "SELECT id FROM services WHERE id = ?", [$service_id])[0];
+    $product = products_from_service($database, $service_id);
 
-    $subStmt = $database->prepare("SELECT * FROM sub_services WHERE service_id = ?");
-    $subStmt->execute([$serviceId]);
-    $subServices = $subStmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fill-page">
 
 <?php
-insert_head(htmlspecialchars($service["title"] . "Details"));
+insert_head(htmlspecialchars($service["title"]) . " Details", ["containers", "inputs"]);
 ?>
 
-<body class="bg-light">
-<div class="container py-5">
-    <div class="card shadow">
-        <div class="card-body">
-            <h1 class="card-title mb-4"><?= htmlspecialchars($service["title"]) ?></h1>
-            <div class="alert alert-secondary">
-                <small>
-                    Provider: Seller<?= $service["user_id"] ?> |
-                    Category: Customized Services<?= $service["theme_id"] ?>
-                </small>
-            </div>
-            <p class="lead"><?= htmlspecialchars($service["description"]) ?></p>
+<body class="fill-page main-column">
+<header class="titles">
+    <h1><?= htmlspecialchars($service["title"]) ?></h1>
+</header>
+<div class="card card-half-page root-content">
+    <div class="card-body">
+        <p class="lead"><?= htmlspecialchars($service["description"]) ?></p>
+        <div class="alert alert-secondary">
+            <p>Provider: <?= $service["display_name"] ?></p>
             <p class="text-muted">Coordinates: <?= $service["latitude"] ?>, <?= $service["longitude"] ?></p>
-
-            <h3 class="mt-5 mb-3">Sub Services</h3>
-            <div class="list-group">
-                <?php foreach ($subServices as $sub): ?>
-                    <div class="list-group-item">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h5><?= htmlspecialchars($sub["title"]) ?></h5>
-                                <p class="mb-0"><?= htmlspecialchars($sub["description"]) ?></p>
-                            </div>
-                            <span class="badge bg-success fs-6">$<?= number_format($sub["price"], 2) ?></span>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            <a href="/pages/services" class="btn btn-outline-secondary mt-4">Back to List</a>
         </div>
+        <div class="widget-list">
+            <img class="search-result" src="<?= htmlspecialchars($service["img_main_url"]) ?>" alt="Main service image">
+            <img class="search-result" src="<?= htmlspecialchars($service["img_banner_url"]) ?>"
+                 alt="Banner service image">
+        </div>
+        <h3 class="mt-5 mb-3">Sub Services</h3>
+        <div class="widget-list">
+            <?php
+            foreach ($product as $sub) {
+                insert_product($sub);
+            }
+            ?>
+        </div>
+        <a href="/pages/services" class="btn btn-outline-secondary mt-4">Back to List</a>
     </div>
 </div>
 </body>
