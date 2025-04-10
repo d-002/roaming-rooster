@@ -69,7 +69,6 @@
     row-gap: var(--spacing-medium);
     column-gap: var(--spacing-small);
     margin: var(--spacing-minimum);
-    justify-content: center;
     font-size: 1.2em;
 }
 
