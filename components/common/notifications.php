@@ -17,7 +17,7 @@ function insert_notifications(PDO $db, $id)
 function display_notification($notification): void
 {
     ?>
-    <div class="notification line dashboard-line" not="<?= $notification["id"] ?>" onclick="remove_notification(this)">
+    <div class="notification line dashboard-line" not="<?= $notification["id"] ?>">
         <?php
         if ($notification["user_id"] != BROADCAST_ID) {
             ?>

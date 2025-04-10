@@ -1,4 +1,4 @@
-<?php function insert_head($name, $css = array(), $modules = array(), $scripts = array()): void
+<?php function insert_head($name, $css = array()): void
 { ?>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,16 +12,6 @@
         <link rel="stylesheet" href="/assets/css/main-style.css">
         <?php foreach($css as $href) {?>
             <link rel="stylesheet" href="/assets/css/<?=$href?>.css">
-        <?php }?>
-
-        <!-- modules -->
-        <?php foreach($modules as $src) {?>
-            <script src="/assets/scripts/<?=$src?>.js" type="module"></script>
-        <?php }?>
-
-        <!-- scripts -->
-        <?php foreach($scripts as $src) {?>
-            <script src="/assets/scripts/<?=$src?>.js"></script>
         <?php }?>
     </head>
 <?php } ?>

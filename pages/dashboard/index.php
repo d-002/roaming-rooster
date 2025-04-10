@@ -3,6 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 assert_session();
 component("header");
+component("scripts");
 component("dashboard/widget-manager");
 component("common/page-header");
 component("common/notifications");
@@ -13,9 +14,7 @@ component("common/profile");
 <html lang="en" class="fill-page">
 <?php
 insert_head("Dashboard",
-    array("inputs", "containers", "widgets", "page-header", "dashboard"),
-    array("widget"),
-    array("notification"));
+    array("inputs", "containers", "widgets", "page-header", "dashboard"));
 ?>
 
 <body class="fill-page">
@@ -28,6 +27,9 @@ $id = $_SESSION["id"];
 
 insert_header("Dashboard", $id);
 insert_all_widgets($db, $id);
+
+insert_module("widget");
+insert_script("notification");
 ?>
 
 </body>

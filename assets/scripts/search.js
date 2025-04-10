@@ -1,4 +1,8 @@
-let cancel, validate, search, results, suggestions;
+let cancel = document.getElementById("cancel-search");
+let validate = document.getElementById("search-symbol");
+let search = document.getElementById("s");
+let results = document.getElementsByClassName("search-result");
+let suggestions = document.getElementById("suggestions");
 
 function getSearchResults(query, callback) {
     let request = new XMLHttpRequest();
@@ -11,40 +15,30 @@ function getSearchResults(query, callback) {
     request.send();
 }
 
-function main() {
-    cancel = document.getElementById("cancel-search");
-    validate = document.getElementById("search-symbol");
-    search = document.getElementById("s");
-    results = document.getElementsByClassName("search-result");
-    suggestions = document.getElementById("suggestions");
+cancel.addEventListener("click", () => {
+    cancel.classList.add("reduce-horizontal");
+    validate.classList.remove("reduce-horizontal");
+    search.value = "";
+    for (const result of results) {
+        result.classList.add("reduce");
+    }
+});
 
-    cancel.addEventListener("click", () => {
-        cancel.classList.add("reduce-horizontal");
-        validate.classList.remove("reduce-horizontal");
-        search.value = "";
-        for (const result of results) {
-            result.classList.add("reduce");
-        }
-    });
-
-    search.addEventListener("keyup", () => {
-        if (search.value.length > 1) {
-            getSearchResults(search.value, values => {
-                let children = [];
-                for (const value of values) {
-                    if (value === "") continue;
-                    let node = document.createElement('p');
-                    node.textContent = value;
-                    node.classList.add("suggestion");
-                    node.addEventListener("click", () => {
-                        search.value = node.textContent;
-                    })
-                    children.push(node);
-                }
-                suggestions.replaceChildren(...children);
-            });
-        }
-    });
-}
-
-window.addEventListener("load", main);
+search.addEventListener("keyup", () => {
+    if (search.value.length > 1) {
+        getSearchResults(search.value, values => {
+            let children = [];
+            for (const value of values) {
+                if (value === "") continue;
+                let node = document.createElement('p');
+                node.textContent = value;
+                node.classList.add("suggestion");
+                node.addEventListener("click", () => {
+                    search.value = node.textContent;
+                })
+                children.push(node);
+            }
+            suggestions.replaceChildren(...children);
+        });
+    }
+});

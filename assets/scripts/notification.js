@@ -9,3 +9,9 @@ function remove_notification(notification) {
     request.open("POST", "/utils/notification.php?id=" + id);
     request.send();
 }
+
+let notifications = document.getElementsByClassName("notification");
+for (const notification of notifications) {
+    let remove = notification.querySelector(".remove-notification");
+    if (remove) remove.addEventListener("click", () => remove_notification(this));
+}

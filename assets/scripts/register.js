@@ -1,8 +1,14 @@
-let form, submits, startForm;
+let form = document.getElementById("register-form");
+let submits = form.getElementsByClassName("text-submit");
+let startForm = submits[0];
 
-let pred, next;
+let pred = document.getElementById("nav-pred");
+let next = document.getElementById("nav-next");
 
-let username, email, password, confirmation;
+let username = document.getElementById("username");
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+let confirmation = document.getElementById("passwordconfirmation");
 
 let pageNumber = 0;
 let numberOfPages = 4;
@@ -89,100 +95,84 @@ function showPage() {
     }
 }
 
-function main() {
-    form = document.getElementById("register-form");
-    submits = form.getElementsByClassName("text-submit");
-    startForm = submits[0];
+showPage();
 
-    pred = document.getElementById("nav-pred");
-    next = document.getElementById("nav-next");
+startForm.addEventListener("click", e => {
+    e.preventDefault();
+    validateInput(
+        () => {
+            let card = document.getElementsByClassName("card")[0];
+            card.classList.replace("card-half-page", "card-full-page");
+            pageNumber++;
+            showPage();
+        },
+        "username",
+        username,
+        "This username is already used. Please choose another one."
+    );
+});
 
-    username = document.getElementById("username");
-    email = document.getElementById("email");
-    password = document.getElementById("password");
-    confirmation = document.getElementById("passwordconfirmation");
-
+pred.addEventListener("click", () => {
+    pageNumber--;
     showPage();
+});
 
-    startForm.addEventListener("click", e => {
-        e.preventDefault();
-        validateInput(
-            () => {
-                let card = document.getElementsByClassName("card")[0];
-                card.classList.replace("card-half-page", "card-full-page");
-                pageNumber++;
-                showPage();
-            },
-            "username",
-            username,
-            "This username is already used. Please choose another one."
-        );
+next.addEventListener("click", () => {
+    validatePageOne(() => {
+        if (pageNumber + 1 < numberOfPages) {
+            pageNumber++;
+            showPage();
+        }
     });
+});
 
-    pred.addEventListener("click", () => {
-        pageNumber--;
-        showPage();
-    });
-
-    next.addEventListener("click", () => {
+let circles = document.getElementsByClassName("circle");
+for (let circle of circles) {
+    circle.addEventListener("click", () => {
         validatePageOne(() => {
-            if (pageNumber + 1 < numberOfPages) {
-                pageNumber++;
-                showPage();
-            }
+            pageNumber = parseInt(circle.getAttribute("circle"));
+            showPage();
         });
     });
+}
 
-    let circles = document.getElementsByClassName("circle");
-    for (let circle of circles) {
-        circle.addEventListener("click", () => {
-            validatePageOne(() => {
-                pageNumber = parseInt(circle.getAttribute("circle"));
+let tags = document.getElementsByClassName("tag");
+let tagsInput = document.getElementById("tags-input");
+for (const tag of tags) {
+    tag.addEventListener("click", () => {
+        if (tag.getAttribute("checked") === "true") {
+            checkedTags.delete(tag.textContent);
+            tag.setAttribute("checked", "false");
+        } else {
+            checkedTags.add(tag.textContent);
+            tag.setAttribute("checked", "true");
+        }
+        tagsInput.value = Array.from(checkedTags).join(",");
+    });
+}
+
+let inputs = document.getElementsByTagName("input");
+let canHandle = true;
+for (const input of inputs) {
+    if (input.required) {
+        let parent = input.closest(".page");
+        if (parent != null) {
+            console.log("Adding event");
+            input.addEventListener("invalid", () => {
+                if (!canHandle) return;
+                console.log("Handling");
+                pageNumber = parseInt(parent.getAttribute("page"));
                 showPage();
-            });
-        });
-    }
-
-    let tags = document.getElementsByClassName("tag");
-    let tagsInput = document.getElementById("tags-input");
-    for (const tag of tags) {
-        tag.addEventListener("click", () => {
-            if (tag.getAttribute("checked") === "true") {
-                checkedTags.delete(tag.textContent);
-                tag.setAttribute("checked", "false");
-            } else {
-                checkedTags.add(tag.textContent);
-                tag.setAttribute("checked", "true");
-            }
-            tagsInput.value = Array.from(checkedTags).join(",");
-        });
-    }
-
-    let inputs = document.getElementsByTagName("input");
-    let canHandle = true;
-    for (const input of inputs) {
-        if (input.required) {
-            let parent = input.closest(".page");
-            if (parent != null) {
-                console.log("Adding event");
-                input.addEventListener("invalid", () => {
-                    if (!canHandle) return;
-                    console.log("Handling");
-                    pageNumber = parseInt(parent.getAttribute("page"));
-                    showPage();
-                    input.classList.add("required-tip");
-                    canHandle = false;
+                input.classList.add("required-tip");
+                canHandle = false;
+                setTimeout(() => {
+                    input.focus();
+                    input.reportValidity();
                     setTimeout(() => {
-                        input.focus();
-                        input.reportValidity();
-                        setTimeout(() => {
-                            canHandle = true;
-                        }, 5);
-                    }, 500);
-                });
-            }
+                        canHandle = true;
+                    }, 5);
+                }, 500);
+            });
         }
     }
 }
-
-window.addEventListener("load", main);
