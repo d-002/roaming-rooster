@@ -27,13 +27,16 @@ function insert_all_widgets($db, $id): void
         }
 
         if ($is_customer) {
-            insert_search_widget(page: false);
             customer_widgets($db, $id);
         }
 
         if ($is_admin) {
             admin_widgets($db, $id);
         }
+
+        // search bar at the end
+        if ($is_customer)
+            insert_search_widget(page: false);
         ?>
     </div>
     <?php
