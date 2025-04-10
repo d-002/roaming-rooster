@@ -1,15 +1,19 @@
 :root {
-    --bottom-height: 80px;
     --my-message: #7C9A4C;
     --other-message: #0002;
 }
 
-html, body {
+:root, body {
     height: 100%;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 div:has(#main) {
-    height: calc(100% - var(--bottom-height));
+    flex: 1;
     overflow: hidden;
 
     background-color: #F4FBF7;
@@ -68,7 +72,7 @@ div:has(#main) {
     align-items: center;
     gap: 20px;
 
-    height: var(--bottom-height);
+    height: 80px;
 
     padding: 0 20px;
 }
