@@ -12,14 +12,21 @@ body {
     justify-content: space-between;
 }
 
+.temp-widget-list {
+    display: none;
+}
+
 /* override this since the styling is different in the dashboard */
 .widget-list {
-    flex: 1;
-    overflow: auto hidden;
+    margin: var(--spacing-small) 0;
+    padding: var(--spacing-minimum);
 
+    flex: 1;
+    overflow: auto;
+}
+
+.widget-column {
+    display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-content: flex-start;
-    row-gap: var(--spacing-small);
     column-gap: var(--spacing-medium);
 }

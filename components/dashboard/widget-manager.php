@@ -21,24 +21,29 @@ function insert_all_widgets($db, $id): void
         <div id="search-container">
         <?php insert_search_widget(page: false); ?>
         </div>
-    <?php } ?>
-
-    <div class="widget-list">
         <?php
-        widget_notifications($db, $id);
-        base_widget($db, $id);
+    }
 
-        if ($is_business) {
-            business_widgets($db, $id);
-        }
+    ?>
+    <div class="widget-list">
+    </div>
 
-        if ($is_customer) {
-            customer_widgets($db, $id);
-        }
+    <div class="temp-widget-list">
+    <?php
+    widget_notifications($db, $id);
+    base_widget($db, $id);
 
-        if ($is_admin) {
-            admin_widgets($db, $id);
-        }
+    if ($is_business) {
+        business_widgets($db, $id);
+    }
+
+    if ($is_customer) {
+        customer_widgets($db, $id);
+    }
+
+    if ($is_admin) {
+        admin_widgets($db, $id);
+    }
     ?>
     </div>
     <?php
