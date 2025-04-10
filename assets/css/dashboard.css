@@ -1,0 +1,19 @@
+:root, body, .fill-page {
+    height: 100%;
+}
+
+/* override this since the styling is different in the dashboard */
+.widget-list {
+    height: calc(100% - var(--header-height));
+    overflow: auto hidden;
+
+    flex-direction: column;
+    justify-content: start;
+    align-content: flex-start;
+    row-gap: var(--spacing-small);
+    column-gap: var(--spacing-medium);
+
+    margin: var(--spacing-minimum);
+    font-size: 1.2em;
+}
+

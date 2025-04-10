@@ -13,7 +13,7 @@ component("common/profile");
 <html lang="en">
 <?php
 insert_head("Dashboard",
-    array("inputs", "containers", "widgets", "page-header"),
+    array("inputs", "containers", "widgets", "page-header", "dashboard"),
     array("widget"),
     array("notification"));
 ?>

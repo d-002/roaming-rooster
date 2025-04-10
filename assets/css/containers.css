@@ -1,9 +1,5 @@
 @import "main-style.css";
 
-:root, body, .fill-page {
-    height: 100%;
-}
-
 .main-column {
     display: flex;
     flex-direction: column;
@@ -63,17 +59,14 @@
 }
 
 .widget-list {
-    height: calc(100% - var(--header-height));
-    overflow: auto hidden;
-
     display: flex;
-    flex-direction: column;
     align-content: flex-start;
     flex-wrap: wrap;
     row-gap: var(--spacing-small);
     column-gap: var(--spacing-medium);
 
     margin: var(--spacing-minimum);
+    justify-content: center;
     font-size: 1.2em;
 }
 
