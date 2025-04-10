@@ -1,10 +1,11 @@
-:root, body {
-    height: 100%;
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 /* override this since the styling is different in the dashboard */
 .widget-list {
-    height: calc(100% - var(--header-height));
+    flex: 1;
     overflow: auto hidden;
 
     flex-direction: column;

@@ -10,7 +10,7 @@ component("common/profile");
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fill-page">
 <?php
 insert_head("Dashboard",
     array("inputs", "containers", "widgets", "page-header", "dashboard"),
@@ -18,7 +18,7 @@ insert_head("Dashboard",
     array("notification"));
 ?>
 
-<body>
+<body class="fill-page">
 <?php
 
 // initial username check, to not have to do it later
