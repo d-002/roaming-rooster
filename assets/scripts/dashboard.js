@@ -1,4 +1,4 @@
-const iterations = 10;
+const iterations = 11;
 
 let elts = Array.from(document.querySelector(".temp-widget-list").children);
 // typed array to be able to create subarrays
@@ -38,8 +38,15 @@ let cols_heights = new Array(n_columns);
 let requests = new Array(n_columns-1);
 
 for (let i = 0; i < iterations; i++) {
-    for (let j = 0; j < n_columns; j++)
-        cols_heights[j] = sum_arr(heights.subarray(j ? indices[j-1] : 0, indices[j]));
+    for (let j = 0; j < n_columns; j++) {
+        let a = j ? indices[j-1] : 0;
+        let b = j < n_columns-1 ? indices[j] : elts.length;
+
+        // elements
+        cols_heights[j] = sum_arr(heights.subarray(a, b));
+        // padding
+        cols_heights[j] += 21*(b-a-1);
+    }
 
     // make requests to change the indices
     // based on how the heights differ
@@ -66,6 +73,10 @@ for (let i = 0; i < iterations; i++) {
     let has_changed = 0;
     for (let j = 0; j < n_columns-1; j++) {
         let change = Math.round(requests[j]);
+
+        // avoid having empty columns
+        change = Math.max(change, (j ? indices[j-1] : 0)-indices[j]+1);
+
         has_changed |= change;
         indices[j] += change;
     }
