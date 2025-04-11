@@ -10,7 +10,7 @@ component("header");
 insert_head("Chat", array("chat"));
 ?>
 <body>
-    <div><div id="main">
+    <div id="main">
         <div class="mine"><p>This is my message</p></div>
         <div class="other"><p>This is another's message</p></div>
         <div class="mine"><p>This is my message</p></div>
@@ -19,7 +19,7 @@ insert_head("Chat", array("chat"));
         <div class="other"><p>This is another's message</p><p>with a newline</p></div>
         <div class="mine"><p>This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message </p></div>
         <div class="other"><p>This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message This is my very long message </p></div>
-    </div></div>
+    </div>
 
     <div id="bottom">
         <form method="POST">

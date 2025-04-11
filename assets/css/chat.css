@@ -10,17 +10,13 @@
 body {
     display: flex;
     flex-direction: column;
-}
-
-div:has(#main) {
-    flex: 1;
-    overflow: hidden;
 
     background-color: #F4FBF7;
 }
 
 #main {
-    overflow-y: scroll;
+    flex: 1;
+    overflow-y: auto;
 
     display: flex;
     flex-direction: column;
@@ -75,6 +71,8 @@ div:has(#main) {
     height: 80px;
 
     padding: 0 20px;
+
+    background-color: var(--back-color-base);
 }
 
 form {
