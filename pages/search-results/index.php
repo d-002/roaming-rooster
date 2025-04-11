@@ -3,6 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"] . "/utils/base.php";
 
 assert_session();
 component("header");
+component("scripts");
 component("search");
 component("service");
 component("common/page-header");
@@ -15,7 +16,8 @@ root_include("/utils/search-helper.php");
 <!DOCTYPE html>
 <html lang="en">
 <?php
-insert_head("Results", ["inputs", "containers", "page-header"]);
+insert_head("Results",
+    array("inputs", "containers", "page-header"));
 ?>
 <body>
 <?php
@@ -62,9 +64,9 @@ if (isset($_REQUEST["s"])) {
     </div>
     <?php
 }
-?>
 
-<script src="/assets/scripts/search.js"></script>
+insert_module("search");
+?>
 
 </body>
 </html>

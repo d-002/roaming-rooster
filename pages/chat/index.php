@@ -23,8 +23,9 @@ insert_head("Chat", array("chat"));
 
     <div id="bottom">
         <form method="POST">
-            <input type="text" />
-            <input type="submit" value="Send" />
+            <label for="main-input"></label>
+            <input type="text" id="main-input" placeholder="Type message...">
+            <input type="submit" value="Send">
         </form>
         <a id="refresh" href=""></a>
     </div>
