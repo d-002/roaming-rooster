@@ -23,6 +23,7 @@ body {
     padding: var(--spacing-minimum);
 
     flex: 1;
+    justify-content: start;
     overflow: auto;
 }
 

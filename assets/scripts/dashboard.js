@@ -5,11 +5,11 @@ let elts = Array.from(document.querySelector(".temp-widget-list").children);
 let heights = new Uint16Array(elts.map(elt => elt.offsetHeight));
 
 // get the number of columns
-let n_columns = 3;
+let parent = document.querySelector(".widget-list");
+let n_columns = Math.floor(parent.offsetWidth/430);
 
 // populate page with them
 let columns = new Array(n_columns);
-let parent = document.querySelector(".widget-list");
 
 for (let i = 0; i < n_columns; i++) {
     let elt = document.createElement("div");
@@ -64,11 +64,6 @@ for (let i = 0; i < iterations; i++) {
         if (j < n_columns-1) requests[j] += size_request;
     }
 
-    console.log(i);
-    console.log(cols_heights);
-    console.log(requests);
-    console.log(indices);
-
     // apply changes
     let has_changed = 0;
     for (let j = 0; j < n_columns-1; j++) {
@@ -80,8 +75,6 @@ for (let i = 0; i < iterations; i++) {
         has_changed |= change;
         indices[j] += change;
     }
-
-    console.log(indices);
 
     // break early if found a local minimum
     if (!has_changed) break;
