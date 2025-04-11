@@ -13,8 +13,6 @@ function checkGroup(group, index) {
     }
 }
 
-console.log("INFO: inputs.js started");
-
 // Groups that need to have at least one selected item
 const groups = document.getElementsByClassName("at-least-one");
 for (const group of groups) {

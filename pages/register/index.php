@@ -8,6 +8,7 @@ $db = getSecureDB();
 
 // Reusable components
 component("header");
+component("scripts");
 component("text-field");
 component("arrow-redirect");
 component("text-submit");
@@ -15,7 +16,8 @@ component("check-group");
 component("pages");
 component("tags");
 
-insert_head("Register", array("containers", "inputs"));
+insert_head("Register",
+    array("containers", "inputs"));
 ?>
 <body class="fill-page">
 
@@ -115,8 +117,10 @@ insert_head("Register", array("containers", "inputs"));
     </div>
 </div>
 
-<script src="/assets/scripts/inputs.js"></script>
-<script src="/assets/scripts/register.js"></script>
+<?php
+insert_module("inputs");
+insert_module("register");
+?>
 
 </body>
 </html>

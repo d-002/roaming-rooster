@@ -1,0 +1,131 @@
+:root {
+    --my-message: #7C9A4C;
+    --other-message: #0002;
+}
+
+:root, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #F4FBF7;
+}
+
+#main {
+    flex: 1;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    max-width: 760px;
+    height: 100%;
+
+    margin: auto;
+    padding: 30px;
+}
+
+#main p {
+    margin: 0;
+}
+
+#main>div {
+    max-width: 70%;
+
+    padding: 15px;
+
+    border: 1px solid #00000005;
+    border-radius: 14px;
+
+    box-shadow: 0 0 20px #0001;
+}
+
+#main>div.mine {
+    background-color: var(--my-message);
+    margin-left: auto;
+}
+
+#main>div:not(.mine) {
+    background-color: var(--other-message);
+    margin-right: auto;
+}
+
+#main>div.mine>p {
+    color: white;
+}
+
+#main>div:not(.mine)>p {
+    color: var(--text-color-secondary);
+}
+
+#bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    height: 80px;
+
+    padding: 0 20px;
+
+    background-color: var(--back-color-base);
+}
+
+form {
+    flex: 1;
+
+    display: flex;
+    gap: 20px;
+}
+
+form input {
+    border: 2px solid var(--text-color-main);
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 8px;
+
+    color: var(--text-color-main);
+}
+
+form input[type=text] {
+    flex: 1;
+}
+
+form input[type=submit] {
+    transition: .1s linear;
+
+    background-color: var(--my-message);
+    color: white;
+}
+
+form input[type=submit]:hover {
+    filter: brightness(1.1);
+}
+
+#refresh {
+    transition: .3s transform;
+
+    display: block;
+
+    width: 40px;
+    height: 40px;
+
+    filter: invert(.3) drop-shadow(0 0 10px white);
+
+    background: url("/assets/images/refresh.svg");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#refresh:hover:not(:active) {
+    transform: rotate(180deg);
+}
+
+#refresh:active {
+    transform: rotate(360deg);
+}

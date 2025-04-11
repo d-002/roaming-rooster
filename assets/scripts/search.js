@@ -4,15 +4,6 @@ let search = document.getElementById("s");
 let results = document.getElementsByClassName("search-result");
 let suggestions = document.getElementById("suggestions");
 
-cancel.addEventListener("click", () => {
-    cancel.classList.add("reduce-horizontal");
-    validate.classList.remove("reduce-horizontal");
-    search.value = "";
-    for (const result of results) {
-        result.classList.add("reduce");
-    }
-});
-
 function getSearchResults(query, callback) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -23,6 +14,15 @@ function getSearchResults(query, callback) {
     request.open("GET", "/utils/search?s=" + query);
     request.send();
 }
+
+cancel.addEventListener("click", () => {
+    cancel.classList.add("reduce-horizontal");
+    validate.classList.remove("reduce-horizontal");
+    search.value = "";
+    for (const result of results) {
+        result.classList.add("reduce");
+    }
+});
 
 search.addEventListener("keyup", () => {
     if (search.value.length > 1) {

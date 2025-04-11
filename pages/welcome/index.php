@@ -8,7 +8,7 @@ component("common/notifications");
 root_include("/utils/dbutils.php");
 root_include("/utils/sanitize.php");
 
-insert_head("Welcome", ["inputs", "containers"]);
+insert_head("Welcome", array("inputs", "containers"));
 ?>
 <body class="fill-page container align-content-center text-center">
 <?php

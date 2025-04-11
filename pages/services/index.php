@@ -16,7 +16,7 @@ try {
 <html lang="en">
 <?php
 component("header");
-insert_head("Services", ["containers", "inputs", "page-header"]);
+insert_head("Services", array("containers", "inputs", "page-header"));
 ?>
 <body>
 <?php

@@ -1,5 +1,3 @@
-@import "main-style.css";
-
 .fill-page {
     height: 100%;
 }
@@ -64,10 +62,10 @@
 
 .widget-list {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     row-gap: var(--spacing-medium);
     column-gap: var(--spacing-small);
+
     margin: var(--spacing-minimum);
     justify-content: center;
     font-size: 1.2em;

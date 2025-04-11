@@ -7,4 +7,4 @@ if (!has_session()) exit();
 $db = getSecureDB();
 component("common/notifications");
 
-read_notification($db, $_SESSION["id"], $_REQUEST["id"]);
+delete_notification($db, $_SESSION["id"], $_REQUEST["id"]);
