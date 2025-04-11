@@ -19,6 +19,8 @@
 }
 
 :root {
+    --bs-body-bg: red !important;
+
     --title-color: #9FBA72;
     --warning-color: #FFC87F;
     --text-color-main: #663F46;
