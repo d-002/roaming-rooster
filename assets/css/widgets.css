@@ -6,7 +6,7 @@
     background: var(--accent-color-secondary);
     overflow: hidden;
 
-    width: min(400px, 100%);
+    width: 400px;
 
     display: flex;
     flex-direction: column;
